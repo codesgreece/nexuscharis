@@ -4,20 +4,40 @@ import "./globals.css";
 import { absoluteUrl, getSiteUrl } from "@/lib/utils";
 import { prisma } from "@/lib/db";
 
+export const dynamic = "force-dynamic";
+
 const manrope = Manrope({
   variable: "--font-manrope",
   subsets: ["latin", "greek"],
   display: "swap",
 });
 
+const FALLBACK_TITLE =
+  "NEXUS DEV STUDIO GREECE | Κατασκευή Ιστοσελίδων & Εφαρμογών";
+const FALLBACK_DESCRIPTION =
+  "Το NEXUS DEV STUDIO GREECE δημιουργεί σύγχρονες ιστοσελίδες, landing pages, e-shops, Windows και mobile εφαρμογές και custom admin panels.";
+
 export async function generateMetadata(): Promise<Metadata> {
-  const seo = await prisma.sEOSettings.findUnique({ where: { pageKey: "home" } });
-  const title =
-    seo?.title ||
-    "NEXUS DEV STUDIO GREECE | Κατασκευή Ιστοσελίδων & Εφαρμογών";
-  const description =
-    seo?.metaDescription ||
-    "Το NEXUS DEV STUDIO GREECE δημιουργεί σύγχρονες ιστοσελίδες, landing pages, e-shops, Windows και mobile εφαρμογές και custom admin panels.";
+  let seo: {
+    title?: string | null;
+    metaDescription?: string | null;
+    keywords?: string | null;
+    ogTitle?: string | null;
+    ogDescription?: string | null;
+    ogImage?: string | null;
+    twitterCard?: string | null;
+    robots?: string | null;
+    canonicalUrl?: string | null;
+  } | null = null;
+
+  try {
+    seo = await prisma.sEOSettings.findUnique({ where: { pageKey: "home" } });
+  } catch {
+    seo = null;
+  }
+
+  const title = seo?.title || FALLBACK_TITLE;
+  const description = seo?.metaDescription || FALLBACK_DESCRIPTION;
 
   return {
     metadataBase: new URL(getSiteUrl()),

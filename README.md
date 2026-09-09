@@ -28,6 +28,28 @@ npm run dev
 - Credentials: `ADMIN_EMAIL` / `ADMIN_PASSWORD` from `.env`
 - No public registration
 
+## Vercel (production)
+
+Production URL: `https://nexuscharis.vercel.app`
+
+In the Vercel project **Environment Variables** (Production + Preview), set:
+
+| Variable | Example |
+|---|---|
+| `DATABASE_URL` | Postgres connection string (Neon / Vercel Postgres / Railway) with `?sslmode=require` |
+| `AUTH_SECRET` | 32+ random characters |
+| `ADMIN_EMAIL` | admin email |
+| `ADMIN_PASSWORD` | strong password (used only when you run seed) |
+| `NEXT_PUBLIC_SITE_URL` | `https://nexuscharis.vercel.app` |
+
+After the first successful deploy, seed the database once (from your machine against the production DB):
+
+```bash
+DATABASE_URL="your-production-url" npm run db:seed
+```
+
+Or in Vercel → Storage, create a Postgres database and link it so `DATABASE_URL` is injected automatically.
+
 ## Scripts
 
 - `npm run dev` — development server

@@ -12,60 +12,79 @@ function isActiveNow(active: boolean, startDate?: Date | null, endDate?: Date | 
 export async function getPublicSiteData() {
   noStore();
 
-  const [
-    settings,
-    hero,
-    intro,
-    about,
-    vision,
-    services,
-    processSteps,
-    packages,
-    projects,
-    offers,
-    popups,
-    advertisements,
-    seoHome,
-  ] = await Promise.all([
-    prisma.siteSettings.findFirst(),
-    prisma.heroContent.findFirst({ where: { enabled: true } }),
-    prisma.introContent.findFirst({ where: { enabled: true } }),
-    prisma.aboutContent.findFirst({ where: { enabled: true } }),
-    prisma.visionContent.findFirst({ where: { enabled: true } }),
-    prisma.service.findMany({ where: { active: true }, orderBy: { order: "asc" } }),
-    prisma.processStep.findMany({ where: { active: true }, orderBy: { order: "asc" } }),
-    prisma.package.findMany({ where: { active: true }, orderBy: { order: "asc" } }),
-    prisma.portfolioProject.findMany({
-      where: { published: true },
-      orderBy: [{ featured: "desc" }, { order: "asc" }, { createdAt: "desc" }],
-    }),
-    prisma.offer.findMany({ where: { active: true }, orderBy: { createdAt: "desc" } }),
-    prisma.popup.findMany({ where: { active: true }, orderBy: { createdAt: "desc" } }),
-    prisma.advertisement.findMany({ where: { active: true }, orderBy: { createdAt: "desc" } }),
-    prisma.sEOSettings.findUnique({ where: { pageKey: "home" } }),
-  ]);
+  try {
+    const [
+      settings,
+      hero,
+      intro,
+      about,
+      vision,
+      services,
+      processSteps,
+      packages,
+      projects,
+      offers,
+      popups,
+      advertisements,
+      seoHome,
+    ] = await Promise.all([
+      prisma.siteSettings.findFirst(),
+      prisma.heroContent.findFirst({ where: { enabled: true } }),
+      prisma.introContent.findFirst({ where: { enabled: true } }),
+      prisma.aboutContent.findFirst({ where: { enabled: true } }),
+      prisma.visionContent.findFirst({ where: { enabled: true } }),
+      prisma.service.findMany({ where: { active: true }, orderBy: { order: "asc" } }),
+      prisma.processStep.findMany({ where: { active: true }, orderBy: { order: "asc" } }),
+      prisma.package.findMany({ where: { active: true }, orderBy: { order: "asc" } }),
+      prisma.portfolioProject.findMany({
+        where: { published: true },
+        orderBy: [{ featured: "desc" }, { order: "asc" }, { createdAt: "desc" }],
+      }),
+      prisma.offer.findMany({ where: { active: true }, orderBy: { createdAt: "desc" } }),
+      prisma.popup.findMany({ where: { active: true }, orderBy: { createdAt: "desc" } }),
+      prisma.advertisement.findMany({ where: { active: true }, orderBy: { createdAt: "desc" } }),
+      prisma.sEOSettings.findUnique({ where: { pageKey: "home" } }),
+    ]);
 
-  const activeOffers = offers.filter((o) => isActiveNow(o.active, o.startDate, o.endDate));
-  const activePopups = popups.filter((p) => isActiveNow(p.active, p.startDate, p.endDate));
-  const activeAds = advertisements.filter((a) =>
-    isActiveNow(a.active, a.startDate, a.endDate),
-  );
+    const activeOffers = offers.filter((o) => isActiveNow(o.active, o.startDate, o.endDate));
+    const activePopups = popups.filter((p) => isActiveNow(p.active, p.startDate, p.endDate));
+    const activeAds = advertisements.filter((a) =>
+      isActiveNow(a.active, a.startDate, a.endDate),
+    );
 
-  return {
-    settings,
-    hero,
-    intro,
-    about,
-    vision,
-    services,
-    processSteps,
-    packages,
-    projects,
-    offers: activeOffers,
-    popups: activePopups,
-    advertisements: activeAds,
-    seo: seoHome,
-  };
+    return {
+      settings,
+      hero,
+      intro,
+      about,
+      vision,
+      services,
+      processSteps,
+      packages,
+      projects,
+      offers: activeOffers,
+      popups: activePopups,
+      advertisements: activeAds,
+      seo: seoHome,
+    };
+  } catch (error) {
+    console.error("getPublicSiteData failed:", error);
+    return {
+      settings: null,
+      hero: null,
+      intro: null,
+      about: null,
+      vision: null,
+      services: [],
+      processSteps: [],
+      packages: [],
+      projects: [],
+      offers: [],
+      popups: [],
+      advertisements: [],
+      seo: null,
+    };
+  }
 }
 
 export async function getDashboardStats() {
