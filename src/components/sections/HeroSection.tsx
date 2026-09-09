@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
+import { HandwrittenSignature } from "@/components/sections/HandwrittenSignature";
 
 type HeroStat = { value: string; label: string };
 
@@ -87,7 +88,9 @@ export function HeroSection({
 
         <Reveal delay={120} className="relative mx-auto w-full max-w-md lg:max-w-none">
           <div className="relative">
-            <div className="purple-glow absolute -inset-8 -z-10 rounded-full blur-2xl" />
+            <HandwrittenSignature className="relative z-10 mb-1 ml-0 w-[88%] max-w-[360px] sm:mb-2 sm:ml-1" />
+
+            <div className="purple-glow absolute -inset-8 top-16 -z-10 rounded-full blur-2xl" />
             <div className="relative overflow-hidden rounded-[1.75rem] border border-purple-primary/15 bg-gradient-to-br from-lavender-soft to-white p-2 shadow-[0_30px_80px_-40px_rgba(76,29,149,0.45)]">
               <div className="relative aspect-[4/5] overflow-hidden rounded-[1.35rem]">
                 <Image
@@ -99,15 +102,6 @@ export function HeroSection({
                   className="object-cover object-top"
                 />
               </div>
-            </div>
-
-            <div className="mt-5 rounded-[1.35rem] border border-purple-primary/15 bg-white px-6 py-6 text-center shadow-[0_18px_40px_-24px_rgba(76,29,149,0.35)]">
-              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-purple-primary">
-                {founderTitle}
-              </p>
-              <p className="mt-2 text-2xl font-extrabold leading-tight tracking-tight text-[#171717] sm:text-[1.65rem]">
-                {founderName}
-              </p>
             </div>
           </div>
         </Reveal>

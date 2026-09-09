@@ -141,3 +141,176 @@ body {
 .animate-fade-up {
   animation: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
+
+/* Handwritten signature — SVG stroke draw (Caveat + Greek) */
+.signature-root {
+  --sig-ink: #5b21b6;
+  --sig-ink-deep: #4c1d95;
+  --sig-ink-soft: #7c3aed;
+  transform: rotate(-3.5deg);
+  transform-origin: left center;
+  filter: drop-shadow(0 0 10px rgba(109, 40, 217, 0.18));
+  width: 100%;
+  max-width: 22rem;
+  pointer-events: none;
+  user-select: none;
+}
+
+.signature-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.signature-root .sig-line,
+.signature-root .sig-name,
+.signature-root .sig-role {
+  font-family: "Caveat", "Segoe Print", "Comic Sans MS", cursive;
+  fill: transparent;
+  stroke: var(--sig-ink);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1400;
+  stroke-dashoffset: 1400;
+  paint-order: stroke fill;
+}
+
+.signature-root .sig-line {
+  font-size: 34px;
+  font-weight: 600;
+  stroke-width: 1.25;
+}
+
+.signature-root .sig-name {
+  font-size: 42px;
+  font-weight: 700;
+  stroke: var(--sig-ink-deep);
+  stroke-width: 1.65;
+  letter-spacing: 0.01em;
+}
+
+.signature-root .sig-role {
+  font-size: 16px;
+  font-weight: 500;
+  stroke: var(--sig-ink-soft);
+  stroke-width: 0.7;
+  letter-spacing: 0.06em;
+  opacity: 0.92;
+}
+
+.signature-root .sig-flourish {
+  fill: none;
+  stroke: var(--sig-ink-soft);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-dasharray: 220;
+  stroke-dashoffset: 220;
+  opacity: 0.75;
+}
+
+.signature-root.is-drawn .sig-line-1 {
+  animation: sig-write 0.85s cubic-bezier(0.4, 0, 0.2, 1) 0.05s forwards;
+}
+.signature-root.is-drawn .sig-line-2 {
+  animation: sig-write 0.9s cubic-bezier(0.4, 0, 0.2, 1) 0.22s forwards;
+}
+.signature-root.is-drawn .sig-line-3 {
+  animation: sig-write 1s cubic-bezier(0.4, 0, 0.2, 1) 0.4s forwards;
+}
+.signature-root.is-drawn .sig-name {
+  animation: sig-write-name 1.15s cubic-bezier(0.33, 1, 0.68, 1) 0.7s forwards;
+}
+.signature-root.is-drawn .sig-flourish {
+  animation: sig-flourish 0.55s ease-out 1.55s forwards;
+}
+.signature-root.is-drawn .sig-role {
+  animation: sig-write-role 0.55s ease-out 1.7s forwards;
+}
+
+@keyframes sig-write {
+  0% {
+    stroke-dashoffset: 1400;
+    fill: transparent;
+  }
+  70% {
+    stroke-dashoffset: 0;
+    fill: transparent;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    fill: var(--sig-ink);
+    stroke: transparent;
+  }
+}
+
+@keyframes sig-write-name {
+  0% {
+    stroke-dashoffset: 1400;
+    fill: transparent;
+  }
+  72% {
+    stroke-dashoffset: 0;
+    fill: transparent;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    fill: var(--sig-ink-deep);
+    stroke: transparent;
+  }
+}
+
+@keyframes sig-write-role {
+  0% {
+    stroke-dashoffset: 1400;
+    fill: transparent;
+    opacity: 0.35;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    fill: var(--sig-ink-soft);
+    stroke: transparent;
+    opacity: 0.9;
+  }
+}
+
+@keyframes sig-flourish {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .signature-root {
+    max-width: 16.5rem;
+    transform: rotate(-2.5deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .signature-root .sig-line,
+  .signature-root .sig-name,
+  .signature-root .sig-role,
+  .signature-root .sig-flourish {
+    animation: none !important;
+    stroke-dashoffset: 0 !important;
+  }
+
+  .signature-root .sig-line,
+  .signature-root .sig-name,
+  .signature-root .sig-role {
+    stroke: transparent;
+  }
+
+  .signature-root .sig-line {
+    fill: var(--sig-ink);
+  }
+
+  .signature-root .sig-name {
+    fill: var(--sig-ink-deep);
+  }
+
+  .signature-root .sig-role {
+    fill: var(--sig-ink-soft);
+  }
+}
