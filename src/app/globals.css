@@ -142,7 +142,7 @@ body {
   animation: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-/* Handwritten signature — SVG stroke draw (Caveat + Greek) */
+/* Handwritten signature — SVG vector stroke draw */
 .signature-root {
   --sig-ink: #5b21b6;
   --sig-ink-deep: #4c1d95;
@@ -166,47 +166,37 @@ body {
 .signature-root .sig-line,
 .signature-root .sig-name,
 .signature-root .sig-role {
-  font-family: "Caveat", "Segoe Print", "Comic Sans MS", cursive;
   fill: transparent;
   stroke: var(--sig-ink);
   stroke-linecap: round;
   stroke-linejoin: round;
-  stroke-dasharray: 1400;
-  stroke-dashoffset: 1400;
-  paint-order: stroke fill;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
 }
 
 .signature-root .sig-line {
-  font-size: 34px;
-  font-weight: 600;
-  stroke-width: 1.25;
+  stroke-width: 1.35;
 }
 
 .signature-root .sig-name {
-  font-size: 42px;
-  font-weight: 700;
   stroke: var(--sig-ink-deep);
-  stroke-width: 1.65;
-  letter-spacing: 0.01em;
+  stroke-width: 1.7;
 }
 
 .signature-root .sig-role {
-  font-size: 16px;
-  font-weight: 500;
   stroke: var(--sig-ink-soft);
-  stroke-width: 0.7;
-  letter-spacing: 0.06em;
+  stroke-width: 0.85;
   opacity: 0.92;
 }
 
 .signature-root .sig-flourish {
   fill: none;
   stroke: var(--sig-ink-soft);
-  stroke-width: 1.6;
+  stroke-width: 1.55;
   stroke-linecap: round;
-  stroke-dasharray: 220;
-  stroke-dashoffset: 220;
-  opacity: 0.75;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  opacity: 0.78;
 }
 
 .signature-root.is-drawn .sig-line-1 {
@@ -230,7 +220,23 @@ body {
 
 @keyframes sig-write {
   0% {
-    stroke-dashoffset: 1400;
+    stroke-dashoffset: 1;
+    fill: transparent;
+  }
+  68% {
+    stroke-dashoffset: 0;
+    fill: transparent;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    fill: var(--sig-ink);
+    stroke: color-mix(in srgb, var(--sig-ink) 35%, transparent);
+  }
+}
+
+@keyframes sig-write-name {
+  0% {
+    stroke-dashoffset: 1;
     fill: transparent;
   }
   70% {
@@ -239,30 +245,14 @@ body {
   }
   100% {
     stroke-dashoffset: 0;
-    fill: var(--sig-ink);
-    stroke: transparent;
-  }
-}
-
-@keyframes sig-write-name {
-  0% {
-    stroke-dashoffset: 1400;
-    fill: transparent;
-  }
-  72% {
-    stroke-dashoffset: 0;
-    fill: transparent;
-  }
-  100% {
-    stroke-dashoffset: 0;
     fill: var(--sig-ink-deep);
-    stroke: transparent;
+    stroke: color-mix(in srgb, var(--sig-ink-deep) 30%, transparent);
   }
 }
 
 @keyframes sig-write-role {
   0% {
-    stroke-dashoffset: 1400;
+    stroke-dashoffset: 1;
     fill: transparent;
     opacity: 0.35;
   }
@@ -296,21 +286,18 @@ body {
     stroke-dashoffset: 0 !important;
   }
 
-  .signature-root .sig-line,
-  .signature-root .sig-name,
-  .signature-root .sig-role {
-    stroke: transparent;
-  }
-
   .signature-root .sig-line {
     fill: var(--sig-ink);
+    stroke: color-mix(in srgb, var(--sig-ink) 35%, transparent);
   }
 
   .signature-root .sig-name {
     fill: var(--sig-ink-deep);
+    stroke: color-mix(in srgb, var(--sig-ink-deep) 30%, transparent);
   }
 
   .signature-root .sig-role {
     fill: var(--sig-ink-soft);
+    stroke: transparent;
   }
 }

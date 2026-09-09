@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { signaturePaths } from "@/components/sections/signaturePaths";
 
 type HandwrittenSignatureProps = {
   className?: string;
@@ -52,7 +53,7 @@ export function HandwrittenSignature({ className = "" }: HandwrittenSignaturePro
       >
         <defs>
           <filter id="sigGlow" x="-25%" y="-25%" width="150%" height="150%">
-            <feGaussianBlur stdDeviation="1.2" result="blur" />
+            <feGaussianBlur stdDeviation="1.15" result="blur" />
             <feMerge>
               <feMergeNode in="blur" />
               <feMergeNode in="SourceGraphic" />
@@ -60,35 +61,25 @@ export function HandwrittenSignature({ className = "" }: HandwrittenSignaturePro
           </filter>
         </defs>
 
-        {/* Phrase — three handwritten lines */}
         <g className="signature-phrase" filter="url(#sigGlow)">
-          <text x="18" y="46" className="sig-line sig-line-1">
-            Ιδέες
-          </text>
-          <text x="18" y="88" className="sig-line sig-line-2">
-            Τεχνολογία
-          </text>
-          <text x="18" y="130" className="sig-line sig-line-3">
-            Πραγματικά Αποτελέσματα
-          </text>
+          {signaturePaths.phrase.map((line) => (
+            <path
+              key={line.id}
+              className={`sig-line sig-line-${line.id}`}
+              d={line.d}
+              pathLength={1}
+            />
+          ))}
         </g>
 
-        {/* Signature — offset lower-right like a personal note */}
         <g
           className="signature-sign"
           filter="url(#sigGlow)"
-          transform="translate(42 8) rotate(-2 280 180)"
+          transform="translate(36 6) rotate(-2.5 280 180)"
         >
-          <text x="148" y="176" className="sig-name">
-            Χ. Χαράλαμπος
-          </text>
-          <path
-            className="sig-flourish"
-            d="M168 188 C198 196, 248 194, 312 184"
-          />
-          <text x="178" y="214" className="sig-role">
-            Founder &amp; Developer
-          </text>
+          <path className="sig-name" d={signaturePaths.name} pathLength={1} />
+          <path className="sig-flourish" d={signaturePaths.flourish} pathLength={1} />
+          <path className="sig-role" d={signaturePaths.role} pathLength={1} />
         </g>
       </svg>
     </div>
