@@ -1,77 +1,135 @@
-import Link from "next/link";
+import { AdminCard, Badge, PageHeader } from "@/components/admin/DataTable";
 import { getDashboardStats } from "@/server/services/content";
+import { formatDistanceToNow } from "date-fns";
 import {
-  FolderKanban,
-  Package,
   BadgePercent,
-  Bell,
+  Images,
   MessageSquare,
-  FileEdit,
+  Package,
+  Bell,
 } from "lucide-react";
+import Link from "next/link";
 
 export default async function AdminDashboardPage() {
   const stats = await getDashboardStats();
 
   const cards = [
-    { label: "Total Projects", value: stats.totalProjects, icon: FolderKanban },
-    { label: "Published", value: stats.publishedProjects, icon: FolderKanban },
-    { label: "Drafts", value: stats.draftProjects, icon: FileEdit },
-    { label: "Active Packages", value: stats.activePackages, icon: Package },
-    { label: "Active Offers", value: stats.activeOffers, icon: BadgePercent },
-    { label: "Active Popups", value: stats.activePopups, icon: Bell },
-    { label: "New Messages", value: stats.contactMessages, icon: MessageSquare },
+    {
+      label: "New messages",
+      value: stats.contactMessages,
+      href: "/admin/messages",
+      icon: MessageSquare,
+    },
+    {
+      label: "Active packages",
+      value: stats.activePackages,
+      href: "/admin/packages",
+      icon: Package,
+    },
+    {
+      label: "Portfolio projects",
+      value: stats.totalProjects,
+      href: "/admin/portfolio",
+      icon: Images,
+    },
+    {
+      label: "Published",
+      value: stats.publishedProjects,
+      href: "/admin/portfolio",
+      icon: Images,
+    },
+    {
+      label: "Active offers",
+      value: stats.activeOffers,
+      href: "/admin/offers",
+      icon: BadgePercent,
+    },
+    {
+      label: "Active popups",
+      value: stats.activePopups,
+      href: "/admin/popups",
+      icon: Bell,
+    },
   ];
 
   return (
-    <div className="space-y-8">
-      <div>
-        <h1 className="text-2xl font-extrabold text-[#171717]">Dashboard</h1>
-        <p className="mt-1 text-sm text-muted">Επισκόπηση NEXUS DEV STUDIO</p>
+    <div>
+      <PageHeader
+        title="Dashboard"
+        description="Overview of site content, marketing activity, and recent admin actions."
+      />
+
+      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+        {cards.map((card) => {
+          const Icon = card.icon;
+          return (
+            <Link key={card.label} href={card.href} className="group">
+              <AdminCard className="transition group-hover:-translate-y-0.5 group-hover:border-purple-electric/40">
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <p className="text-sm text-muted">{card.label}</p>
+                    <p className="mt-2 text-3xl font-bold tracking-tight text-purple-deep">
+                      {card.value}
+                    </p>
+                  </div>
+                  <div className="rounded-2xl bg-lavender-soft p-2.5 text-purple-primary">
+                    <Icon className="h-5 w-5" />
+                  </div>
+                </div>
+              </AdminCard>
+            </Link>
+          );
+        })}
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        {cards.map((card) => (
-          <div
-            key={card.label}
-            className="rounded-2xl border border-border-soft bg-white p-5 shadow-sm"
-          >
-            <div className="flex items-center justify-between">
-              <p className="text-sm text-muted">{card.label}</p>
-              <card.icon className="h-4 w-4 text-purple-primary" />
-            </div>
-            <p className="mt-3 text-3xl font-extrabold text-purple-deep">{card.value}</p>
+      <div className="mt-8 grid gap-6 lg:grid-cols-2">
+        <AdminCard>
+          <div className="mb-4 flex items-center justify-between">
+            <h2 className="text-base font-semibold text-purple-deep">Portfolio snapshot</h2>
+            <Badge tone="purple">{stats.draftProjects} drafts</Badge>
           </div>
-        ))}
-      </div>
-
-      <div className="rounded-2xl border border-border-soft bg-white p-5">
-        <div className="mb-4 flex items-center justify-between">
-          <h2 className="font-bold text-[#171717]">Recent Activity</h2>
-          <Link href="/admin/messages" className="text-sm font-semibold text-purple-primary">
-            Messages →
+          <p className="text-sm text-muted">
+            {stats.totalProjects === 0
+              ? "No portfolio projects yet. Add real client work when ready — never fake projects."
+              : `${stats.publishedProjects} published · ${stats.draftProjects} drafts`}
+          </p>
+          <Link
+            href="/admin/portfolio/new"
+            className="mt-4 inline-flex text-sm font-semibold text-purple-primary hover:underline"
+          >
+            Add project →
           </Link>
-        </div>
-        <ul className="divide-y divide-border-soft">
-          {stats.recentActivity.length === 0 && (
-            <li className="py-6 text-sm text-muted">Δεν υπάρχει πρόσφατη δραστηριότητα.</li>
+        </AdminCard>
+
+        <AdminCard>
+          <h2 className="mb-4 text-base font-semibold text-purple-deep">Recent activity</h2>
+          {stats.recentActivity.length === 0 ? (
+            <p className="text-sm text-muted">No audit events yet.</p>
+          ) : (
+            <ul className="space-y-3">
+              {stats.recentActivity.map((log) => (
+                <li
+                  key={log.id}
+                  className="flex items-start justify-between gap-3 border-b border-border-soft pb-3 last:border-0 last:pb-0"
+                >
+                  <div>
+                    <p className="text-sm font-medium text-purple-deep">
+                      {log.action}
+                      {log.entity ? ` · ${log.entity}` : ""}
+                    </p>
+                    <p className="text-xs text-muted">
+                      {log.admin?.name || "System"}
+                      {log.entityId ? ` · ${log.entityId.slice(0, 8)}…` : ""}
+                    </p>
+                  </div>
+                  <span className="shrink-0 text-xs text-muted">
+                    {formatDistanceToNow(log.createdAt, { addSuffix: true })}
+                  </span>
+                </li>
+              ))}
+            </ul>
           )}
-          {stats.recentActivity.map((item) => (
-            <li key={item.id} className="flex items-center justify-between gap-4 py-3 text-sm">
-              <div>
-                <p className="font-medium text-[#171717]">
-                  {item.action}
-                  {item.entity ? ` · ${item.entity}` : ""}
-                </p>
-                <p className="text-muted">
-                  {item.admin?.name || item.admin?.email || "System"}
-                </p>
-              </div>
-              <time className="shrink-0 text-xs text-muted">
-                {new Date(item.createdAt).toLocaleString("el-GR")}
-              </time>
-            </li>
-          ))}
-        </ul>
+        </AdminCard>
       </div>
     </div>
   );
