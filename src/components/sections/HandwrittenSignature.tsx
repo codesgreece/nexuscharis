@@ -46,7 +46,7 @@ export function HandwrittenSignature({ className = "" }: HandwrittenSignaturePro
     >
       <svg
         className="signature-svg"
-        viewBox="0 0 420 230"
+        viewBox="0 0 440 240"
         role="img"
         aria-hidden="true"
         preserveAspectRatio="xMidYMid meet"

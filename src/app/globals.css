@@ -144,14 +144,14 @@ body {
 
 /* Handwritten signature — SVG vector stroke draw */
 .signature-root {
-  --sig-ink: #5b21b6;
-  --sig-ink-deep: #4c1d95;
+  --sig-ink: #6d28d9;
+  --sig-ink-deep: #5b21b6;
   --sig-ink-soft: #7c3aed;
-  transform: rotate(-3.5deg);
+  transform: rotate(-2.8deg);
   transform-origin: left center;
-  filter: drop-shadow(0 0 10px rgba(109, 40, 217, 0.18));
+  filter: drop-shadow(0 0 12px rgba(124, 58, 237, 0.22));
   width: 100%;
-  max-width: 22rem;
+  max-width: 24rem;
   pointer-events: none;
   user-select: none;
 }
