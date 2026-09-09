@@ -1,0 +1,303 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum AdPosition {
+  HEADER
+  HERO
+  BEFORE_SERVICES
+  BEFORE_PACKAGES
+  BEFORE_PORTFOLIO
+  BEFORE_CONTACT
+  FOOTER
+  SIDEBAR
+}
+
+enum PopupFrequency {
+  ALWAYS
+  ONCE_PER_SESSION
+  ONCE_PER_DAY
+  ONCE_EVER
+}
+
+enum ContactStatus {
+  NEW
+  READ
+  REPLIED
+  ARCHIVED
+}
+
+enum AuditAction {
+  CREATE
+  UPDATE
+  DELETE
+  LOGIN
+  LOGOUT
+  LOGIN_FAILED
+  UPLOAD
+  TOGGLE
+}
+
+model AdminUser {
+  id           String     @id @default(cuid())
+  email        String     @unique
+  passwordHash String
+  name         String
+  lastLoginAt  DateTime?
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  auditLogs    AuditLog[]
+
+  @@index([email])
+}
+
+model SiteSettings {
+  id              String   @id @default(cuid())
+  siteName        String   @default("NEXUS DEV STUDIO GREECE")
+  tagline         String   @default("Digital solutions designed around your business.")
+  phone           String   @default("6936732844")
+  email           String   @default("nexusdevstudio@outlook.com")
+  address         String?
+  facebookUrl     String?
+  instagramUrl    String?
+  linkedinUrl     String?
+  dribbbleUrl     String?
+  twitterUrl      String?
+  logoUrl         String   @default("/images/logo.svg")
+  founderImageUrl String   @default("/images/founder.jpg")
+  founderName     String   @default("Χριστόπουλος Χαράλαμπος")
+  founderTitle    String   @default("Founder & Developer")
+  businessHours   Json
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model HeroContent {
+  id             String   @id @default(cuid())
+  badge          String   @default("NEXUS DEV STUDIO GREECE")
+  title          String
+  subtitle       String
+  primaryCtaText String   @default("Δες τη δουλειά μου")
+  primaryCtaUrl  String   @default("#portfolio")
+  secondaryCtaText String @default("Επικοινώνησε μαζί μου")
+  secondaryCtaUrl  String @default("#contact")
+  trustLine      String   @default("Web Development • Applications • E-Commerce • Digital Solutions")
+  stats          Json
+  enabled        Boolean  @default(true)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model AboutContent {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  timeline    Json
+  enabled     Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model VisionContent {
+  id          String   @id @default(cuid())
+  title       String
+  statement   String
+  description String
+  principles  Json
+  enabled     Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model IntroContent {
+  id        String   @id @default(cuid())
+  title     String
+  body      String
+  highlight String
+  enabled   Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Service {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  icon        String   @default("globe")
+  order       Int      @default(0)
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([active, order])
+}
+
+model ProcessStep {
+  id          String   @id @default(cuid())
+  number      String
+  title       String
+  description String
+  icon        String   @default("message")
+  order       Int      @default(0)
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([active, order])
+}
+
+model Package {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  price       String
+  oldPrice    String?
+  discount    String?
+  features    Json
+  ctaText     String   @default("Ζήτησε Προσφορά")
+  ctaUrl      String   @default("#contact")
+  highlighted Boolean  @default(false)
+  active      Boolean  @default(true)
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([active, order])
+}
+
+model PortfolioProject {
+  id            String   @id @default(cuid())
+  title         String
+  description   String
+  category      String
+  imageUrl      String?
+  logoUrl       String?
+  liveUrl       String?
+  caseStudyUrl  String?
+  featured      Boolean  @default(false)
+  published     Boolean  @default(false)
+  order         Int      @default(0)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([published, order])
+  @@index([featured])
+}
+
+model Offer {
+  id          String    @id @default(cuid())
+  title       String
+  description String
+  discount    String?
+  price       String?
+  oldPrice    String?
+  ctaText     String    @default("Μάθε περισσότερα")
+  ctaUrl      String    @default("#contact")
+  startDate   DateTime?
+  endDate     DateTime?
+  active      Boolean   @default(false)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([active, startDate, endDate])
+}
+
+model Popup {
+  id               String         @id @default(cuid())
+  title            String
+  content          String
+  imageUrl         String?
+  ctaText          String?
+  ctaUrl           String?
+  triggerDelayMs   Int            @default(3000)
+  displayFrequency PopupFrequency @default(ONCE_PER_SESSION)
+  active           Boolean        @default(false)
+  startDate        DateTime?
+  endDate          DateTime?
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+
+  @@index([active, startDate, endDate])
+}
+
+model Advertisement {
+  id        String     @id @default(cuid())
+  title     String
+  content   String?
+  imageUrl  String?
+  url       String?
+  position  AdPosition @default(BEFORE_PACKAGES)
+  active    Boolean    @default(false)
+  startDate DateTime?
+  endDate   DateTime?
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  @@index([active, position])
+}
+
+model ContactMessage {
+  id        String        @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  service   String?
+  message   String
+  status    ContactStatus @default(NEW)
+  ipHash    String?
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  @@index([status, createdAt])
+  @@index([createdAt])
+}
+
+model SEOSettings {
+  id              String   @id @default(cuid())
+  pageKey         String   @unique
+  title           String
+  metaDescription String
+  keywords        String?
+  canonicalUrl    String?
+  ogTitle         String?
+  ogDescription   String?
+  ogImage         String?
+  twitterCard     String?  @default("summary_large_image")
+  robots          String?  @default("index, follow")
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([pageKey])
+}
+
+model AuditLog {
+  id        String      @id @default(cuid())
+  adminId   String?
+  admin     AdminUser?  @relation(fields: [adminId], references: [id], onDelete: SetNull)
+  action    AuditAction
+  entity    String?
+  entityId  String?
+  details   Json?
+  ip        String?
+  createdAt DateTime    @default(now())
+
+  @@index([createdAt])
+  @@index([adminId])
+  @@index([entity])
+}
+
+model RateLimitEntry {
+  id        String   @id @default(cuid())
+  key       String
+  count     Int      @default(1)
+  windowStart DateTime @default(now())
+  expiresAt DateTime
+
+  @@unique([key])
+  @@index([expiresAt])
+}
