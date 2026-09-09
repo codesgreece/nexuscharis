@@ -70,7 +70,6 @@ export default async function HomePage() {
           title={about.title}
           description={about.description}
           timeline={timeline}
-          founderImageUrl={settings.founderImageUrl || "/images/founder.jpg"}
           founderName={settings.founderName || "Χριστόπουλος Χαράλαμπος"}
           founderTitle={settings.founderTitle || "Founder & Developer"}
         />
