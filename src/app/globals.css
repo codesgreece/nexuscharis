@@ -142,7 +142,23 @@ body {
   animation: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-/* Handwritten signature — SVG vector stroke draw */
+/* Handwritten signature — Mansalva (Greek) + Great Vibes */
+@font-face {
+  font-family: "Mansalva Signature";
+  src: url("/fonts/mansalva.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Great Vibes Signature";
+  src: url("/fonts/great-vibes.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 .signature-root {
   --sig-ink: #6d28d9;
   --sig-ink-deep: #5b21b6;
@@ -151,7 +167,7 @@ body {
   transform-origin: left center;
   filter: drop-shadow(0 0 12px rgba(124, 58, 237, 0.22));
   width: 100%;
-  max-width: 24rem;
+  max-width: 26rem;
   pointer-events: none;
   user-select: none;
 }
@@ -164,39 +180,49 @@ body {
 }
 
 .signature-root .sig-line,
-.signature-root .sig-name,
-.signature-root .sig-role {
+.signature-root .sig-name {
+  font-family: "Mansalva Signature", "Segoe Print", cursive;
   fill: transparent;
   stroke: var(--sig-ink);
   stroke-linecap: round;
   stroke-linejoin: round;
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
+  paint-order: stroke fill;
 }
 
 .signature-root .sig-line {
-  stroke-width: 1.35;
+  font-size: 38px;
+  stroke-width: 1.2;
 }
 
 .signature-root .sig-name {
+  font-size: 46px;
   stroke: var(--sig-ink-deep);
-  stroke-width: 1.7;
+  stroke-width: 1.45;
 }
 
 .signature-root .sig-role {
+  font-family: "Great Vibes Signature", "Segoe Script", cursive;
+  font-size: 24px;
+  fill: transparent;
   stroke: var(--sig-ink-soft);
-  stroke-width: 0.85;
-  opacity: 0.92;
+  stroke-width: 0.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  opacity: 0.95;
 }
 
 .signature-root .sig-flourish {
   fill: none;
   stroke: var(--sig-ink-soft);
-  stroke-width: 1.55;
+  stroke-width: 1.7;
   stroke-linecap: round;
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
-  opacity: 0.78;
+  opacity: 0.8;
 }
 
 .signature-root.is-drawn .sig-line-1 {
@@ -230,7 +256,7 @@ body {
   100% {
     stroke-dashoffset: 0;
     fill: var(--sig-ink);
-    stroke: color-mix(in srgb, var(--sig-ink) 35%, transparent);
+    stroke: transparent;
   }
 }
 
@@ -246,7 +272,7 @@ body {
   100% {
     stroke-dashoffset: 0;
     fill: var(--sig-ink-deep);
-    stroke: color-mix(in srgb, var(--sig-ink-deep) 30%, transparent);
+    stroke: transparent;
   }
 }
 
@@ -260,7 +286,7 @@ body {
     stroke-dashoffset: 0;
     fill: var(--sig-ink-soft);
     stroke: transparent;
-    opacity: 0.9;
+    opacity: 0.95;
   }
 }
 
@@ -272,8 +298,8 @@ body {
 
 @media (max-width: 640px) {
   .signature-root {
-    max-width: 16.5rem;
-    transform: rotate(-2.5deg);
+    max-width: 18rem;
+    transform: rotate(-2.2deg);
   }
 }
 
@@ -288,12 +314,12 @@ body {
 
   .signature-root .sig-line {
     fill: var(--sig-ink);
-    stroke: color-mix(in srgb, var(--sig-ink) 35%, transparent);
+    stroke: transparent;
   }
 
   .signature-root .sig-name {
     fill: var(--sig-ink-deep);
-    stroke: color-mix(in srgb, var(--sig-ink-deep) 30%, transparent);
+    stroke: transparent;
   }
 
   .signature-root .sig-role {
