@@ -16,6 +16,7 @@ export function HeroSection({
   stats,
   founderImageUrl,
   founderName,
+  founderTitle = "Founder & Developer",
 }: {
   badge: string;
   title: string;
@@ -28,6 +29,7 @@ export function HeroSection({
   stats: HeroStat[];
   founderImageUrl: string;
   founderName: string;
+  founderTitle?: string;
 }) {
   return (
     <section
@@ -90,7 +92,7 @@ export function HeroSection({
               <div className="relative aspect-[4/5] overflow-hidden rounded-[1.35rem]">
                 <Image
                   src={founderImageUrl}
-                  alt={`${founderName} — Founder & Developer, NEXUS DEV STUDIO`}
+                  alt={`${founderName} — ${founderTitle}, NEXUS DEV STUDIO`}
                   fill
                   priority
                   sizes="(max-width: 768px) 90vw, 420px"
@@ -99,21 +101,13 @@ export function HeroSection({
               </div>
             </div>
 
-            <div className="absolute -bottom-5 left-4 right-4 sm:left-auto sm:right-6 sm:w-[min(100%,280px)]">
-              <div className="glass rounded-2xl p-4 shadow-[0_18px_40px_-24px_rgba(76,29,149,0.45)]">
-                <div className="flex items-center gap-3">
-                  <Image
-                    src="/images/logo.svg"
-                    alt=""
-                    width={36}
-                    height={36}
-                    className="h-9 w-9"
-                  />
-                  <p className="text-[11px] font-semibold leading-relaxed text-purple-deep">
-                    {trustLine}
-                  </p>
-                </div>
-              </div>
+            <div className="mt-5 rounded-[1.35rem] border border-purple-primary/15 bg-white px-6 py-6 text-center shadow-[0_18px_40px_-24px_rgba(76,29,149,0.35)]">
+              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-purple-primary">
+                {founderTitle}
+              </p>
+              <p className="mt-2 text-2xl font-extrabold leading-tight tracking-tight text-[#171717] sm:text-[1.65rem]">
+                {founderName}
+              </p>
             </div>
           </div>
         </Reveal>

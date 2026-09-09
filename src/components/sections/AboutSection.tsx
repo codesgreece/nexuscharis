@@ -6,33 +6,20 @@ export function AboutSection({
   title,
   description,
   timeline,
-  founderName,
-  founderTitle,
 }: {
   title: string;
   description: string;
   timeline: TimelineItem[];
-  founderName: string;
-  founderTitle: string;
+  founderName?: string;
+  founderTitle?: string;
 }) {
   const paragraphs = description.split("\n").filter(Boolean);
 
   return (
     <section id="about" className="bg-lavender-light py-20 sm:py-24" aria-labelledby="about-heading">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid gap-10 lg:grid-cols-[0.85fr_1.2fr_0.95fr] lg:gap-12">
+        <div className="grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:gap-14">
           <Reveal>
-            <div className="mx-auto flex max-w-sm flex-col justify-center rounded-[1.5rem] border border-purple-primary/15 bg-white px-6 py-10 text-center shadow-[0_24px_60px_-36px_rgba(76,29,149,0.4)] lg:mx-0 lg:min-h-[280px] lg:text-left">
-              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-purple-primary">
-                {founderTitle}
-              </p>
-              <p className="mt-3 text-2xl font-extrabold leading-tight tracking-tight text-[#171717] sm:text-3xl">
-                {founderName}
-              </p>
-            </div>
-          </Reveal>
-
-          <Reveal delay={80}>
             <div>
               <p className="text-xs font-bold uppercase tracking-[0.18em] text-purple-primary">
                 About
@@ -59,7 +46,7 @@ export function AboutSection({
             </div>
           </Reveal>
 
-          <Reveal delay={140}>
+          <Reveal delay={120}>
             <ol className="relative space-y-6 border-l-2 border-purple-primary/20 pl-6">
               {timeline.map((item, idx) => (
                 <li key={item.year} className="relative">

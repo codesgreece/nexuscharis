@@ -60,6 +60,7 @@ export default async function HomePage() {
           stats={stats}
           founderImageUrl={settings.founderImageUrl || "/images/founder.jpg"}
           founderName={settings.founderName || "Χριστόπουλος Χαράλαμπος"}
+          founderTitle={settings.founderTitle || "Founder & Developer"}
         />
 
         <AdBanner ads={data.advertisements} position="HERO" />
@@ -70,8 +71,6 @@ export default async function HomePage() {
           title={about.title}
           description={about.description}
           timeline={timeline}
-          founderName={settings.founderName || "Χριστόπουλος Χαράλαμπος"}
-          founderTitle={settings.founderTitle || "Founder & Developer"}
         />
 
         <VisionSection
