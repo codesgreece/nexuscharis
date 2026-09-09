@@ -9,6 +9,7 @@ const links = [
   { href: "#services", label: "Υπηρεσίες" },
   { href: "#packages", label: "Πακέτα" },
   { href: "#portfolio", label: "Portfolio" },
+  { href: "#faq", label: "FAQ" },
   { href: "#contact", label: "Επικοινωνία" },
 ];
 

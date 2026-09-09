@@ -8,6 +8,7 @@ import { ServicesSection } from "@/components/sections/ServicesSection";
 import { ProcessSection } from "@/components/sections/ProcessSection";
 import { PackagesSection } from "@/components/sections/PackagesSection";
 import { PortfolioSection } from "@/components/sections/PortfolioSection";
+import { FaqSection } from "@/components/sections/FaqSection";
 import { ContactSection } from "@/components/sections/ContactSection";
 import { OffersBanner } from "@/components/marketing/OffersBanner";
 import { AdBanner } from "@/components/marketing/AdBanner";
@@ -92,6 +93,7 @@ export default async function HomePage() {
         <PortfolioSection projects={data.projects} />
 
         <AdBanner ads={data.advertisements} position="BEFORE_CONTACT" />
+        <FaqSection />
         <ContactSection
           phone={settings.phone || "6936732844"}
           email={settings.email || "nexusdevstudio@outlook.com"}
