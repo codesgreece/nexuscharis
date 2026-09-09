@@ -39,6 +39,8 @@ export async function POST(req: NextRequest) {
         phone: parsed.data.phone?.trim() || null,
         service: parsed.data.service?.trim() || null,
         message: parsed.data.message.trim(),
+        privacyAccepted: true,
+        marketingOptIn: Boolean(parsed.data.marketingOptIn),
         ipHash: hashIp(ip),
       },
     });

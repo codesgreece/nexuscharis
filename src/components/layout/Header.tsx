@@ -7,13 +7,13 @@ import { Logo } from "@/components/layout/Logo";
 import { cn } from "@/lib/utils";
 
 const navItems = [
-  { href: "#home", label: "Αρχική" },
-  { href: "#about", label: "Σχετικά" },
-  { href: "#services", label: "Υπηρεσίες" },
-  { href: "#packages", label: "Πακέτα" },
-  { href: "#portfolio", label: "Portfolio" },
-  { href: "#faq", label: "FAQ" },
-  { href: "#contact", label: "Επικοινωνία" },
+  { href: "/#home", label: "Αρχική", hash: "#home" },
+  { href: "/#about", label: "Σχετικά", hash: "#about" },
+  { href: "/#services", label: "Υπηρεσίες", hash: "#services" },
+  { href: "/#packages", label: "Πακέτα", hash: "#packages" },
+  { href: "/#portfolio", label: "Portfolio", hash: "#portfolio" },
+  { href: "/#faq", label: "FAQ", hash: "#faq" },
+  { href: "/#contact", label: "Επικοινωνία", hash: "#contact" },
 ];
 
 export function Header() {
@@ -24,12 +24,12 @@ export function Header() {
   useEffect(() => {
     const onScroll = () => {
       setScrolled(window.scrollY > 20);
-      const sections = navItems.map((n) => n.href.slice(1));
       let current = "#home";
-      for (const id of sections) {
+      for (const item of navItems) {
+        const id = item.hash.slice(1);
         const el = document.getElementById(id);
         if (el && el.getBoundingClientRect().top <= 120) {
-          current = `#${id}`;
+          current = item.hash;
         }
       }
       setActive(current);
@@ -65,7 +65,7 @@ export function Header() {
               href={item.href}
               className={cn(
                 "rounded-xl px-3 py-2 text-sm font-medium transition-colors focus-ring",
-                active === item.href
+                active === item.hash
                   ? "bg-lavender-soft text-purple-deep"
                   : "text-muted hover:text-purple-deep",
               )}
@@ -77,7 +77,7 @@ export function Header() {
 
         <div className="flex items-center gap-3">
           <Link
-            href="#contact"
+            href="/#contact"
             className="hidden items-center gap-2 rounded-full bg-purple-primary px-5 py-2.5 text-sm font-semibold text-white shadow-[0_10px_28px_-12px_rgba(109,40,217,0.7)] transition-all hover:-translate-y-0.5 hover:bg-purple-bright focus-ring sm:inline-flex"
           >
             Ζήτησε Προσφορά
@@ -116,7 +116,7 @@ export function Header() {
             </a>
           ))}
           <Link
-            href="#contact"
+            href="/#contact"
             onClick={() => setOpen(false)}
             className="mt-2 inline-flex items-center justify-center gap-2 rounded-2xl bg-purple-primary px-5 py-3 font-semibold text-white"
           >

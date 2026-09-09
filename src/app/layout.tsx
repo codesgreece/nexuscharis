@@ -3,6 +3,7 @@ import { Manrope } from "next/font/google";
 import "./globals.css";
 import { absoluteUrl, getSiteUrl } from "@/lib/utils";
 import { prisma } from "@/lib/db";
+import { ConsentProvider } from "@/components/legal/ConsentProvider";
 
 export const dynamic = "force-dynamic";
 
@@ -139,7 +140,7 @@ export default function RootLayout({
         <JsonLd />
       </head>
       <body className="min-h-full bg-white text-[#171717] font-sans">
-        {children}
+        <ConsentProvider>{children}</ConsentProvider>
       </body>
     </html>
   );

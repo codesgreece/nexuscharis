@@ -1,16 +1,25 @@
 import Link from "next/link";
 import { ArrowUp, Mail, Phone } from "lucide-react";
 import { Logo } from "@/components/layout/Logo";
+import { CookieSettingsButton } from "@/components/legal/CookieSettingsButton";
 import { formatPhoneDisplay } from "@/lib/utils";
 
 const links = [
-  { href: "#home", label: "Αρχική" },
-  { href: "#about", label: "Σχετικά" },
-  { href: "#services", label: "Υπηρεσίες" },
-  { href: "#packages", label: "Πακέτα" },
-  { href: "#portfolio", label: "Portfolio" },
-  { href: "#faq", label: "FAQ" },
-  { href: "#contact", label: "Επικοινωνία" },
+  { href: "/#home", label: "Αρχική" },
+  { href: "/#about", label: "Σχετικά" },
+  { href: "/#services", label: "Υπηρεσίες" },
+  { href: "/#packages", label: "Πακέτα" },
+  { href: "/#portfolio", label: "Portfolio" },
+  { href: "/#faq", label: "FAQ" },
+  { href: "/#contact", label: "Επικοινωνία" },
+];
+
+const legalLinks = [
+  { href: "/privacy", label: "Πολιτική Απορρήτου" },
+  { href: "/cookies", label: "Πολιτική Cookies" },
+  { href: "/terms", label: "Όροι Χρήσης" },
+  { href: "/services-terms", label: "Όροι Υπηρεσιών" },
+  { href: "/copyright", label: "Πνευματικά Δικαιώματα" },
 ];
 
 export function Footer({
@@ -28,7 +37,7 @@ export function Footer({
 
   return (
     <footer className="border-t border-border-soft bg-lavender-light">
-      <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 lg:grid-cols-[1.2fr_1fr_1fr] lg:px-8">
+      <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 lg:grid-cols-[1.2fr_1fr_1fr_1fr] lg:px-8">
         <div>
           <Logo />
           <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted">{tagline}</p>
@@ -47,6 +56,25 @@ export function Footer({
                 </a>
               </li>
             ))}
+          </ul>
+        </div>
+
+        <div>
+          <h2 className="text-sm font-bold text-[#171717]">Νομικά</h2>
+          <ul className="mt-4 space-y-2">
+            {legalLinks.map((link) => (
+              <li key={link.href}>
+                <Link
+                  href={link.href}
+                  className="text-sm text-muted transition hover:text-purple-deep focus-ring rounded"
+                >
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+            <li>
+              <CookieSettingsButton />
+            </li>
           </ul>
         </div>
 
@@ -81,7 +109,7 @@ export function Footer({
             © {year} NEXUS DEV STUDIO GREECE. All rights reserved.
           </p>
           <Link
-            href="#home"
+            href="/#home"
             className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-purple-primary text-white shadow-lg shadow-purple-primary/25 transition hover:-translate-y-0.5 focus-ring"
             aria-label="Επιστροφή στην κορυφή"
           >

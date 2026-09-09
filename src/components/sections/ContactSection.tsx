@@ -39,6 +39,8 @@ export function ContactSection({
           service: data.get("service"),
           message: data.get("message"),
           website: data.get("website"),
+          privacyAccepted: data.get("privacyAccepted") === "on",
+          marketingOptIn: data.get("marketingOptIn") === "on",
         }),
       });
       const json = await res.json();
@@ -198,6 +200,40 @@ export function ContactSection({
                 className="hidden"
                 aria-hidden="true"
               />
+
+              <div className="mt-5 space-y-3">
+                <label className="flex items-start gap-3 text-sm leading-relaxed text-[#333]">
+                  <input
+                    type="checkbox"
+                    name="privacyAccepted"
+                    required
+                    className="mt-1 h-4 w-4 shrink-0 rounded border-border-soft text-purple-primary focus:ring-purple-primary/30"
+                  />
+                  <span>
+                    Έχω διαβάσει και αποδέχομαι την{" "}
+                    <a
+                      href="/privacy"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-semibold text-purple-primary underline underline-offset-2 hover:text-purple-bright"
+                    >
+                      Πολιτική Απορρήτου
+                    </a>
+                    .
+                  </span>
+                </label>
+                <label className="flex items-start gap-3 text-sm leading-relaxed text-[#333]">
+                  <input
+                    type="checkbox"
+                    name="marketingOptIn"
+                    className="mt-1 h-4 w-4 shrink-0 rounded border-border-soft text-purple-primary focus:ring-purple-primary/30"
+                  />
+                  <span>
+                    Επιθυμώ να λαμβάνω ενημερώσεις και προσφορές από το NEXUS DEV STUDIO.
+                    (προαιρετικό)
+                  </span>
+                </label>
+              </div>
 
               {status === "success" && (
                 <p className="mt-4 flex items-center gap-2 rounded-xl bg-green-50 px-3 py-2 text-sm text-green-700" role="status">

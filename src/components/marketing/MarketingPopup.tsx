@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { X } from "lucide-react";
+import { useConsentOptional } from "@/components/legal/ConsentProvider";
+import { hasConsent } from "@/lib/consent";
 
 type PopupData = {
   id: string;
@@ -20,27 +22,35 @@ function storageKey(id: string, frequency: string) {
 
 export function MarketingPopup({ popup }: { popup: PopupData | null }) {
   const [open, setOpen] = useState(false);
+  const consent = useConsentOptional();
 
   useEffect(() => {
-    if (!popup) return;
+    if (!popup || !consent?.ready) return;
+
     const key = storageKey(popup.id, popup.displayFrequency);
-    if (popup.displayFrequency === "ONCE_EVER" && localStorage.getItem(key)) return;
-    if (popup.displayFrequency === "ONCE_PER_DAY") {
-      const last = localStorage.getItem(key);
-      if (last && Date.now() - Number(last) < 24 * 60 * 60 * 1000) return;
+    const canPersist = hasConsent(consent.consent, "functional");
+
+    if (canPersist) {
+      if (popup.displayFrequency === "ONCE_EVER" && localStorage.getItem(key)) return;
+      if (popup.displayFrequency === "ONCE_PER_DAY") {
+        const last = localStorage.getItem(key);
+        if (last && Date.now() - Number(last) < 24 * 60 * 60 * 1000) return;
+      }
+      if (popup.displayFrequency === "ONCE_PER_SESSION" && sessionStorage.getItem(key)) return;
     }
-    if (popup.displayFrequency === "ONCE_PER_SESSION" && sessionStorage.getItem(key)) return;
 
     const timer = window.setTimeout(() => setOpen(true), popup.triggerDelayMs || 3000);
     return () => window.clearTimeout(timer);
-  }, [popup]);
+  }, [popup, consent?.ready, consent?.consent]);
 
   function close() {
     if (!popup) return;
     const key = storageKey(popup.id, popup.displayFrequency);
-    if (popup.displayFrequency === "ONCE_EVER") localStorage.setItem(key, "1");
-    if (popup.displayFrequency === "ONCE_PER_DAY") localStorage.setItem(key, String(Date.now()));
-    if (popup.displayFrequency === "ONCE_PER_SESSION") sessionStorage.setItem(key, "1");
+    if (hasConsent(consent?.consent, "functional")) {
+      if (popup.displayFrequency === "ONCE_EVER") localStorage.setItem(key, "1");
+      if (popup.displayFrequency === "ONCE_PER_DAY") localStorage.setItem(key, String(Date.now()));
+      if (popup.displayFrequency === "ONCE_PER_SESSION") sessionStorage.setItem(key, "1");
+    }
     setOpen(false);
   }
 

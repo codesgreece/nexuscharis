@@ -12,6 +12,10 @@ export const contactSchema = z.object({
   service: z.string().max(100).optional().or(z.literal("")),
   message: z.string().min(10, "Το μήνυμα πρέπει να έχει τουλάχιστον 10 χαρακτήρες").max(5000),
   website: z.string().max(0).optional().or(z.literal("")), // honeypot
+  privacyAccepted: z.literal(true, {
+    error: "Πρέπει να αποδεχτείτε την Πολιτική Απορρήτου",
+  }),
+  marketingOptIn: z.boolean().optional().default(false),
 });
 
 export const packageSchema = z.object({
@@ -213,4 +217,23 @@ export const siteSettingsSchema = z.object({
 
 export const messageStatusSchema = z.object({
   status: z.enum(["NEW", "READ", "REPLIED", "ARCHIVED"]),
+});
+
+export const legalPageSchema = z.object({
+  title: z.string().min(1).max(200),
+  version: z.string().min(1).max(40),
+  published: z.boolean(),
+  sectionsJson: z.string().min(2).max(200000),
+});
+
+export const legalBusinessSchema = z.object({
+  businessName: z.string().min(1).max(200),
+  address: z.string().max(500).optional().nullable(),
+  email: z.string().email().max(200),
+  phone: z.string().min(1).max(40),
+  vatNumber: z.string().max(80).optional().nullable(),
+  taxOffice: z.string().max(120).optional().nullable(),
+  registryNumber: z.string().max(120).optional().nullable(),
+  country: z.string().min(1).max(80),
+  dpoEmail: z.string().email().max(200).optional().nullable().or(z.literal("")),
 });

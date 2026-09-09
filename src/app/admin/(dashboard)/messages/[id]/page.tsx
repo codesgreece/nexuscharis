@@ -31,6 +31,8 @@ export default async function MessageDetailPage({ params }: { params: Promise<{ 
             <Badge tone="purple">{item.status}</Badge>
             {item.service ? <Badge>{item.service}</Badge> : null}
             {item.phone ? <Badge tone="neutral">{item.phone}</Badge> : null}
+            {item.privacyAccepted ? <Badge tone="neutral">Privacy accepted</Badge> : null}
+            {item.marketingOptIn ? <Badge>Marketing opt-in</Badge> : null}
           </div>
           <p className="whitespace-pre-wrap text-sm leading-relaxed text-purple-deep">{item.message}</p>
           <p className="mt-6 text-xs text-muted">

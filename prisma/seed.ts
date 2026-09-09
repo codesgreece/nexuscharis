@@ -1,5 +1,6 @@
 import { PrismaClient, Prisma } from "@prisma/client";
 import bcrypt from "bcryptjs";
+import { buildLegalDefaults } from "../src/content/legal/defaults";
 
 const prisma = new PrismaClient();
 
@@ -380,6 +381,89 @@ async function main() {
     },
   ];
   await prisma.sEOSettings.createMany({ data: seoPages });
+
+  const legalDefaults = buildLegalDefaults({
+    businessName: "NEXUS DEV STUDIO GREECE",
+    email: "nexusdevstudio@outlook.com",
+    phone: "6936732844",
+    founderName: "Χριστόπουλος Χαράλαμπος",
+  });
+
+  for (const page of legalDefaults) {
+    await prisma.legalPage.upsert({
+      where: { pageKey: page.pageKey },
+      update: {
+        title: page.title,
+        sections: page.sections as unknown as Prisma.InputJsonValue,
+        version: page.version,
+        published: true,
+        lastUpdated: new Date(page.lastUpdated),
+      },
+      create: {
+        pageKey: page.pageKey,
+        title: page.title,
+        sections: page.sections as unknown as Prisma.InputJsonValue,
+        version: page.version,
+        published: true,
+        lastUpdated: new Date(page.lastUpdated),
+      },
+    });
+  }
+
+  const existingBiz = await prisma.legalBusinessInfo.findFirst();
+  if (!existingBiz) {
+    await prisma.legalBusinessInfo.create({
+      data: {
+        businessName: "NEXUS DEV STUDIO GREECE",
+        email: "nexusdevstudio@outlook.com",
+        phone: "6936732844",
+        country: "Ελλάδα",
+        address: null,
+        vatNumber: null,
+        taxOffice: null,
+        registryNumber: null,
+        dpoEmail: null,
+      },
+    });
+  }
+
+  const legalSeo: Prisma.SEOSettingsCreateManyInput[] = [
+    {
+      pageKey: "privacy",
+      title: "NEXUS DEV STUDIO | Πολιτική Απορρήτου",
+      metaDescription:
+        "Πολιτική απορρήτου και επεξεργασίας προσωπικών δεδομένων του NEXUS DEV STUDIO GREECE.",
+      robots: "index, follow",
+    },
+    {
+      pageKey: "cookies",
+      title: "NEXUS DEV STUDIO | Πολιτική Cookies",
+      metaDescription:
+        "Πληροφορίες για cookies και τοπική αποθήκευση στο website του NEXUS DEV STUDIO GREECE.",
+      robots: "index, follow",
+    },
+    {
+      pageKey: "terms",
+      title: "NEXUS DEV STUDIO | Όροι Χρήσης",
+      metaDescription: "Όροι χρήσης του website NEXUS DEV STUDIO GREECE.",
+      robots: "index, follow",
+    },
+    {
+      pageKey: "services-terms",
+      title: "NEXUS DEV STUDIO | Όροι Υπηρεσιών",
+      metaDescription:
+        "Όροι παροχής υπηρεσιών ανάπτυξης ιστοσελίδων και εφαρμογών του NEXUS DEV STUDIO GREECE.",
+      robots: "index, follow",
+    },
+    {
+      pageKey: "copyright",
+      title: "NEXUS DEV STUDIO | Πνευματικά Δικαιώματα",
+      metaDescription:
+        "Πληροφορίες πνευματικής ιδιοκτησίας του NEXUS DEV STUDIO GREECE.",
+      robots: "index, follow",
+    },
+  ];
+  await prisma.sEOSettings.createMany({ data: legalSeo });
 
   console.log("Seed completed successfully.");
   console.log(`Admin: ${email}`);

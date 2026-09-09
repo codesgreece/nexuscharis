@@ -44,6 +44,14 @@ enum AuditAction {
   TOGGLE
 }
 
+enum LegalPageKey {
+  PRIVACY
+  COOKIES
+  TERMS
+  SERVICES_TERMS
+  COPYRIGHT
+}
+
 model AdminUser {
   id           String     @id @default(cuid())
   email        String     @unique
@@ -243,19 +251,48 @@ model Advertisement {
 }
 
 model ContactMessage {
-  id        String        @id @default(cuid())
-  name      String
-  email     String
-  phone     String?
-  service   String?
-  message   String
-  status    ContactStatus @default(NEW)
-  ipHash    String?
-  createdAt DateTime      @default(now())
-  updatedAt DateTime      @updatedAt
+  id              String        @id @default(cuid())
+  name            String
+  email           String
+  phone           String?
+  service         String?
+  message         String
+  privacyAccepted Boolean       @default(false)
+  marketingOptIn  Boolean       @default(false)
+  status          ContactStatus @default(NEW)
+  ipHash          String?
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
 
   @@index([status, createdAt])
   @@index([createdAt])
+}
+
+model LegalPage {
+  id          String       @id @default(cuid())
+  pageKey     LegalPageKey @unique
+  title       String
+  sections    Json
+  published   Boolean      @default(true)
+  version     String       @default("1.0")
+  lastUpdated DateTime     @default(now())
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+}
+
+model LegalBusinessInfo {
+  id             String   @id @default(cuid())
+  businessName   String   @default("NEXUS DEV STUDIO GREECE")
+  address        String?
+  email          String   @default("nexusdevstudio@outlook.com")
+  phone          String   @default("6936732844")
+  vatNumber      String?
+  taxOffice      String?
+  registryNumber String?
+  country        String   @default("Ελλάδα")
+  dpoEmail       String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 }
 
 model SEOSettings {

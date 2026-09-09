@@ -25,6 +25,7 @@ import {
   BadgePercent,
   Bell,
   RectangleHorizontal,
+  Scale,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -69,6 +70,7 @@ const NAV: NavGroup[] = [
     title: "Settings",
     items: [
       { href: "/admin/seo", label: "SEO", icon: Search },
+      { href: "/admin/legal", label: "Legal & Compliance", icon: Scale },
       { href: "/admin/settings", label: "Social / Contact", icon: RectangleHorizontal },
     ],
   },
