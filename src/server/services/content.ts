@@ -1,5 +1,15 @@
 import { prisma } from "@/lib/db";
 import { unstable_noStore as noStore } from "next/cache";
+import {
+  fallbackAbout,
+  fallbackHero,
+  fallbackIntro,
+  fallbackPackages,
+  fallbackProcess,
+  fallbackServices,
+  fallbackSettings,
+  fallbackVision,
+} from "@/lib/fallbacks";
 
 function isActiveNow(active: boolean, startDate?: Date | null, endDate?: Date | null) {
   if (!active) return false;
@@ -7,6 +17,24 @@ function isActiveNow(active: boolean, startDate?: Date | null, endDate?: Date | 
   if (startDate && startDate.getTime() > now) return false;
   if (endDate && endDate.getTime() < now) return false;
   return true;
+}
+
+function emptyPublicData() {
+  return {
+    settings: fallbackSettings,
+    hero: fallbackHero,
+    intro: fallbackIntro,
+    about: fallbackAbout,
+    vision: fallbackVision,
+    services: fallbackServices,
+    processSteps: fallbackProcess,
+    packages: fallbackPackages,
+    projects: [] as Awaited<ReturnType<typeof prisma.portfolioProject.findMany>>,
+    offers: [] as Awaited<ReturnType<typeof prisma.offer.findMany>>,
+    popups: [] as Awaited<ReturnType<typeof prisma.popup.findMany>>,
+    advertisements: [] as Awaited<ReturnType<typeof prisma.advertisement.findMany>>,
+    seo: null,
+  };
 }
 
 export async function getPublicSiteData() {
@@ -46,6 +74,11 @@ export async function getPublicSiteData() {
       prisma.sEOSettings.findUnique({ where: { pageKey: "home" } }),
     ]);
 
+    // DB reachable but not seeded yet → use curated fallbacks
+    if (!settings && !hero) {
+      return emptyPublicData();
+    }
+
     const activeOffers = offers.filter((o) => isActiveNow(o.active, o.startDate, o.endDate));
     const activePopups = popups.filter((p) => isActiveNow(p.active, p.startDate, p.endDate));
     const activeAds = advertisements.filter((a) =>
@@ -53,14 +86,14 @@ export async function getPublicSiteData() {
     );
 
     return {
-      settings,
-      hero,
-      intro,
-      about,
-      vision,
-      services,
-      processSteps,
-      packages,
+      settings: settings ?? fallbackSettings,
+      hero: hero ?? fallbackHero,
+      intro: intro ?? fallbackIntro,
+      about: about ?? fallbackAbout,
+      vision: vision ?? fallbackVision,
+      services: services.length ? services : fallbackServices,
+      processSteps: processSteps.length ? processSteps : fallbackProcess,
+      packages: packages.length ? packages : fallbackPackages,
       projects,
       offers: activeOffers,
       popups: activePopups,
@@ -69,21 +102,7 @@ export async function getPublicSiteData() {
     };
   } catch (error) {
     console.error("getPublicSiteData failed:", error);
-    return {
-      settings: null,
-      hero: null,
-      intro: null,
-      about: null,
-      vision: null,
-      services: [],
-      processSteps: [],
-      packages: [],
-      projects: [],
-      offers: [],
-      popups: [],
-      advertisements: [],
-      seo: null,
-    };
+    return emptyPublicData();
   }
 }
 
