@@ -53,16 +53,22 @@ Or in Vercel → Storage, create a Postgres database and link it so `DATABASE_UR
 ## Affiliate zone (`/refferal`)
 
 The affiliate platform lives in a **separate Vercel project** (`nexusrefferal`) and is proxied
-through this domain as a Next.js multi-zone. This project only holds the rewrite in
-`next.config.ts`:
+through this project as a Next.js rewrite (no browser redirect). Available on any hostname of
+this deployment — including `https://nexuscharis.vercel.app/refferal` — and later on
+`https://nexusdevstudio.gr/refferal` once the custom domain is attached.
 
-- `/refferal` and `/refferal/:path*` → `https://nexusrefferal.vercel.app/refferal/...`
-- Override the upstream with the optional `AFFILIATE_ZONE_ORIGIN` env var (build-time).
-- The site security headers skip `/refferal*`, so the affiliate app's own headers apply.
+Rewrites in `next.config.ts`:
 
-For this to resolve, the **affiliate project** must be deployed with `basePath: "/refferal"`
-in its `next.config`, so its pages, `/_next` assets, API routes and cookies all live under the
-prefix. Without it, `/refferal` returns the affiliate app's 404.
+- `/refferal` → `https://nexusrefferal.vercel.app/`
+- `/refferal/:path*` → `https://nexusrefferal.vercel.app/:path*`
+- Optional build-time override: `AFFILIATE_ZONE_ORIGIN`
+- Site security headers skip `/refferal*`, so the affiliate app's own headers apply.
+
+**Limitation:** because the affiliate app currently serves from `/` (assets at `/_next/*`,
+root-relative links), HTML for `/refferal` loads but its JS/CSS and client-side navigation
+still request `/_next/*` and `/login` on this host. For a fully working zone under the prefix,
+redeploy the affiliate project with `basePath: "/refferal"` and point the rewrite destinations
+at `${AFFILIATE_ZONE_ORIGIN}/refferal/...` instead.
 
 ## Scripts
 

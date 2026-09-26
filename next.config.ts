@@ -1,9 +1,8 @@
 import type { NextConfig } from "next";
 
-// Multi-zone setup: /refferal is served by a separate Vercel project
-// (the affiliate platform) that is proxied through this domain. That project
-// must run with basePath "/refferal" so its pages, /_next assets, API routes
-// and cookies stay inside the prefix.
+// Multi-zone setup: /refferal is proxied to the separate affiliate Vercel
+// project (nexusrefferal). Works on any hostname of THIS project, including
+// https://nexuscharis.vercel.app/refferal until nexusdevstudio.gr is attached.
 const AFFILIATE_ZONE_PATH = "/refferal";
 const AFFILIATE_ZONE_ORIGIN = (
   process.env.AFFILIATE_ZONE_ORIGIN ?? "https://nexusrefferal.vercel.app"
@@ -50,15 +49,19 @@ const nextConfig: NextConfig = {
     ];
   },
   async rewrites() {
+    // Strip the /refferal prefix and forward to the affiliate app root:
+    //   /refferal          → https://nexusrefferal.vercel.app/
+    //   /refferal/login    → https://nexusrefferal.vercel.app/login
+    //   /refferal/:path*   → https://nexusrefferal.vercel.app/:path*
     return {
       beforeFiles: [
         {
           source: AFFILIATE_ZONE_PATH,
-          destination: `${AFFILIATE_ZONE_ORIGIN}${AFFILIATE_ZONE_PATH}`,
+          destination: `${AFFILIATE_ZONE_ORIGIN}/`,
         },
         {
           source: `${AFFILIATE_ZONE_PATH}/:path*`,
-          destination: `${AFFILIATE_ZONE_ORIGIN}${AFFILIATE_ZONE_PATH}/:path*`,
+          destination: `${AFFILIATE_ZONE_ORIGIN}/:path*`,
         },
       ],
       afterFiles: [],
