@@ -50,6 +50,20 @@ DATABASE_URL="your-production-url" npm run db:seed
 
 Or in Vercel → Storage, create a Postgres database and link it so `DATABASE_URL` is injected automatically.
 
+## Affiliate zone (`/refferal`)
+
+The affiliate platform lives in a **separate Vercel project** (`nexusrefferal`) and is proxied
+through this domain as a Next.js multi-zone. This project only holds the rewrite in
+`next.config.ts`:
+
+- `/refferal` and `/refferal/:path*` → `https://nexusrefferal.vercel.app/refferal/...`
+- Override the upstream with the optional `AFFILIATE_ZONE_ORIGIN` env var (build-time).
+- The site security headers skip `/refferal*`, so the affiliate app's own headers apply.
+
+For this to resolve, the **affiliate project** must be deployed with `basePath: "/refferal"`
+in its `next.config`, so its pages, `/_next` assets, API routes and cookies all live under the
+prefix. Without it, `/refferal` returns the affiliate app's 404.
+
 ## Scripts
 
 - `npm run dev` — development server
