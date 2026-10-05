@@ -38,10 +38,10 @@ export function AboutSection({
                 ))}
               </div>
               <a
-                href="#vision"
+                href="#services"
                 className="mt-8 inline-flex items-center rounded-2xl bg-purple-primary px-5 py-3 text-sm font-semibold text-white transition hover:bg-purple-bright focus-ring"
               >
-                Γνώρισε περισσότερα
+                Δες τις υπηρεσίες κατασκευής ιστοσελίδων
               </a>
             </div>
           </Reveal>

@@ -7,16 +7,27 @@ import { LEGAL_META } from "@/content/legal/meta";
 
 export function buildLegalMetadata(pageKey: LegalPageKey): Metadata {
   const meta = LEGAL_META[pageKey];
+  const canonical = absoluteUrl(meta.path);
   return {
     title: { absolute: meta.title },
     description: meta.description,
-    alternates: { canonical: absoluteUrl(meta.path) },
+    alternates: { canonical },
+    robots: {
+      index: true,
+      follow: true,
+    },
     openGraph: {
       title: meta.title,
       description: meta.description,
-      url: absoluteUrl(meta.path),
+      url: canonical,
       locale: "el_GR",
       type: "website",
+      siteName: "NEXUS DEV STUDIO GREECE",
+    },
+    twitter: {
+      card: "summary",
+      title: meta.title,
+      description: meta.description,
     },
   };
 }

@@ -34,7 +34,7 @@ export function Logo({
     >
       <Image
         src="/images/logo.svg"
-        alt="NEXUS DEV STUDIO"
+        alt="NEXUS DEV STUDIO GREECE logo"
         width={40}
         height={40}
         className="h-9 w-9 sm:h-10 sm:w-10"

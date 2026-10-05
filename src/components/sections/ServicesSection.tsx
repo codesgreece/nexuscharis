@@ -78,7 +78,15 @@ export function ServicesSection({ services }: { services: ServiceItem[] }) {
           </h2>
           <p className="mt-4 max-w-2xl text-muted">
             Από ιστοσελίδες και e-shops μέχρι εφαρμογές και admin panels — κάθε λύση σχεδιάζεται
-            γύρω από τις πραγματικές ανάγκες της επιχείρησής σου.
+            γύρω από τις πραγματικές ανάγκες της επιχείρησής σου. Δες επίσης τα{" "}
+            <a href="#packages" className="font-semibold text-purple-deep underline-offset-2 hover:underline">
+              πακέτα & τιμές
+            </a>{" "}
+            ή{" "}
+            <a href="#contact" className="font-semibold text-purple-deep underline-offset-2 hover:underline">
+              επικοινώνησε για κατασκευή ιστοσελίδας
+            </a>
+            .
           </p>
         </Reveal>
 
@@ -100,10 +108,10 @@ export function ServicesSection({ services }: { services: ServiceItem[] }) {
             </div>
             <a
               href="#contact"
-              className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-purple-primary text-white transition hover:bg-purple-bright focus-ring"
-              aria-label="Επικοινωνία για custom λύση"
+              className="inline-flex items-center gap-2 rounded-full bg-purple-primary px-5 py-3 text-sm font-semibold text-white transition hover:bg-purple-bright focus-ring"
             >
-              <ArrowRight className="h-5 w-5" />
+              Επικοινωνία για custom λύση
+              <ArrowRight className="h-4 w-4" aria-hidden />
             </a>
           </div>
         </Reveal>

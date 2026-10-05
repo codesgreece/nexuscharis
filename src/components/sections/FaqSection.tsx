@@ -35,6 +35,14 @@ export function FaqSection() {
           </h2>
           <p className="mt-4 max-w-2xl text-muted">
             Απαντήσεις σε όσα ρωτάνε συχνότερα οι συνεργάτες μας πριν ξεκινήσουν ένα project.
+            Αν δεν βρίσκεις αυτό που ψάχνεις,{" "}
+            <a
+              href="#contact"
+              className="font-semibold text-purple-deep underline-offset-2 hover:underline"
+            >
+              επικοινώνησε μαζί μας
+            </a>
+            .
           </p>
         </Reveal>
 
