@@ -75,11 +75,67 @@
 }
 
 @media (max-width: 639px) {
-  .root {
+  .root:not(.rootHeader) {
     flex-direction: column;
     gap: 0.9rem;
     text-align: center;
   }
+}
+
+.rootHeader {
+  flex-direction: row;
+  align-items: center;
+  gap: 0.625rem;
+  max-width: min(100%, 16rem);
+}
+
+@media (min-width: 640px) {
+  .rootHeader {
+    max-width: none;
+  }
+}
+
+.stageHeader {
+  width: 2.25rem;
+  height: 2.25rem;
+}
+
+@media (min-width: 640px) {
+  .stageHeader {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+}
+
+.floatHeader {
+  animation-name: logoFloatHeader;
+}
+
+.markHeader {
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.22) inset,
+    0 -1px 0 rgba(0, 0, 0, 0.1) inset,
+    0 10px 22px -14px rgba(76, 29, 149, 0.5),
+    0 4px 10px -6px rgba(109, 40, 217, 0.35);
+}
+
+.titleHeader {
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.025em;
+}
+
+@media (min-width: 640px) {
+  .titleHeader {
+    font-size: 15px;
+  }
+}
+
+.subtitleHeader {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-indent: 0.18em;
 }
 
 .root:focus-visible {
@@ -333,6 +389,16 @@
   }
   50% {
     transform: translateY(-6px) rotate(1deg);
+  }
+}
+
+@keyframes logoFloatHeader {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-1deg);
+  }
+  50% {
+    transform: translateY(-3px) rotate(1deg);
   }
 }
 
