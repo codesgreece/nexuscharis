@@ -3,11 +3,13 @@ import { Footer } from "@/components/layout/Footer";
 import { NexusBrandMark } from "@/components/brand";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { IntroSection } from "@/components/sections/IntroSection";
+import { AudienceSection } from "@/components/sections/AudienceSection";
 import { CoverageSection } from "@/components/sections/CoverageSection";
 import { AboutSection } from "@/components/sections/AboutSection";
 import { VisionSection } from "@/components/sections/VisionSection";
 import { ServicesSection } from "@/components/sections/ServicesSection";
 import { ProcessSection } from "@/components/sections/ProcessSection";
+import { PerformanceSection } from "@/components/sections/PerformanceSection";
 import { PackagesSection } from "@/components/sections/PackagesSection";
 import { PortfolioSection } from "@/components/sections/PortfolioSection";
 import { FaqSection } from "@/components/sections/FaqSection";
@@ -77,6 +79,7 @@ export default async function HomePage() {
 
         <IntroSection title={intro.title} body={intro.body} highlight={intro.highlight} />
 
+        <AudienceSection />
         <CoverageSection />
 
         <AboutSection
@@ -96,6 +99,7 @@ export default async function HomePage() {
 
         <ServicesSection services={data.services} />
         <ProcessSection steps={data.processSteps} />
+        <PerformanceSection />
 
         <AdBanner ads={data.advertisements} position="BEFORE_PACKAGES" />
         <PackagesSection packages={data.packages} />
