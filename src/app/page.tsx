@@ -3,6 +3,7 @@ import { Footer } from "@/components/layout/Footer";
 import { NexusBrandMark } from "@/components/brand";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { IntroSection } from "@/components/sections/IntroSection";
+import { CoverageSection } from "@/components/sections/CoverageSection";
 import { AboutSection } from "@/components/sections/AboutSection";
 import { VisionSection } from "@/components/sections/VisionSection";
 import { ServicesSection } from "@/components/sections/ServicesSection";
@@ -15,6 +16,7 @@ import { OffersBanner } from "@/components/marketing/OffersBanner";
 import { AdBanner } from "@/components/marketing/AdBanner";
 import { MarketingPopup } from "@/components/marketing/MarketingPopup";
 import { getPublicSiteData } from "@/server/services/content";
+import { HOME_SEO, prefersNationwideSeo } from "@/content/seo";
 
 export const dynamic = "force-dynamic";
 
@@ -52,10 +54,14 @@ export default async function HomePage() {
       <main>
         <HeroSection
           badge={hero.badge}
-          title={hero.title}
-          subtitle={hero.subtitle}
-          primaryCtaText={hero.primaryCtaText}
-          primaryCtaUrl={hero.primaryCtaUrl}
+          title={prefersNationwideSeo(hero.title) ? hero.title : HOME_SEO.h1}
+          subtitle={
+            prefersNationwideSeo(hero.subtitle)
+              ? hero.subtitle
+              : "Web development, web design, landing pages, e-shops και custom digital solutions για επιχειρήσεις και επαγγελματίες σε όλη την Ελλάδα — σχεδιασμένα γύρω από τις πραγματικές ανάγκες κάθε project."
+          }
+          primaryCtaText={hero.primaryCtaText || "Δες τις υπηρεσίες"}
+          primaryCtaUrl={hero.primaryCtaUrl || "#services"}
           secondaryCtaText={hero.secondaryCtaText}
           secondaryCtaUrl={hero.secondaryCtaUrl}
           trustLine={hero.trustLine}
@@ -70,6 +76,8 @@ export default async function HomePage() {
         <NexusBrandMark />
 
         <IntroSection title={intro.title} body={intro.body} highlight={intro.highlight} />
+
+        <CoverageSection />
 
         <AboutSection
           title={about.title}
