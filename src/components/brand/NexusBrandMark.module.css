@@ -1,0 +1,401 @@
+.section {
+  position: relative;
+  overflow: hidden;
+  background: #ffffff;
+  padding: 3.5rem 0 3.75rem;
+}
+
+@media (min-width: 640px) {
+  .section {
+    padding: 4.25rem 0 4.5rem;
+  }
+}
+
+.grid {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  opacity: 0.55;
+  background-image:
+    linear-gradient(to right, rgba(109, 40, 217, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(109, 40, 217, 0.035) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+.ambient {
+  pointer-events: none;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(520px, 90vw);
+  height: min(280px, 55vw);
+  translate: -50% -50%;
+  border-radius: 9999px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(109, 40, 217, 0.07) 0%,
+    rgba(124, 58, 237, 0.03) 42%,
+    transparent 72%
+  );
+  animation: ambientPulse 7.5s ease-in-out infinite;
+}
+
+.shell {
+  position: relative;
+  z-index: 1;
+  margin-inline: auto;
+  display: flex;
+  max-width: 72rem;
+  align-items: center;
+  justify-content: center;
+  padding-inline: 1rem;
+}
+
+@media (min-width: 640px) {
+  .shell {
+    padding-inline: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .shell {
+    padding-inline: 2rem;
+  }
+}
+
+.root {
+  display: inline-flex;
+  max-width: 100%;
+  align-items: center;
+  gap: 1.15rem;
+  border-radius: 1.25rem;
+  text-decoration: none;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (max-width: 639px) {
+  .root {
+    flex-direction: column;
+    gap: 0.9rem;
+    text-align: center;
+  }
+}
+
+.root:focus-visible {
+  outline: 2px solid var(--purple-bright);
+  outline-offset: 6px;
+}
+
+.stage {
+  position: relative;
+  flex-shrink: 0;
+  width: 5.25rem;
+  height: 5.25rem;
+  perspective: 900px;
+}
+
+@media (min-width: 640px) {
+  .stage {
+    width: 6.75rem;
+    height: 6.75rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .stage {
+    width: 7.5rem;
+    height: 7.5rem;
+  }
+}
+
+.particle {
+  pointer-events: none;
+  position: absolute;
+  border-radius: 9999px;
+  background: rgba(109, 40, 217, 0.45);
+  opacity: 0.28;
+  animation: particleDrift var(--dur, 7s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+}
+
+.particle:nth-child(1) {
+  --dur: 6.8s;
+  --delay: 0s;
+  width: 3px;
+  height: 3px;
+  left: 8%;
+  top: 18%;
+}
+
+.particle:nth-child(2) {
+  --dur: 7.4s;
+  --delay: -1.2s;
+  width: 2px;
+  height: 2px;
+  right: 6%;
+  top: 28%;
+}
+
+.particle:nth-child(3) {
+  --dur: 8.1s;
+  --delay: -2.4s;
+  width: 2.5px;
+  height: 2.5px;
+  left: 14%;
+  bottom: 16%;
+}
+
+.particle:nth-child(4) {
+  --dur: 6.4s;
+  --delay: -0.8s;
+  width: 2px;
+  height: 2px;
+  right: 18%;
+  bottom: 22%;
+}
+
+.particle:nth-child(5) {
+  --dur: 7.8s;
+  --delay: -3.1s;
+  width: 3px;
+  height: 3px;
+  left: 42%;
+  top: 4%;
+}
+
+.entrance {
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+}
+
+.float {
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  animation: logoFloat 6.2s ease-in-out infinite;
+  will-change: transform;
+}
+
+.tilt {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.35s ease-out;
+  will-change: transform;
+}
+
+.glow {
+  pointer-events: none;
+  position: absolute;
+  inset: -18%;
+  border-radius: 28%;
+  background: radial-gradient(
+    circle at center,
+    rgba(109, 40, 217, 0.28) 0%,
+    rgba(124, 58, 237, 0.12) 38%,
+    transparent 70%
+  );
+  filter: blur(10px);
+  opacity: 0.55;
+  animation: glowBreathe 6.8s ease-in-out infinite;
+  transition: opacity 0.45s ease;
+}
+
+.root:hover .glow,
+.root:focus-visible .glow {
+  opacity: 0.82;
+}
+
+.mark {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 22%;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.18) 0%, transparent 42%),
+    linear-gradient(325deg, rgba(0, 0, 0, 0.12) 0%, transparent 48%),
+    #6d28d9;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.22) inset,
+    0 -1px 0 rgba(0, 0, 0, 0.12) inset,
+    0 18px 36px -18px rgba(76, 29, 149, 0.55),
+    0 8px 16px -10px rgba(109, 40, 217, 0.35);
+  transform: translateZ(0);
+  transition:
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.4s ease;
+}
+
+.root:hover .mark,
+.root:focus-visible .mark {
+  transform: scale(1.03);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.26) inset,
+    0 -1px 0 rgba(0, 0, 0, 0.12) inset,
+    0 22px 42px -16px rgba(76, 29, 149, 0.6),
+    0 10px 18px -10px rgba(109, 40, 217, 0.4);
+}
+
+.root:active .mark {
+  transform: scale(0.97);
+  transition-duration: 0.12s;
+}
+
+.sweep {
+  pointer-events: none;
+  position: absolute;
+  inset: -40% -60%;
+  background: linear-gradient(
+    115deg,
+    transparent 36%,
+    rgba(255, 255, 255, 0.18) 48%,
+    transparent 60%
+  );
+  transform: translateX(-30%) rotate(18deg);
+  animation: lightSweep 7.2s ease-in-out infinite;
+}
+
+.letter {
+  position: relative;
+  z-index: 1;
+  width: 58%;
+  height: 58%;
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.22));
+}
+
+.letter path {
+  fill: #ffffff;
+}
+
+.copy {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.title {
+  margin: 0;
+  color: #171717;
+  font-size: clamp(1.15rem, 3.4vw, 1.85rem);
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  line-height: 1.15;
+  white-space: nowrap;
+}
+
+.subtitle {
+  margin: 0;
+  color: #6d28d9;
+  font-size: clamp(0.7rem, 1.8vw, 0.85rem);
+  font-weight: 600;
+  letter-spacing: 0.34em;
+  line-height: 1.2;
+  text-indent: 0.34em;
+  text-transform: uppercase;
+}
+
+.isPaused .float,
+.isPaused .glow,
+.isPaused .sweep,
+.isPaused .ambient,
+.isPaused .particle {
+  animation-play-state: paused;
+}
+
+.reduceMotion .float,
+.reduceMotion .glow,
+.reduceMotion .sweep,
+.reduceMotion .ambient,
+.reduceMotion .particle {
+  animation: none !important;
+}
+
+.reduceMotion .glow {
+  opacity: 0.45;
+}
+
+.reduceMotion .mark {
+  transform: none !important;
+}
+
+@keyframes logoFloat {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-1deg);
+  }
+  50% {
+    transform: translateY(-6px) rotate(1deg);
+  }
+}
+
+@keyframes glowBreathe {
+  0%,
+  100% {
+    opacity: 0.42;
+    transform: scale(0.96);
+  }
+  50% {
+    opacity: 0.68;
+    transform: scale(1.04);
+  }
+}
+
+@keyframes lightSweep {
+  0%,
+  72%,
+  100% {
+    transform: translateX(-45%) rotate(18deg);
+    opacity: 0;
+  }
+  78% {
+    opacity: 1;
+  }
+  88% {
+    transform: translateX(45%) rotate(18deg);
+    opacity: 0;
+  }
+}
+
+@keyframes ambientPulse {
+  0%,
+  100% {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.04);
+  }
+}
+
+@keyframes particleDrift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+    opacity: 0.18;
+  }
+  50% {
+    transform: translate3d(4px, -7px, 0);
+    opacity: 0.34;
+  }
+}
+
+@media (max-width: 420px) {
+  .title {
+    white-space: normal;
+    letter-spacing: 0.01em;
+  }
+
+  .subtitle {
+    letter-spacing: 0.26em;
+    text-indent: 0.26em;
+  }
+}

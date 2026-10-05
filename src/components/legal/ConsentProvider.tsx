@@ -60,9 +60,12 @@ export function ConsentProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const stored = readConsent();
-    setConsent(stored);
-    setDraft(toPreferences(stored));
-    setReady(true);
+    const id = requestAnimationFrame(() => {
+      setConsent(stored);
+      setDraft(toPreferences(stored));
+      setReady(true);
+    });
+    return () => cancelAnimationFrame(id);
   }, []);
 
   useEffect(() => {
