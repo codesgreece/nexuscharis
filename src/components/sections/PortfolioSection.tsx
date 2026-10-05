@@ -1,5 +1,4 @@
-import Image from "next/image";
-import { ExternalLink, FolderOpen } from "lucide-react";
+import { ArrowUpRight, FolderOpen } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
 import { isSafeExternalUrl } from "@/lib/utils";
 
@@ -13,7 +12,41 @@ type Project = {
   liveUrl: string | null;
   caseStudyUrl: string | null;
   featured: boolean;
+  /** Optional tech tags when present in data — never invented. */
+  technologies?: string[] | null;
 };
+
+function formatProjectNumber(index: number) {
+  return String(index + 1).padStart(2, "0");
+}
+
+function getProjectTags(project: Project): string[] {
+  const techs = project.technologies?.map((t) => t.trim()).filter(Boolean);
+  if (techs && techs.length > 0) return techs;
+  const category = project.category?.trim();
+  return category ? [category] : [];
+}
+
+function PortfolioCardDecor() {
+  return (
+    <svg
+      className="portfolio-card-decor"
+      viewBox="0 0 400 320"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden
+    >
+      <line x1="40" y1="48" x2="140" y2="48" stroke="currentColor" strokeWidth="1" />
+      <line x1="40" y1="48" x2="40" y2="120" stroke="currentColor" strokeWidth="1" />
+      <line x1="280" y1="260" x2="360" y2="260" stroke="currentColor" strokeWidth="1" />
+      <line x1="360" y1="180" x2="360" y2="260" stroke="currentColor" strokeWidth="1" />
+      <circle cx="72" cy="168" r="2.5" fill="currentColor" />
+      <circle cx="318" cy="88" r="2" fill="currentColor" />
+      <circle cx="210" cy="280" r="1.5" fill="currentColor" />
+      <circle cx="340" cy="200" r="1.5" fill="currentColor" />
+    </svg>
+  );
+}
 
 export function PortfolioSection({ projects }: { projects: Project[] }) {
   return (
@@ -57,64 +90,77 @@ export function PortfolioSection({ projects }: { projects: Project[] }) {
             </div>
           </Reveal>
         ) : (
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {projects.map((project, i) => (
-              <Reveal key={project.id} delay={i * 60}>
-                <article className="group overflow-hidden rounded-[1.5rem] border border-border-soft bg-white shadow-[0_18px_44px_-32px_rgba(76,29,149,0.35)] transition hover:-translate-y-1 hover:shadow-[0_28px_60px_-34px_rgba(76,29,149,0.45)]">
-                  <div className="relative aspect-[16/10] bg-lavender-soft">
-                    {project.imageUrl ? (
-                      <Image
-                        src={project.imageUrl}
-                        alt={`${project.title} — έργο NEXUS DEV STUDIO GREECE`}
-                        fill
-                        loading="lazy"
-                        sizes="(max-width:768px) 100vw, 33vw"
-                        className="object-cover transition duration-500 group-hover:scale-[1.03]"
-                      />
-                    ) : (
-                      <div className="flex h-full items-center justify-center text-purple-primary/40">
-                        <FolderOpen className="h-10 w-10" />
+          <div className="mt-12 grid gap-6 md:grid-cols-2 md:gap-8">
+            {projects.map((project, i) => {
+              const number = formatProjectNumber(i);
+              const tags = getProjectTags(project);
+              const hasLive = isSafeExternalUrl(project.liveUrl);
+              const hasCaseStudy = isSafeExternalUrl(project.caseStudyUrl);
+
+              return (
+                <Reveal key={project.id} delay={i * 80}>
+                  <article className="portfolio-card group">
+                    <div className="portfolio-card-glow" aria-hidden />
+                    <PortfolioCardDecor />
+                    <span className="portfolio-card-number" aria-hidden>
+                      {number}
+                    </span>
+
+                    <div className="relative z-10 flex h-full min-h-0 flex-col">
+                      <div className="flex items-start justify-between gap-4">
+                        <span className="portfolio-card-index">{number}</span>
+                        <span className="portfolio-card-category">{project.category}</span>
                       </div>
-                    )}
-                    {project.featured && (
-                      <span className="absolute left-3 top-3 rounded-full bg-purple-primary px-2.5 py-1 text-[10px] font-bold text-white">
-                        Featured
-                      </span>
-                    )}
-                  </div>
-                  <div className="p-5">
-                    <p className="text-xs font-semibold uppercase tracking-[0.12em] text-purple-primary">
-                      {project.category}
-                    </p>
-                    <h3 className="mt-2 text-lg font-bold text-[#171717]">{project.title}</h3>
-                    <p className="mt-2 text-sm leading-relaxed text-muted">{project.description}</p>
-                    <div className="mt-5 flex flex-wrap gap-2">
-                      {isSafeExternalUrl(project.liveUrl) && (
-                        <a
-                          href={project.liveUrl!}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1.5 rounded-xl bg-purple-primary px-3.5 py-2 text-xs font-semibold text-white hover:bg-purple-bright focus-ring"
-                        >
-                          Live Project
-                          <ExternalLink className="h-3.5 w-3.5" aria-hidden />
-                        </a>
-                      )}
-                      {isSafeExternalUrl(project.caseStudyUrl) && (
-                        <a
-                          href={project.caseStudyUrl!}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center rounded-xl border border-border-soft px-3.5 py-2 text-xs font-semibold text-purple-deep hover:bg-lavender-soft focus-ring"
-                        >
-                          Case Study
-                        </a>
-                      )}
+
+                      <div className="mt-8 flex-1 sm:mt-10">
+                        <h3 className="portfolio-card-title">{project.title}</h3>
+                        {project.description?.trim() ? (
+                          <p className="portfolio-card-desc">{project.description}</p>
+                        ) : null}
+                      </div>
+
+                      {tags.length > 0 ? (
+                        <ul className="portfolio-card-tags" aria-label="Project tags">
+                          {tags.map((tag) => (
+                            <li key={tag} className="portfolio-card-tag">
+                              {tag}
+                            </li>
+                          ))}
+                        </ul>
+                      ) : null}
+
+                      <div className="mt-8 flex flex-col gap-3 sm:mt-10">
+                        {hasLive ? (
+                          <a
+                            href={project.liveUrl!}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="portfolio-card-cta focus-ring"
+                          >
+                            <span>View Live Project</span>
+                            <ArrowUpRight
+                              className="portfolio-card-cta-arrow h-5 w-5 shrink-0"
+                              aria-hidden
+                            />
+                          </a>
+                        ) : null}
+                        {hasCaseStudy ? (
+                          <a
+                            href={project.caseStudyUrl!}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="portfolio-card-secondary focus-ring"
+                          >
+                            Case Study
+                            <ArrowUpRight className="h-3.5 w-3.5" aria-hidden />
+                          </a>
+                        ) : null}
+                      </div>
                     </div>
-                  </div>
-                </article>
-              </Reveal>
-            ))}
+                  </article>
+                </Reveal>
+              );
+            })}
           </div>
         )}
       </div>
