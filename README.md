@@ -30,7 +30,7 @@ npm run dev
 
 ## Vercel (production)
 
-Production URL: `https://nexuscharis.vercel.app`
+Production URL: `https://www.nexusdevstudio.gr/`
 
 In the Vercel project **Environment Variables** (Production + Preview), set:
 
@@ -40,7 +40,7 @@ In the Vercel project **Environment Variables** (Production + Preview), set:
 | `AUTH_SECRET` | 32+ random characters |
 | `ADMIN_EMAIL` | admin email |
 | `ADMIN_PASSWORD` | strong password (used only when you run seed) |
-| `NEXT_PUBLIC_SITE_URL` | `https://nexuscharis.vercel.app` |
+| `NEXT_PUBLIC_SITE_URL` | `https://www.nexusdevstudio.gr` |
 
 After the first successful deploy, seed the database once (from your machine against the production DB):
 
