@@ -17,8 +17,8 @@ export function HandwrittenSignature({ className = "" }: HandwrittenSignaturePro
       window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     if (reduced) {
-      setActive(true);
-      return;
+      const id = requestAnimationFrame(() => setActive(true));
+      return () => cancelAnimationFrame(id);
     }
 
     const node = rootRef.current;

@@ -1,5 +1,6 @@
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { NexusBrandMark } from "@/components/brand";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { IntroSection } from "@/components/sections/IntroSection";
 import { AboutSection } from "@/components/sections/AboutSection";
@@ -65,6 +66,8 @@ export default async function HomePage() {
         />
 
         <AdBanner ads={data.advertisements} position="HERO" />
+
+        <NexusBrandMark />
 
         <IntroSection title={intro.title} body={intro.body} highlight={intro.highlight} />
 
