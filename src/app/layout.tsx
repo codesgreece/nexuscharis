@@ -16,7 +16,19 @@ const manrope = Manrope({
 const FALLBACK_TITLE =
   "NEXUS DEV STUDIO GREECE | Κατασκευή Ιστοσελίδων & Εφαρμογών";
 const FALLBACK_DESCRIPTION =
-  "Το NEXUS DEV STUDIO GREECE δημιουργεί σύγχρονες ιστοσελίδες, landing pages, e-shops, Windows και mobile εφαρμογές και custom admin panels.";
+  "Κατασκευή σύγχρονων ιστοσελίδων, landing pages, e-shops, εφαρμογών και custom digital solutions από το NEXUS DEV STUDIO GREECE.";
+const FALLBACK_OG_TITLE =
+  "NEXUS DEV STUDIO GREECE | Web Development & Digital Solutions";
+
+function pickOgTitle(candidate: string | null | undefined, pageTitle: string) {
+  const value = candidate?.trim();
+  if (!value) return FALLBACK_OG_TITLE;
+  // Avoid weak CMS values that are just the brand name
+  if (value.length < 24 || value.toUpperCase() === "NEXUS DEV STUDIO GREECE") {
+    return FALLBACK_OG_TITLE;
+  }
+  return value || pageTitle;
+}
 
 export async function generateMetadata(): Promise<Metadata> {
   let seo: {
@@ -37,8 +49,20 @@ export async function generateMetadata(): Promise<Metadata> {
     seo = null;
   }
 
-  const title = seo?.title || FALLBACK_TITLE;
-  const description = seo?.metaDescription || FALLBACK_DESCRIPTION;
+  const title = seo?.title?.trim() || FALLBACK_TITLE;
+  const description = seo?.metaDescription?.trim() || FALLBACK_DESCRIPTION;
+  const ogTitle = pickOgTitle(seo?.ogTitle, title);
+  const ogDescription = seo?.ogDescription?.trim() || description;
+  const ogImage = absoluteUrl(seo?.ogImage || "/images/founder.jpg");
+  const canonical = absoluteUrl("/");
+
+  // Never trust a CMS canonical pointing at vercel/localhost
+  const safeCanonical =
+    seo?.canonicalUrl &&
+    seo.canonicalUrl.includes("nexusdevstudio.gr") &&
+    seo.canonicalUrl.startsWith("https://")
+      ? seo.canonicalUrl.replace("://nexusdevstudio.gr", "://www.nexusdevstudio.gr")
+      : canonical;
 
   return {
     metadataBase: new URL(getSiteUrl()),
@@ -47,33 +71,65 @@ export async function generateMetadata(): Promise<Metadata> {
       template: "%s | NEXUS DEV STUDIO GREECE",
     },
     description,
-    keywords: seo?.keywords?.split(",").map((k) => k.trim()) || [
+    keywords: seo?.keywords?.split(",").map((k) => k.trim()).filter(Boolean) || [
       "κατασκευή ιστοσελίδων",
-      "web developer Ελλάδα",
+      "κατασκευή ιστοσελίδων Ελλάδα",
+      "web development Ελλάδα",
       "κατασκευή e-shop",
       "landing page",
       "κατασκευή εφαρμογών",
+      "mobile app development",
+      "custom website",
+      "admin panel",
     ],
     authors: [{ name: "Χριστόπουλος Χαράλαμπος" }],
     creator: "NEXUS DEV STUDIO GREECE",
+    publisher: "NEXUS DEV STUDIO GREECE",
+    applicationName: "NEXUS DEV STUDIO GREECE",
+    category: "technology",
+    icons: {
+      icon: [
+        { url: "/favicon.svg", type: "image/svg+xml" },
+        { url: "/favicon.ico", sizes: "48x48" },
+      ],
+      apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
+      shortcut: ["/favicon.ico"],
+    },
     openGraph: {
       type: "website",
       locale: "el_GR",
-      url: absoluteUrl("/"),
+      url: safeCanonical,
       siteName: "NEXUS DEV STUDIO GREECE",
-      title: seo?.ogTitle || title,
-      description: seo?.ogDescription || description,
-      images: [{ url: absoluteUrl(seo?.ogImage || "/images/founder.jpg") }],
+      title: ogTitle,
+      description: ogDescription,
+      images: [
+        {
+          url: ogImage,
+          width: 1200,
+          height: 630,
+          alt: "NEXUS DEV STUDIO GREECE — Χριστόπουλος Χαράλαμπος, Founder & Developer",
+        },
+      ],
     },
     twitter: {
       card: (seo?.twitterCard as "summary_large_image") || "summary_large_image",
-      title: seo?.ogTitle || title,
-      description: seo?.ogDescription || description,
-      images: [absoluteUrl(seo?.ogImage || "/images/founder.jpg")],
+      title: ogTitle,
+      description: ogDescription,
+      images: [ogImage],
     },
-    robots: seo?.robots || "index, follow",
+    robots: seo?.robots || {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+        "max-video-preview": -1,
+      },
+    },
     alternates: {
-      canonical: seo?.canonicalUrl || absoluteUrl("/"),
+      canonical: safeCanonical,
     },
   };
 }
@@ -86,27 +142,41 @@ function JsonLd() {
       {
         "@type": "WebSite",
         "@id": `${site}/#website`,
-        url: site,
+        url: `${site}/`,
         name: "NEXUS DEV STUDIO GREECE",
+        description: FALLBACK_DESCRIPTION,
         inLanguage: "el-GR",
         publisher: { "@id": `${site}/#organization` },
       },
       {
-        "@type": ["Organization", "ProfessionalService", "LocalBusiness"],
+        "@type": "WebPage",
+        "@id": `${site}/#webpage`,
+        url: `${site}/`,
+        name: FALLBACK_TITLE,
+        isPartOf: { "@id": `${site}/#website` },
+        about: { "@id": `${site}/#organization` },
+        description: FALLBACK_DESCRIPTION,
+        inLanguage: "el-GR",
+      },
+      {
+        // Organization only — no LocalBusiness without a real street address
+        "@type": ["Organization", "ProfessionalService"],
         "@id": `${site}/#organization`,
         name: "NEXUS DEV STUDIO GREECE",
-        url: site,
-        logo: absoluteUrl("/images/logo.svg"),
+        url: `${site}/`,
+        logo: {
+          "@type": "ImageObject",
+          url: absoluteUrl("/images/logo.svg"),
+        },
         image: absoluteUrl("/images/founder.jpg"),
         email: "nexusdevstudio@outlook.com",
         telephone: "+306936732844",
-        areaServed: "GR",
-        address: {
-          "@type": "PostalAddress",
-          addressCountry: "GR",
+        areaServed: {
+          "@type": "Country",
+          name: "Greece",
         },
-        sameAs: [],
         founder: { "@id": `${site}/#person` },
+        sameAs: [],
       },
       {
         "@type": "Person",
@@ -117,6 +187,7 @@ function JsonLd() {
         image: absoluteUrl("/images/founder.jpg"),
         email: "nexusdevstudio@outlook.com",
         telephone: "+306936732844",
+        url: `${site}/#about`,
       },
     ],
   };

@@ -48,6 +48,12 @@ export function PortfolioSection({ projects }: { projects: Project[] }) {
                 Δες σύντομα τις τελευταίες ψηφιακές δημιουργίες του NEXUS DEV STUDIO. Μείνε
                 συντονισμένος για τα νέα μας έργα!
               </p>
+              <a
+                href="#contact"
+                className="mt-6 inline-flex rounded-2xl bg-purple-primary px-5 py-3 text-sm font-semibold text-white transition hover:bg-purple-bright focus-ring"
+              >
+                Επικοινώνησε για νέο project
+              </a>
             </div>
           </Reveal>
         ) : (
@@ -59,7 +65,7 @@ export function PortfolioSection({ projects }: { projects: Project[] }) {
                     {project.imageUrl ? (
                       <Image
                         src={project.imageUrl}
-                        alt={project.title}
+                        alt={`${project.title} — έργο NEXUS DEV STUDIO GREECE`}
                         fill
                         loading="lazy"
                         sizes="(max-width:768px) 100vw, 33vw"

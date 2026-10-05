@@ -8,10 +8,21 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/admin", "/api"],
+        disallow: [
+          "/admin",
+          "/admin/",
+          "/api",
+          "/api/",
+          "/uploads/",
+        ],
+      },
+      {
+        userAgent: "Googlebot",
+        allow: "/",
+        disallow: ["/admin", "/admin/", "/api", "/api/", "/uploads/"],
       },
     ],
     sitemap: `${site}/sitemap.xml`,
-    host: site,
+    host: site.replace(/^https?:\/\//, ""),
   };
 }

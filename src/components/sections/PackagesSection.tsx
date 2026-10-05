@@ -32,11 +32,14 @@ export function PackagesSection({ packages }: { packages: PackageItem[] }) {
             id="packages-heading"
             className="mt-3 text-3xl font-extrabold tracking-tight text-[#171717] sm:text-4xl"
           >
-            Διάλεξε το πακέτο που σου ταιριάζει
+            Πακέτα & Τιμές
           </h2>
           <p className="mt-4 max-w-2xl text-muted">
-            Οι τιμές ενημερώνονται δυναμικά. Ζήτησε προσφορά για να λάβεις ακριβή κοστολόγηση
-            βάσει των αναγκών σου.
+            Διάλεξε το πακέτο που σου ταιριάζει. Οι τιμές ενημερώνονται δυναμικά —{" "}
+            <a href="#contact" className="font-semibold text-purple-deep underline-offset-2 hover:underline">
+              ζήτησε προσφορά
+            </a>{" "}
+            για ακριβή κοστολόγηση βάσει των αναγκών σου.
           </p>
         </Reveal>
 
