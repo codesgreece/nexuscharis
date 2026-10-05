@@ -4,6 +4,7 @@ import Link from "next/link";
 import {
   useCallback,
   useEffect,
+  useId,
   useRef,
   useState,
   type MouseEvent as ReactMouseEvent,
@@ -32,6 +33,7 @@ export function NexusBrandMarkInteractive({
   showText = true,
 }: NexusBrandMarkInteractiveProps) {
   const reduceMotion = useReducedMotion();
+  const gradientId = useId().replace(/:/g, "");
   const stageRef = useRef<HTMLDivElement>(null);
   const tiltRef = useRef<HTMLDivElement>(null);
   const rafRef = useRef<number | null>(null);
@@ -40,7 +42,7 @@ export function NexusBrandMarkInteractive({
   const [visible, setVisible] = useState(true);
   const [entered, setEntered] = useState(false);
 
-  const particleCount = variant === "header" ? 3 : 5;
+  const particleCount = variant === "header" ? 0 : 4;
 
   const tickTilt = useRef(() => {
     const tilt = tiltRef.current;
@@ -150,10 +152,7 @@ export function NexusBrandMarkInteractive({
       onMouseMove={onMouseMove}
       onMouseLeave={resetTilt}
     >
-      <div
-        ref={stageRef}
-        className={cn(styles.stage, variant === "header" && styles.stageHeader)}
-      >
+      <div ref={stageRef} className={styles.stage}>
         {!reduceMotion &&
           Array.from({ length: particleCount }, (_, i) => (
             <div key={i} className={styles.particle} aria-hidden />
@@ -171,46 +170,41 @@ export function NexusBrandMarkInteractive({
               : { duration: 0.55, ease: [0.22, 1, 0.36, 1] }
           }
         >
-          <div
-            className={cn(
-              styles.float,
-              variant === "header" && styles.floatHeader,
-            )}
-          >
+          <div className={styles.float}>
             <div ref={tiltRef} className={styles.tilt}>
-              <motion.div
-                className={styles.glow}
-                aria-hidden
-                initial={reduceMotion ? false : { opacity: 0 }}
-                animate={motionReady ? { opacity: 0.55 } : { opacity: 0 }}
-                transition={{
-                  duration: 0.45,
-                  delay: reduceMotion ? 0 : 0.25,
-                }}
-              />
-
-              <div
-                className={cn(
-                  styles.mark,
-                  variant === "header" && styles.markHeader,
-                )}
-              >
-                {!reduceMotion && <div className={styles.sweep} aria-hidden />}
+              <div className={styles.mark}>
                 <motion.svg
                   className={styles.letter}
-                  viewBox="0 0 48 48"
+                  viewBox="13 13 22 22"
                   role="img"
                   aria-hidden
                   initial={reduceMotion ? false : { opacity: 0 }}
                   animate={motionReady ? { opacity: 1 } : { opacity: 0 }}
                   transition={{
                     duration: 0.4,
-                    delay: reduceMotion ? 0 : 0.35,
+                    delay: reduceMotion ? 0 : 0.2,
                     ease: "easeOut",
                   }}
                 >
                   <title>N</title>
-                  <path d="M14 34V14h4.2l11.2 13.6V14H34v20h-4.2L18.6 20.4V34H14z" />
+                  <defs>
+                    <linearGradient
+                      id={gradientId}
+                      x1="14"
+                      y1="14"
+                      x2="34"
+                      y2="34"
+                      gradientUnits="userSpaceOnUse"
+                    >
+                      <stop offset="0%" stopColor="#c4b5fd" />
+                      <stop offset="40%" stopColor="#8b5cf6" />
+                      <stop offset="100%" stopColor="#6d28d9" />
+                    </linearGradient>
+                  </defs>
+                  <path
+                    fill={`url(#${gradientId})`}
+                    d="M14 34V14h4.2l11.2 13.6V14H34v20h-4.2L18.6 20.4V34H14z"
+                  />
                 </motion.svg>
               </div>
             </div>

@@ -2,12 +2,12 @@
   position: relative;
   overflow: hidden;
   background: #ffffff;
-  padding: 3.5rem 0 3.75rem;
+  padding: 2.75rem 0 3rem;
 }
 
 @media (min-width: 640px) {
   .section {
-    padding: 4.25rem 0 4.5rem;
+    padding: 3.25rem 0 3.5rem;
   }
 }
 
@@ -15,10 +15,10 @@
   pointer-events: none;
   position: absolute;
   inset: 0;
-  opacity: 0.55;
+  opacity: 0.45;
   background-image:
-    linear-gradient(to right, rgba(109, 40, 217, 0.035) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(109, 40, 217, 0.035) 1px, transparent 1px);
+    linear-gradient(to right, rgba(109, 40, 217, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(109, 40, 217, 0.03) 1px, transparent 1px);
   background-size: 56px 56px;
 }
 
@@ -27,14 +27,14 @@
   position: absolute;
   left: 50%;
   top: 50%;
-  width: min(520px, 90vw);
-  height: min(280px, 55vw);
+  width: min(420px, 80vw);
+  height: min(220px, 45vw);
   translate: -50% -50%;
   border-radius: 9999px;
   background: radial-gradient(
     ellipse at center,
-    rgba(109, 40, 217, 0.07) 0%,
-    rgba(124, 58, 237, 0.03) 42%,
+    rgba(139, 92, 246, 0.08) 0%,
+    rgba(109, 40, 217, 0.03) 42%,
     transparent 72%
   );
   animation: ambientPulse 7.5s ease-in-out infinite;
@@ -67,8 +67,8 @@
   display: inline-flex;
   max-width: 100%;
   align-items: center;
-  gap: 1.15rem;
-  border-radius: 1.25rem;
+  gap: 0.85rem;
+  border-radius: 1rem;
   text-decoration: none;
   outline: none;
   -webkit-tap-highlight-color: transparent;
@@ -77,7 +77,7 @@
 @media (max-width: 639px) {
   .root:not(.rootHeader) {
     flex-direction: column;
-    gap: 0.9rem;
+    gap: 0.7rem;
     text-align: center;
   }
 }
@@ -85,8 +85,8 @@
 .rootHeader {
   flex-direction: row;
   align-items: center;
-  gap: 0.625rem;
-  max-width: min(100%, 16rem);
+  gap: 0.55rem;
+  max-width: min(100%, 15.5rem);
 }
 
 @media (min-width: 640px) {
@@ -95,73 +95,42 @@
   }
 }
 
-.stageHeader {
-  width: 2.25rem;
-  height: 2.25rem;
-}
-
-@media (min-width: 640px) {
-  .stageHeader {
-    width: 2.5rem;
-    height: 2.5rem;
-  }
-}
-
-.floatHeader {
-  animation-name: logoFloatHeader;
-}
-
-.markHeader {
-  box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.22) inset,
-    0 -1px 0 rgba(0, 0, 0, 0.1) inset,
-    0 10px 22px -14px rgba(76, 29, 149, 0.5),
-    0 4px 10px -6px rgba(109, 40, 217, 0.35);
-}
-
-.titleHeader {
-  font-size: 0.875rem;
-  font-weight: 700;
-  letter-spacing: 0.025em;
-}
-
-@media (min-width: 640px) {
-  .titleHeader {
-    font-size: 15px;
-  }
-}
-
-.subtitleHeader {
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  text-indent: 0.18em;
-}
-
 .root:focus-visible {
   outline: 2px solid var(--purple-bright);
-  outline-offset: 6px;
+  outline-offset: 4px;
 }
 
 .stage {
   position: relative;
   flex-shrink: 0;
-  width: 5.25rem;
-  height: 5.25rem;
+  width: 3.25rem;
+  height: 3.25rem;
   perspective: 900px;
 }
 
 @media (min-width: 640px) {
   .stage {
-    width: 6.75rem;
-    height: 6.75rem;
+    width: 3.75rem;
+    height: 3.75rem;
   }
 }
 
 @media (min-width: 1024px) {
   .stage {
-    width: 7.5rem;
-    height: 7.5rem;
+    width: 4.25rem;
+    height: 4.25rem;
+  }
+}
+
+.rootHeader .stage {
+  width: 2rem;
+  height: 2rem;
+}
+
+@media (min-width: 640px) {
+  .rootHeader .stage {
+    width: 2.25rem;
+    height: 2.25rem;
   }
 }
 
@@ -169,8 +138,8 @@
   pointer-events: none;
   position: absolute;
   border-radius: 9999px;
-  background: rgba(109, 40, 217, 0.45);
-  opacity: 0.28;
+  background: rgba(139, 92, 246, 0.55);
+  opacity: 0.22;
   animation: particleDrift var(--dur, 7s) ease-in-out infinite;
   animation-delay: var(--delay, 0s);
 }
@@ -178,10 +147,10 @@
 .particle:nth-child(1) {
   --dur: 6.8s;
   --delay: 0s;
-  width: 3px;
-  height: 3px;
-  left: 8%;
-  top: 18%;
+  width: 2px;
+  height: 2px;
+  left: 10%;
+  top: 20%;
 }
 
 .particle:nth-child(2) {
@@ -189,17 +158,17 @@
   --delay: -1.2s;
   width: 2px;
   height: 2px;
-  right: 6%;
-  top: 28%;
+  right: 8%;
+  top: 30%;
 }
 
 .particle:nth-child(3) {
   --dur: 8.1s;
   --delay: -2.4s;
-  width: 2.5px;
-  height: 2.5px;
-  left: 14%;
-  bottom: 16%;
+  width: 2px;
+  height: 2px;
+  left: 16%;
+  bottom: 18%;
 }
 
 .particle:nth-child(4) {
@@ -207,17 +176,17 @@
   --delay: -0.8s;
   width: 2px;
   height: 2px;
-  right: 18%;
-  bottom: 22%;
+  right: 20%;
+  bottom: 24%;
 }
 
 .particle:nth-child(5) {
   --dur: 7.8s;
   --delay: -3.1s;
-  width: 3px;
-  height: 3px;
-  left: 42%;
-  top: 4%;
+  width: 2.5px;
+  height: 2.5px;
+  left: 44%;
+  top: 6%;
 }
 
 .entrance {
@@ -234,37 +203,19 @@
   will-change: transform;
 }
 
+.rootHeader .float {
+  animation-name: logoFloatHeader;
+}
+
 .tilt {
   position: relative;
   width: 100%;
   height: 100%;
   transform-style: preserve-3d;
-  transition: transform 0.35s ease-out;
   will-change: transform;
 }
 
-.glow {
-  pointer-events: none;
-  position: absolute;
-  inset: -18%;
-  border-radius: 28%;
-  background: radial-gradient(
-    circle at center,
-    rgba(109, 40, 217, 0.28) 0%,
-    rgba(124, 58, 237, 0.12) 38%,
-    transparent 70%
-  );
-  filter: blur(10px);
-  opacity: 0.55;
-  animation: glowBreathe 6.8s ease-in-out infinite;
-  transition: opacity 0.45s ease;
-}
-
-.root:hover .glow,
-.root:focus-visible .glow {
-  opacity: 0.82;
-}
-
+/* Letter only — no filled box behind the N */
 .mark {
   position: relative;
   z-index: 1;
@@ -272,110 +223,107 @@
   place-items: center;
   width: 100%;
   height: 100%;
-  overflow: hidden;
-  border-radius: 22%;
-  background:
-    linear-gradient(145deg, rgba(255, 255, 255, 0.18) 0%, transparent 42%),
-    linear-gradient(325deg, rgba(0, 0, 0, 0.12) 0%, transparent 48%),
-    #6d28d9;
-  box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.22) inset,
-    0 -1px 0 rgba(0, 0, 0, 0.12) inset,
-    0 18px 36px -18px rgba(76, 29, 149, 0.55),
-    0 8px 16px -10px rgba(109, 40, 217, 0.35);
+  overflow: visible;
+  background: none;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
   transform: translateZ(0);
-  transition:
-    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 0.4s ease;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .root:hover .mark,
 .root:focus-visible .mark {
-  transform: scale(1.03);
-  box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.26) inset,
-    0 -1px 0 rgba(0, 0, 0, 0.12) inset,
-    0 22px 42px -16px rgba(76, 29, 149, 0.6),
-    0 10px 18px -10px rgba(109, 40, 217, 0.4);
+  transform: scale(1.05);
 }
 
 .root:active .mark {
-  transform: scale(0.97);
+  transform: scale(0.96);
   transition-duration: 0.12s;
-}
-
-.sweep {
-  pointer-events: none;
-  position: absolute;
-  inset: -40% -60%;
-  background: linear-gradient(
-    115deg,
-    transparent 36%,
-    rgba(255, 255, 255, 0.18) 48%,
-    transparent 60%
-  );
-  transform: translateX(-30%) rotate(18deg);
-  animation: lightSweep 7.2s ease-in-out infinite;
 }
 
 .letter {
   position: relative;
   z-index: 1;
-  width: 58%;
-  height: 58%;
-  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.22));
+  display: block;
+  width: 100%;
+  height: 100%;
+  filter:
+    drop-shadow(0 0 5px rgba(139, 92, 246, 0.45))
+    drop-shadow(0 0 1px rgba(109, 40, 217, 0.35));
+  transition: filter 0.35s ease;
 }
 
-.letter path {
-  fill: #ffffff;
+.rootHeader .letter {
+  filter:
+    drop-shadow(0 0 3px rgba(139, 92, 246, 0.4))
+    drop-shadow(0 0 1px rgba(109, 40, 217, 0.3));
+}
+
+.root:hover .letter,
+.root:focus-visible .letter {
+  filter:
+    drop-shadow(0 0 8px rgba(139, 92, 246, 0.55))
+    drop-shadow(0 0 2px rgba(109, 40, 217, 0.4));
 }
 
 .copy {
   display: flex;
   min-width: 0;
   flex-direction: column;
-  gap: 0.2rem;
+  gap: 0.1rem;
 }
 
 .title {
   margin: 0;
   color: #171717;
-  font-size: clamp(1.15rem, 3.4vw, 1.85rem);
+  font-size: clamp(1.05rem, 2.8vw, 1.55rem);
   font-weight: 800;
   letter-spacing: 0.02em;
   line-height: 1.15;
   white-space: nowrap;
 }
 
+.titleHeader {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+@media (min-width: 640px) {
+  .titleHeader {
+    font-size: 0.9375rem;
+  }
+}
+
 .subtitle {
   margin: 0;
   color: #6d28d9;
-  font-size: clamp(0.7rem, 1.8vw, 0.85rem);
+  font-size: clamp(0.65rem, 1.6vw, 0.78rem);
   font-weight: 600;
-  letter-spacing: 0.34em;
+  letter-spacing: 0.3em;
   line-height: 1.2;
-  text-indent: 0.34em;
+  text-indent: 0.3em;
   text-transform: uppercase;
 }
 
+.subtitleHeader {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-indent: 0.16em;
+}
+
 .isPaused .float,
-.isPaused .glow,
-.isPaused .sweep,
 .isPaused .ambient,
 .isPaused .particle {
   animation-play-state: paused;
 }
 
 .reduceMotion .float,
-.reduceMotion .glow,
-.reduceMotion .sweep,
 .reduceMotion .ambient,
 .reduceMotion .particle {
   animation: none !important;
-}
-
-.reduceMotion .glow {
-  opacity: 0.45;
 }
 
 .reduceMotion .mark {
@@ -388,57 +336,29 @@
     transform: translateY(0) rotate(-1deg);
   }
   50% {
-    transform: translateY(-6px) rotate(1deg);
+    transform: translateY(-4px) rotate(1deg);
   }
 }
 
 @keyframes logoFloatHeader {
   0%,
   100% {
-    transform: translateY(0) rotate(-1deg);
+    transform: translateY(0) rotate(-0.8deg);
   }
   50% {
-    transform: translateY(-3px) rotate(1deg);
-  }
-}
-
-@keyframes glowBreathe {
-  0%,
-  100% {
-    opacity: 0.42;
-    transform: scale(0.96);
-  }
-  50% {
-    opacity: 0.68;
-    transform: scale(1.04);
-  }
-}
-
-@keyframes lightSweep {
-  0%,
-  72%,
-  100% {
-    transform: translateX(-45%) rotate(18deg);
-    opacity: 0;
-  }
-  78% {
-    opacity: 1;
-  }
-  88% {
-    transform: translateX(45%) rotate(18deg);
-    opacity: 0;
+    transform: translateY(-2px) rotate(0.8deg);
   }
 }
 
 @keyframes ambientPulse {
   0%,
   100% {
-    opacity: 0.7;
+    opacity: 0.65;
     transform: scale(1);
   }
   50% {
     opacity: 1;
-    transform: scale(1.04);
+    transform: scale(1.03);
   }
 }
 
@@ -446,22 +366,22 @@
   0%,
   100% {
     transform: translate3d(0, 0, 0);
-    opacity: 0.18;
+    opacity: 0.14;
   }
   50% {
-    transform: translate3d(4px, -7px, 0);
-    opacity: 0.34;
+    transform: translate3d(3px, -5px, 0);
+    opacity: 0.28;
   }
 }
 
 @media (max-width: 420px) {
-  .title {
+  .title:not(.titleHeader) {
     white-space: normal;
     letter-spacing: 0.01em;
   }
 
-  .subtitle {
-    letter-spacing: 0.26em;
-    text-indent: 0.26em;
+  .subtitle:not(.subtitleHeader) {
+    letter-spacing: 0.22em;
+    text-indent: 0.22em;
   }
 }
