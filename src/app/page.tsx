@@ -10,6 +10,7 @@ import { VisionSection } from "@/components/sections/VisionSection";
 import { ServicesSection } from "@/components/sections/ServicesSection";
 import { ProcessSection } from "@/components/sections/ProcessSection";
 import { PerformanceSection } from "@/components/sections/PerformanceSection";
+import { TechnologiesSection } from "@/components/sections/TechnologiesSection";
 import { PackagesSection } from "@/components/sections/PackagesSection";
 import { PortfolioSection } from "@/components/sections/PortfolioSection";
 import { FaqSection } from "@/components/sections/FaqSection";
@@ -100,6 +101,7 @@ export default async function HomePage() {
         <ServicesSection services={data.services} />
         <ProcessSection steps={data.processSteps} />
         <PerformanceSection />
+        <TechnologiesSection />
 
         <AdBanner ads={data.advertisements} position="BEFORE_PACKAGES" />
         <PackagesSection packages={data.packages} />

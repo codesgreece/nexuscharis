@@ -206,6 +206,78 @@ body {
   }
 }
 
+/* Technologies section */
+.tech-marquee {
+  background: linear-gradient(
+    90deg,
+    rgba(76, 29, 149, 0.35),
+    rgba(109, 40, 217, 0.85),
+    rgba(139, 92, 246, 0.9),
+    rgba(109, 40, 217, 0.85),
+    rgba(76, 29, 149, 0.35)
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: tech-shimmer 7s ease-in-out infinite;
+}
+
+@keyframes tech-shimmer {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.tech-card-enter {
+  animation: tech-fade-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes tech-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.tech-card {
+  transform: translateZ(0);
+}
+
+.tech-card:hover {
+  box-shadow:
+    0 18px 40px -24px rgba(109, 40, 217, 0.45),
+    0 0 0 1px rgba(109, 40, 217, 0.08),
+    0 0 28px -10px rgba(139, 92, 246, 0.35);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tech-marquee,
+  .tech-card-enter {
+    animation: none !important;
+  }
+
+  .tech-marquee {
+    color: var(--purple-deep);
+    background: none;
+    -webkit-background-clip: unset;
+    background-clip: unset;
+  }
+
+  .tech-card,
+  .tech-card svg {
+    transition: none !important;
+  }
+}
+
 /* Handwritten signature — Mansalva (Greek) + Great Vibes */
 @font-face {
   font-family: "Mansalva Signature";
