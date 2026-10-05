@@ -4,6 +4,7 @@ import "./globals.css";
 import { absoluteUrl, getSiteUrl } from "@/lib/utils";
 import { prisma } from "@/lib/db";
 import { ConsentProvider } from "@/components/legal/ConsentProvider";
+import { HOME_SEO, prefersNationwideSeo } from "@/content/seo";
 
 export const dynamic = "force-dynamic";
 
@@ -13,20 +14,13 @@ const manrope = Manrope({
   display: "swap",
 });
 
-const FALLBACK_TITLE =
-  "NEXUS DEV STUDIO GREECE | Κατασκευή Ιστοσελίδων & Εφαρμογών";
-const FALLBACK_DESCRIPTION =
-  "Κατασκευή σύγχρονων ιστοσελίδων, landing pages, e-shops, εφαρμογών και custom digital solutions από το NEXUS DEV STUDIO GREECE.";
-const FALLBACK_OG_TITLE =
-  "NEXUS DEV STUDIO GREECE | Web Development & Digital Solutions";
-
 function pickOgTitle(candidate: string | null | undefined, pageTitle: string) {
   const value = candidate?.trim();
-  if (!value) return FALLBACK_OG_TITLE;
-  // Avoid weak CMS values that are just the brand name
+  if (!value) return HOME_SEO.ogTitle;
   if (value.length < 24 || value.toUpperCase() === "NEXUS DEV STUDIO GREECE") {
-    return FALLBACK_OG_TITLE;
+    return HOME_SEO.ogTitle;
   }
+  if (!prefersNationwideSeo(value)) return HOME_SEO.ogTitle;
   return value || pageTitle;
 }
 
@@ -49,10 +43,14 @@ export async function generateMetadata(): Promise<Metadata> {
     seo = null;
   }
 
-  const title = seo?.title?.trim() || FALLBACK_TITLE;
-  const description = seo?.metaDescription?.trim() || FALLBACK_DESCRIPTION;
+  const title = prefersNationwideSeo(seo?.title) ? seo!.title!.trim() : HOME_SEO.title;
+  const description = prefersNationwideSeo(seo?.metaDescription)
+    ? seo!.metaDescription!.trim()
+    : HOME_SEO.description;
   const ogTitle = pickOgTitle(seo?.ogTitle, title);
-  const ogDescription = seo?.ogDescription?.trim() || description;
+  const ogDescription = prefersNationwideSeo(seo?.ogDescription)
+    ? seo!.ogDescription!.trim()
+    : description;
   const ogImage = absoluteUrl(seo?.ogImage || "/images/founder.jpg");
   const canonical = absoluteUrl("/");
 
@@ -71,17 +69,9 @@ export async function generateMetadata(): Promise<Metadata> {
       template: "%s | NEXUS DEV STUDIO GREECE",
     },
     description,
-    keywords: seo?.keywords?.split(",").map((k) => k.trim()).filter(Boolean) || [
-      "κατασκευή ιστοσελίδων",
-      "κατασκευή ιστοσελίδων Ελλάδα",
-      "web development Ελλάδα",
-      "κατασκευή e-shop",
-      "landing page",
-      "κατασκευή εφαρμογών",
-      "mobile app development",
-      "custom website",
-      "admin panel",
-    ],
+    keywords: seo?.keywords?.split(",").map((k) => k.trim()).filter(Boolean).length
+      ? seo!.keywords!.split(",").map((k) => k.trim()).filter(Boolean)
+      : [...HOME_SEO.keywords],
     authors: [{ name: "Χριστόπουλος Χαράλαμπος" }],
     creator: "NEXUS DEV STUDIO GREECE",
     publisher: "NEXUS DEV STUDIO GREECE",
@@ -144,7 +134,7 @@ function JsonLd() {
         "@id": `${site}/#website`,
         url: `${site}/`,
         name: "NEXUS DEV STUDIO GREECE",
-        description: FALLBACK_DESCRIPTION,
+        description: HOME_SEO.description,
         inLanguage: "el-GR",
         publisher: { "@id": `${site}/#organization` },
       },
@@ -152,15 +142,15 @@ function JsonLd() {
         "@type": "WebPage",
         "@id": `${site}/#webpage`,
         url: `${site}/`,
-        name: FALLBACK_TITLE,
+        name: HOME_SEO.title,
         isPartOf: { "@id": `${site}/#website` },
         about: { "@id": `${site}/#organization` },
-        description: FALLBACK_DESCRIPTION,
+        description: HOME_SEO.description,
         inLanguage: "el-GR",
       },
       {
-        // Organization only — no LocalBusiness without a real street address
-        "@type": ["Organization", "ProfessionalService"],
+        // Organization — nationwide digital studio, not a local storefront
+        "@type": "Organization",
         "@id": `${site}/#organization`,
         name: "NEXUS DEV STUDIO GREECE",
         url: `${site}/`,

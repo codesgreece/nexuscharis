@@ -55,3 +55,13 @@ Applied in branch `cursor/technical-seo-audit-impl-4b01`:
 - Production vercel.app host → www 308 redirect in middleware
 
 **Manual remaining:** set `NEXT_PUBLIC_SITE_URL=https://www.nexusdevstudio.gr` in Vercel Production env (code also guards misconfig). Verify Google Search Console property for www domain and submit sitemap.
+
+## Nationwide SEO strategy (2026-10-05)
+
+Primary geo target: **all of Greece** (not Athens-first).
+
+- Homepage title/description/H1 emphasize Ελλάδα nationwide
+- No thin city landing pages
+- Organization schema (not LocalBusiness storefront)
+- Coverage section + service anchors for internal linking
+- Future regional pages only if uniquely useful content exists

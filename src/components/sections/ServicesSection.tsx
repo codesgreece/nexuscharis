@@ -13,6 +13,7 @@ import {
   Smartphone,
 } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
+import { serviceAnchorId } from "@/content/seo";
 import { cn } from "@/lib/utils";
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -92,7 +93,12 @@ export function ServicesSection({ services }: { services: ServiceItem[] }) {
 
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {services.map((service, i) => (
-            <Reveal key={service.id} delay={i * 50}>
+            <Reveal
+              key={service.id}
+              delay={i * 50}
+              className="scroll-mt-28"
+              id={serviceAnchorId(service.title)}
+            >
               <FlipCard service={service} />
             </Reveal>
           ))}
