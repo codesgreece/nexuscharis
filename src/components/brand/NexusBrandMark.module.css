@@ -103,34 +103,34 @@
 .stage {
   position: relative;
   flex-shrink: 0;
-  width: 3.25rem;
-  height: 3.25rem;
+  width: 2.75rem;
+  height: 2.75rem;
   perspective: 900px;
 }
 
 @media (min-width: 640px) {
   .stage {
-    width: 3.75rem;
-    height: 3.75rem;
+    width: 3.15rem;
+    height: 3.15rem;
   }
 }
 
 @media (min-width: 1024px) {
   .stage {
-    width: 4.25rem;
-    height: 4.25rem;
+    width: 3.5rem;
+    height: 3.5rem;
   }
 }
 
 .rootHeader .stage {
-  width: 2rem;
-  height: 2rem;
+  width: 1.65rem;
+  height: 1.65rem;
 }
 
 @media (min-width: 640px) {
   .rootHeader .stage {
-    width: 2.25rem;
-    height: 2.25rem;
+    width: 1.85rem;
+    height: 1.85rem;
   }
 }
 
