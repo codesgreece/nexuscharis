@@ -5,7 +5,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "NEXUS DEV STUDIO GREECE",
     short_name: "NEXUS",
     description:
-      "NEXUS DEV STUDIO GREECE — ιστοσελίδες, e-shop και digital solutions για επιχειρήσεις σε όλη την Ελλάδα.",
+      "Το NEXUS DEV STUDIO GREECE δημιουργεί επαγγελματικές ιστοσελίδες, landing pages, e-shops, web εφαρμογές και custom digital solutions για επιχειρήσεις και επαγγελματίες σε όλη την Ελλάδα.",
     start_url: "/",
     display: "standalone",
     background_color: "#ffffff",

@@ -1,9 +1,9 @@
 /** Homepage SEO strategy — nationwide Greece (not city-first). */
 export const HOME_SEO = {
-  title: "Κατασκευή Ιστοσελίδων & Εφαρμογών στην Ελλάδα | NEXUS DEV STUDIO",
+  title: "NEXUS DEV STUDIO GREECE | Κατασκευή Ιστοσελίδων & Εφαρμογών",
   description:
-    "Κατασκευή ιστοσελίδων, e-shops, landing pages και εφαρμογών για επιχειρήσεις και επαγγελματίες σε όλη την Ελλάδα. NEXUS DEV STUDIO GREECE.",
-  ogTitle: "Κατασκευή Ιστοσελίδων & Εφαρμογών στην Ελλάδα | NEXUS DEV STUDIO",
+    "Το NEXUS DEV STUDIO GREECE δημιουργεί επαγγελματικές ιστοσελίδες, landing pages, e-shops, web εφαρμογές και custom digital solutions για επιχειρήσεις και επαγγελματίες σε όλη την Ελλάδα.",
+  ogTitle: "NEXUS DEV STUDIO GREECE | Κατασκευή Ιστοσελίδων & Εφαρμογών",
   h1: "Κατασκευή Ιστοσελίδων & Εφαρμογών στην Ελλάδα",
   keywords: [
     "κατασκευή ιστοσελίδων",
