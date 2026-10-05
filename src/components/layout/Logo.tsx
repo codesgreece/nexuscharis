@@ -1,18 +1,37 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { NexusBrandMarkInteractive } from "@/components/brand/NexusBrandMarkInteractive";
 import { cn } from "@/lib/utils";
 
 export function Logo({
   className,
   showText = true,
   href = "/#home",
+  interactive = false,
 }: {
   className?: string;
   showText?: boolean;
   href?: string;
+  interactive?: boolean;
 }) {
+  if (interactive) {
+    return (
+      <NexusBrandMarkInteractive
+        variant="header"
+        className={className}
+        href={href}
+        showText={showText}
+      />
+    );
+  }
+
   return (
-    <Link href={href} className={cn("inline-flex items-center gap-2.5 focus-ring rounded-xl", className)}>
+    <Link
+      href={href}
+      className={cn("inline-flex items-center gap-2.5 focus-ring rounded-xl", className)}
+    >
       <Image
         src="/images/logo.svg"
         alt="NEXUS DEV STUDIO"
