@@ -324,7 +324,7 @@ body {
 }
 
 .portfolio-card-title {
-  max-width: 18ch;
+  max-width: min(100%, 16rem);
   font-size: clamp(2rem, 6vw, 5rem);
   font-weight: 800;
   line-height: 1;
@@ -333,6 +333,12 @@ body {
   white-space: pre-line;
   word-break: break-word;
   overflow-wrap: anywhere;
+}
+
+@media (min-width: 640px) {
+  .portfolio-card-title {
+    max-width: min(100%, 20rem);
+  }
 }
 
 .portfolio-card-desc {
