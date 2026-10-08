@@ -82,7 +82,7 @@ export function FaqSection() {
                               "inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border transition-all duration-300 sm:h-10 sm:w-10",
                               isOpen
                                 ? "border-purple-primary/35 bg-lavender-soft text-purple-deep shadow-[0_0_0_3px_rgba(109,40,217,0.08)]"
-                                : "border-border-soft bg-lavender-light text-purple-primary group-hover:border-purple-primary/30",
+                                : "border-border-soft bg-lavender-light text-purple-primary",
                             )}
                             aria-hidden
                           >
