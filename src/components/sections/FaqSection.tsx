@@ -16,7 +16,7 @@ export function FaqSection() {
   return (
     <section
       id="faq"
-      className="relative overflow-hidden bg-white py-20 sm:py-24"
+      className="relative overflow-hidden bg-white py-12 sm:py-14 lg:py-16"
       aria-labelledby="faq-heading"
     >
       <div className="pointer-events-none absolute -left-24 top-24 h-72 w-72 rounded-full bg-purple-primary/10 blur-3xl" />
@@ -29,7 +29,7 @@ export function FaqSection() {
           </p>
           <h2
             id="faq-heading"
-            className="mt-3 max-w-2xl text-3xl font-extrabold tracking-tight text-[#171717] sm:text-4xl"
+            className="mt-3 max-w-2xl text-2xl font-extrabold tracking-tight text-[#171717] sm:text-3xl"
           >
             Συχνές ερωτήσεις
           </h2>
@@ -46,7 +46,7 @@ export function FaqSection() {
           </p>
         </Reveal>
 
-        <div className="mt-10 space-y-3 sm:mt-12 sm:space-y-4">
+        <div className="mt-8 space-y-3 sm:space-y-3">
           {faqItems.map((item, index) => {
             const isOpen = openId === item.id;
             const panelId = `faq-panel-${item.id}`;

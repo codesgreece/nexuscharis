@@ -178,7 +178,7 @@ export function CoverageSection() {
   return (
     <section
       id="greece"
-      className="relative overflow-hidden bg-white py-20 sm:py-24"
+      className="relative overflow-hidden bg-white py-12 sm:py-14 lg:py-16"
       aria-labelledby="coverage-heading"
     >
       <div
@@ -187,14 +187,14 @@ export function CoverageSection() {
       />
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid items-center gap-12 lg:grid-cols-[1fr_1.05fr] lg:gap-16">
+        <div className="grid items-center gap-8 lg:grid-cols-[1fr_1.05fr] lg:gap-10">
           <Reveal>
             <p className="text-xs font-bold uppercase tracking-[0.18em] text-purple-primary">
               Coverage
             </p>
             <h2
               id="coverage-heading"
-              className="mt-3 text-3xl font-extrabold tracking-tight text-[#171717] sm:text-4xl"
+              className="mt-3 text-2xl font-extrabold tracking-tight text-[#171717] sm:text-3xl"
             >
               Σε όλη την Ελλάδα
             </h2>
@@ -228,7 +228,7 @@ export function CoverageSection() {
         </div>
 
         <Reveal delay={120}>
-          <div className="mt-14 flex flex-col items-center gap-6 text-center">
+          <div className="mt-8 flex flex-col items-center gap-5 text-center">
             <p className="max-w-3xl text-sm font-semibold tracking-wide text-purple-deep sm:text-base">
               {serviceLine}
             </p>

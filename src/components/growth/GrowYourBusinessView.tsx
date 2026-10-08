@@ -23,7 +23,7 @@ export function GrowYourBusinessView() {
     <>
       {/* Hero */}
       <section
-        className="relative overflow-hidden bg-lavender-light pb-16 pt-10 sm:pb-20 sm:pt-14"
+        className="relative overflow-hidden bg-lavender-light pb-10 pt-8 sm:pb-12 sm:pt-10"
         aria-labelledby="grow-heading"
       >
         <div className="pointer-events-none absolute inset-0 bg-grid opacity-60" />
@@ -37,7 +37,7 @@ export function GrowYourBusinessView() {
             </p>
             <h1
               id="grow-heading"
-              className="mt-3 max-w-3xl text-4xl font-extrabold tracking-tight text-[#171717] sm:text-5xl"
+              className="mt-3 max-w-3xl text-3xl font-extrabold tracking-tight text-[#171717] sm:text-4xl"
             >
               {GROW_PAGE.title}
             </h1>
@@ -70,7 +70,7 @@ export function GrowYourBusinessView() {
 
       {/* NEXUS Growth highlight */}
       <section
-        className="bg-white py-16 sm:py-20"
+        className="bg-white py-10 sm:py-12 lg:py-14"
         aria-labelledby="nexus-growth-heading"
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -80,7 +80,7 @@ export function GrowYourBusinessView() {
             </p>
             <h2
               id="nexus-growth-heading"
-              className="mt-3 text-3xl font-extrabold tracking-tight text-[#171717] sm:text-4xl"
+              className="mt-3 text-2xl font-extrabold tracking-tight text-[#171717] sm:text-3xl"
             >
               NEXUS Growth
             </h2>
@@ -101,7 +101,7 @@ export function GrowYourBusinessView() {
       {/* Monthly support */}
       <section
         id="monthly-services"
-        className="bg-lavender-light py-16 sm:py-20"
+        className="bg-lavender-light py-10 sm:py-12 lg:py-14"
         aria-labelledby="monthly-services-heading"
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -111,14 +111,14 @@ export function GrowYourBusinessView() {
             </p>
             <h2
               id="monthly-services-heading"
-              className="mt-3 text-3xl font-extrabold tracking-tight text-[#171717] sm:text-4xl"
+              className="mt-3 text-2xl font-extrabold tracking-tight text-[#171717] sm:text-3xl"
             >
               Μηνιαίες υπηρεσίες
             </h2>
             <p className="mt-4 max-w-2xl text-muted">{GROW_PAGE.monthlySubtitle}</p>
           </Reveal>
 
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+          <div className="mt-8 grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
             {supportMonthly.map((service, i) => (
               <Reveal key={service.id} delay={i * 60}>
                 <ServicePackageCard service={service} />
@@ -133,7 +133,7 @@ export function GrowYourBusinessView() {
       {/* One-time */}
       <section
         id="one-time-services"
-        className="bg-white py-16 sm:py-20"
+        className="bg-white py-10 sm:py-12 lg:py-14"
         aria-labelledby="one-time-services-heading"
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -143,14 +143,14 @@ export function GrowYourBusinessView() {
             </p>
             <h2
               id="one-time-services-heading"
-              className="mt-3 text-3xl font-extrabold tracking-tight text-[#171717] sm:text-4xl"
+              className="mt-3 text-2xl font-extrabold tracking-tight text-[#171717] sm:text-3xl"
             >
               One-Time Services
             </h2>
             <p className="mt-4 max-w-2xl text-muted">{GROW_PAGE.oneTimeSubtitle}</p>
           </Reveal>
 
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {oneTimeServices.map((service, i) => (
               <Reveal key={service.id} delay={i * 50}>
                 <ServicePackageCard service={service} />
@@ -162,7 +162,7 @@ export function GrowYourBusinessView() {
 
       {/* Extra monthly: content, social, local */}
       <section
-        className="bg-lavender-light py-16 sm:py-20"
+        className="bg-lavender-light py-10 sm:py-12 lg:py-14"
         aria-labelledby="extra-monthly-heading"
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -172,7 +172,7 @@ export function GrowYourBusinessView() {
             </p>
             <h2
               id="extra-monthly-heading"
-              className="mt-3 text-3xl font-extrabold tracking-tight text-[#171717] sm:text-4xl"
+              className="mt-3 text-2xl font-extrabold tracking-tight text-[#171717] sm:text-3xl"
             >
               Περιεχόμενο, Social & Local SEO
             </h2>
@@ -182,7 +182,7 @@ export function GrowYourBusinessView() {
             </p>
           </Reveal>
 
-          <div className="mt-12 grid gap-6 lg:grid-cols-3">
+          <div className="mt-8 grid gap-6 lg:grid-cols-3">
             {extraMonthly.map((service, i) => (
               <Reveal key={service.id} delay={i * 60}>
                 <ServicePackageCard service={service} />
@@ -195,14 +195,14 @@ export function GrowYourBusinessView() {
       <GrowthFaq />
 
       {/* Final CTA */}
-      <section className="bg-lavender-light pb-20 pt-4 sm:pb-24" aria-labelledby="growth-cta-heading">
+      <section className="bg-lavender-light pb-12 pt-2 sm:pb-14" aria-labelledby="growth-cta-heading">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal>
-            <div className="flex flex-col items-start justify-between gap-6 rounded-[1.5rem] border border-purple-primary/15 bg-gradient-to-br from-white via-lavender-soft to-white px-6 py-8 shadow-[0_20px_50px_-36px_rgba(109,40,217,0.45)] sm:flex-row sm:items-center sm:px-10 sm:py-10">
+            <div className="flex flex-col items-start justify-between gap-5 rounded-[1.5rem] border border-purple-primary/15 bg-gradient-to-br from-white via-lavender-soft to-white px-5 py-6 shadow-[0_20px_50px_-36px_rgba(109,40,217,0.45)] sm:flex-row sm:items-center sm:px-8 sm:py-7">
               <div className="max-w-xl">
                 <h2
                   id="growth-cta-heading"
-                  className="text-2xl font-extrabold tracking-tight text-[#171717] sm:text-3xl"
+                  className="text-xl font-extrabold tracking-tight text-[#171717] sm:text-2xl"
                 >
                   {GROW_PAGE.cta.title}
                 </h2>

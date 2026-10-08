@@ -21,18 +21,18 @@ export function VisionSection({
   return (
     <section
       id="vision"
-      className="relative overflow-hidden bg-gradient-to-br from-lavender-soft via-white to-lavender-light py-20 sm:py-24"
+      className="relative overflow-hidden bg-gradient-to-br from-lavender-soft via-white to-lavender-light py-12 sm:py-14 lg:py-16"
       aria-labelledby="vision-heading"
     >
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(124,58,237,0.12),transparent_45%)]" />
-      <div className="relative mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:px-8">
+      <div className="relative mx-auto grid max-w-7xl gap-8 px-4 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:gap-10 lg:px-8">
         <Reveal>
           <p className="text-xs font-bold uppercase tracking-[0.18em] text-purple-primary">
             {title}
           </p>
           <h2
             id="vision-heading"
-            className="mt-4 text-3xl font-extrabold leading-tight tracking-tight text-[#171717] sm:text-4xl"
+            className="mt-4 text-2xl font-extrabold leading-tight tracking-tight text-[#171717] sm:text-3xl"
           >
             {statement}
           </h2>
