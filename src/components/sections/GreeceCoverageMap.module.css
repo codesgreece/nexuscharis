@@ -1,0 +1,384 @@
+.root {
+  --parallax-x: 0px;
+  --parallax-y: 0px;
+  position: relative;
+  width: 100%;
+  max-width: 22rem;
+  margin-inline: auto;
+  user-select: none;
+}
+
+@media (min-width: 1024px) {
+  .root {
+    max-width: 24rem;
+  }
+}
+
+.stage {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.75rem;
+  border: 1px solid rgba(109, 40, 217, 0.16);
+  background:
+    radial-gradient(ellipse at 55% 40%, rgba(124, 58, 237, 0.1), transparent 58%),
+    linear-gradient(160deg, rgba(255, 255, 255, 0.95), rgba(245, 243, 255, 0.82));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.75),
+    0 18px 40px -30px rgba(76, 29, 149, 0.35);
+  padding: 0.75rem 0.65rem 0.55rem;
+  transform: translate3d(var(--parallax-x), var(--parallax-y), 0);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+.ambient {
+  pointer-events: none;
+  position: absolute;
+  inset: 8% 10%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(124, 58, 237, 0.18), transparent 70%);
+  filter: blur(10px);
+  animation: greece-ambient 5.8s ease-in-out infinite;
+}
+
+.svg {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.dotGrid {
+  opacity: 0.28;
+}
+
+.water {
+  fill: none;
+  stroke: rgba(124, 58, 237, 0.14);
+  stroke-width: 1.2;
+  stroke-linecap: round;
+}
+
+.waterA {
+  animation: greece-water 10s ease-in-out infinite;
+}
+
+.waterB {
+  stroke: rgba(109, 40, 217, 0.1);
+  animation: greece-water 13s ease-in-out infinite reverse;
+}
+
+.waterC {
+  stroke: rgba(139, 92, 246, 0.12);
+  animation: greece-water 16s ease-in-out infinite;
+}
+
+.land {
+  fill: #f7f5ff;
+  stroke: #6d28d9;
+  stroke-width: 1.35;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 4px rgba(109, 40, 217, 0.18));
+}
+
+.coastDraw {
+  fill: none;
+  stroke: #7c3aed;
+  stroke-width: 1.6;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  opacity: 0.85;
+}
+
+.rootIsReady .coastDraw {
+  animation: greece-draw 1.1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.route {
+  fill: none;
+  stroke: rgba(109, 40, 217, 0.18);
+  stroke-width: 1;
+  stroke-linecap: round;
+}
+
+.routePulse {
+  fill: none;
+  stroke: rgba(124, 58, 237, 0.7);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-dasharray: 5 120;
+  opacity: 0;
+}
+
+.rootIsReady .routePulse {
+  opacity: 0.75;
+  animation: greece-route 7s linear infinite;
+}
+
+.routePulse:nth-child(2) {
+  animation-delay: 1.4s;
+}
+.routePulse:nth-child(3) {
+  animation-delay: 2.8s;
+}
+.routePulse:nth-child(4) {
+  animation-delay: 4.2s;
+}
+.routePulse:nth-child(5) {
+  animation-delay: 5.6s;
+}
+
+.coreGlow {
+  fill: rgba(124, 58, 237, 0.14);
+  animation: greece-core 4.2s ease-in-out infinite;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+.coreRing {
+  fill: none;
+  stroke: rgba(109, 40, 217, 0.35);
+  stroke-width: 1;
+  animation: greece-orbit 28s linear infinite;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+.coreN {
+  fill: #4c1d95;
+  font-family: var(--font-manrope), system-ui, sans-serif;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.nodeHit {
+  fill: transparent;
+  cursor: pointer;
+}
+
+.nodePulse {
+  fill: rgba(109, 40, 217, 0.16);
+  transform-origin: center;
+  transform-box: fill-box;
+  animation: greece-node-pulse 3.2s ease-out infinite;
+}
+
+.nodeDot {
+  fill: #6d28d9;
+  stroke: #ffffff;
+  stroke-width: 1.4;
+  transition: fill 0.25s ease, filter 0.25s ease;
+}
+
+.nodeLabel {
+  fill: #4c1d95;
+  font-family: var(--font-manrope), system-ui, sans-serif;
+  font-size: 8.5px;
+  font-weight: 600;
+  opacity: 0.82;
+  pointer-events: none;
+}
+
+.nodeGroup:hover .nodeDot,
+.nodeGroupIsActive .nodeDot {
+  fill: #7c3aed;
+  filter: drop-shadow(0 0 4px rgba(124, 58, 237, 0.65));
+}
+
+.nodeGroup:hover .nodeLabel,
+.nodeGroupIsActive .nodeLabel {
+  opacity: 1;
+}
+
+.particle {
+  fill: rgba(124, 58, 237, 0.35);
+  animation: greece-particle 9s ease-in-out infinite;
+}
+
+.particle:nth-child(2) {
+  animation-delay: -1.5s;
+}
+.particle:nth-child(3) {
+  animation-delay: -3s;
+}
+.particle:nth-child(4) {
+  animation-delay: -4.5s;
+}
+.particle:nth-child(5) {
+  animation-delay: -6s;
+}
+.particle:nth-child(6) {
+  animation-delay: -7.5s;
+}
+.particle:nth-child(7) {
+  animation-delay: -2.2s;
+}
+.particle:nth-child(8) {
+  animation-delay: -5.1s;
+}
+.particle:nth-child(9) {
+  animation-delay: -8.2s;
+}
+.particle:nth-child(10) {
+  animation-delay: -3.7s;
+}
+.particle:nth-child(11) {
+  animation-delay: -6.8s;
+}
+.particle:nth-child(12) {
+  animation-delay: -1.1s;
+}
+
+.tooltip {
+  position: absolute;
+  z-index: 3;
+  pointer-events: none;
+  min-width: 7.5rem;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(109, 40, 217, 0.18);
+  background: rgba(255, 255, 255, 0.94);
+  padding: 0.4rem 0.55rem;
+  box-shadow: 0 10px 24px -18px rgba(76, 29, 149, 0.45);
+  transform: translate(-50%, calc(-100% - 10px));
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.tooltipIsVisible {
+  opacity: 1;
+}
+
+.tooltipTitle {
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #171717;
+}
+
+.tooltipHint {
+  margin: 0.1rem 0 0;
+  font-size: 0.65rem;
+  color: #666666;
+}
+
+.caption {
+  margin-top: 0.55rem;
+  text-align: center;
+  font-size: 0.7rem;
+  color: #666666;
+}
+
+@keyframes greece-ambient {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(0.96);
+  }
+  50% {
+    opacity: 0.95;
+    transform: scale(1.04);
+  }
+}
+
+@keyframes greece-water {
+  0%,
+  100% {
+    transform: translateX(0);
+    opacity: 0.45;
+  }
+  50% {
+    transform: translateX(6px);
+    opacity: 0.8;
+  }
+}
+
+@keyframes greece-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes greece-route {
+  to {
+    stroke-dashoffset: -125;
+  }
+}
+
+@keyframes greece-core {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: scale(0.92);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes greece-orbit {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes greece-node-pulse {
+  0% {
+    opacity: 0.55;
+    transform: scale(0.7);
+  }
+  70% {
+    opacity: 0;
+    transform: scale(2.3);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(2.3);
+  }
+}
+
+@keyframes greece-particle {
+  0%,
+  100% {
+    opacity: 0.15;
+    transform: translate(0, 0);
+  }
+  50% {
+    opacity: 0.55;
+    transform: translate(8px, -6px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ambient,
+  .waterA,
+  .waterB,
+  .waterC,
+  .coastDraw,
+  .routePulse,
+  .coreGlow,
+  .coreRing,
+  .nodePulse,
+  .particle {
+    animation: none !important;
+  }
+
+  .stage {
+    transition: none;
+    transform: none !important;
+  }
+
+  .coastDraw {
+    opacity: 0;
+  }
+
+  .routePulse {
+    opacity: 0;
+  }
+}
