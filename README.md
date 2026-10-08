@@ -41,6 +41,20 @@ In the Vercel project **Environment Variables** (Production + Preview), set:
 | `ADMIN_EMAIL` | admin email |
 | `ADMIN_PASSWORD` | strong password (used only when you run seed) |
 | `NEXT_PUBLIC_SITE_URL` | `https://www.nexusdevstudio.gr` |
+| `CONTACT_TO_EMAIL` | `nexusdevstudio@outlook.com` (inbox for form submissions) |
+| `CONTACT_FROM_EMAIL` | sender shown in the notification email |
+| `RESEND_API_KEY` | Resend API key (recommended on Vercel) |
+
+Optional SMTP alternative (instead of Resend), e.g. Outlook:
+
+| Variable | Example |
+|---|---|
+| `SMTP_HOST` | `smtp.office365.com` |
+| `SMTP_PORT` | `587` |
+| `SMTP_USER` | `nexusdevstudio@outlook.com` |
+| `SMTP_PASS` | Outlook app password |
+
+Contact form submissions are stored in the database **and** emailed to `CONTACT_TO_EMAIL`.
 
 After the first successful deploy, seed the database once (from your machine against the production DB):
 
