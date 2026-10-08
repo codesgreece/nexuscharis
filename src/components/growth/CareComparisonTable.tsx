@@ -19,7 +19,7 @@ function cellValue(value: string) {
 export function CareComparisonTable() {
   return (
     <section
-      className="bg-lavender-light py-16 sm:py-20"
+      className="bg-lavender-light py-10 sm:py-12 lg:py-14"
       aria-labelledby="care-comparison-heading"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -29,7 +29,7 @@ export function CareComparisonTable() {
           </p>
           <h2
             id="care-comparison-heading"
-            className="mt-3 text-3xl font-extrabold tracking-tight text-[#171717] sm:text-4xl"
+            className="mt-3 text-2xl font-extrabold tracking-tight text-[#171717] sm:text-3xl"
           >
             Σύγκριση Website Care πακέτων
           </h2>

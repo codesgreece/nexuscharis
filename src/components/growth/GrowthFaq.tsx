@@ -15,7 +15,7 @@ export function GrowthFaq() {
 
   return (
     <section
-      className="relative overflow-hidden bg-white py-16 sm:py-20"
+      className="relative overflow-hidden bg-white py-10 sm:py-12 lg:py-14"
       aria-labelledby="growth-faq-heading"
     >
       <div className="pointer-events-none absolute -left-24 top-24 h-72 w-72 rounded-full bg-purple-primary/10 blur-3xl" />
@@ -28,7 +28,7 @@ export function GrowthFaq() {
           </p>
           <h2
             id="growth-faq-heading"
-            className="mt-3 max-w-2xl text-3xl font-extrabold tracking-tight text-[#171717] sm:text-4xl"
+            className="mt-3 max-w-2xl text-2xl font-extrabold tracking-tight text-[#171717] sm:text-3xl"
           >
             Συχνές ερωτήσεις για τις υπηρεσίες growth
           </h2>
@@ -37,7 +37,7 @@ export function GrowthFaq() {
           </p>
         </Reveal>
 
-        <div className="mt-10 space-y-3 sm:mt-12 sm:space-y-4">
+        <div className="mt-10 space-y-3 sm:mt-8 sm:space-y-4">
           {growthFaqItems.map((item, index) => {
             const isOpen = openId === item.id;
             const panelId = `growth-faq-panel-${item.id}`;

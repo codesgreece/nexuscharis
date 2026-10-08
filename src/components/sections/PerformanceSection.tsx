@@ -32,7 +32,7 @@ export function PerformanceSection() {
   return (
     <section
       id="performance"
-      className="relative overflow-hidden bg-white py-20 sm:py-24"
+      className="relative overflow-hidden bg-white py-12 sm:py-14 lg:py-16"
       aria-labelledby="performance-heading"
     >
       {/* Decorative grid — GPU-friendly CSS only */}
@@ -60,7 +60,7 @@ export function PerformanceSection() {
           </p>
           <h2
             id="performance-heading"
-            className="mt-3 text-3xl font-extrabold tracking-tight text-[#171717] sm:text-4xl lg:text-5xl"
+            className="mt-3 text-2xl font-extrabold tracking-tight text-[#171717] sm:text-3xl"
           >
             FAST. RESPONSIVE. OPTIMIZED.
           </h2>
@@ -69,7 +69,7 @@ export function PerformanceSection() {
           </p>
         </Reveal>
 
-        <ul className="mt-12 grid list-none gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <ul className="mt-8 grid list-none gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {features.map((feature, i) => {
             const Icon = feature.icon;
             return (

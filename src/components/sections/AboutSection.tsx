@@ -16,9 +16,9 @@ export function AboutSection({
   const paragraphs = description.split("\n").filter(Boolean);
 
   return (
-    <section id="about" className="bg-lavender-light py-20 sm:py-24" aria-labelledby="about-heading">
+    <section id="about" className="bg-lavender-light py-12 sm:py-14 lg:py-16" aria-labelledby="about-heading">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:gap-14">
+        <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:gap-10">
           <Reveal>
             <div>
               <p className="text-xs font-bold uppercase tracking-[0.18em] text-purple-primary">
@@ -26,7 +26,7 @@ export function AboutSection({
               </p>
               <h2
                 id="about-heading"
-                className="mt-3 text-3xl font-extrabold tracking-tight text-[#171717] sm:text-4xl"
+                className="mt-3 text-2xl font-extrabold tracking-tight text-[#171717] sm:text-3xl"
               >
                 {title}
               </h2>

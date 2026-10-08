@@ -35,13 +35,13 @@ export function HeroSection({
   return (
     <section
       id="home"
-      className="relative overflow-hidden bg-white pt-28 sm:pt-32 lg:pt-36"
+      className="relative overflow-hidden bg-white pt-24 sm:pt-28 lg:pt-28"
       aria-labelledby="hero-heading"
     >
       <div className="pointer-events-none absolute inset-0 bg-grid opacity-70" />
       <div className="pointer-events-none absolute -right-24 top-20 h-[420px] w-[420px] rounded-full bg-[radial-gradient(circle,rgba(124,58,237,0.16),transparent_70%)]" />
 
-      <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-4 pb-16 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10 lg:px-8 lg:pb-24">
+      <div className="relative mx-auto grid max-w-7xl items-center gap-8 px-4 pb-10 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:gap-8 lg:px-8 lg:pb-14">
         <Reveal>
           <div>
             <span className="inline-flex items-center rounded-full border border-purple-primary/15 bg-lavender-soft px-3.5 py-1.5 text-xs font-semibold tracking-wide text-purple-deep">
@@ -50,16 +50,16 @@ export function HeroSection({
 
             <h1
               id="hero-heading"
-              className="mt-6 max-w-xl text-4xl font-extrabold leading-[1.12] tracking-tight text-[#171717] sm:text-5xl lg:text-[3.25rem]"
+              className="mt-4 max-w-xl text-3xl font-extrabold leading-[1.15] tracking-tight text-[#171717] sm:text-4xl lg:text-[2.65rem]"
             >
               {title}
             </h1>
 
-            <p className="mt-5 max-w-xl text-base leading-relaxed text-muted sm:text-lg">
+            <p className="mt-4 max-w-xl text-base leading-relaxed text-muted sm:text-[1.05rem]">
               {subtitle}
             </p>
 
-            <div className="mt-8 flex flex-wrap gap-3">
+            <div className="mt-6 flex flex-wrap gap-3">
               <a
                 href={primaryCtaUrl}
                 className="inline-flex items-center gap-2 rounded-2xl bg-purple-primary px-6 py-3.5 text-sm font-semibold text-white shadow-[0_14px_34px_-14px_rgba(109,40,217,0.75)] transition-all hover:-translate-y-0.5 hover:bg-purple-bright focus-ring"
@@ -75,10 +75,10 @@ export function HeroSection({
               </a>
             </div>
 
-            <div className="mt-10 grid max-w-xl grid-cols-1 gap-4 border-t border-border-soft pt-8 sm:grid-cols-3 sm:gap-0 sm:divide-x sm:divide-border-soft">
+            <div className="mt-7 grid max-w-xl grid-cols-1 gap-3 border-t border-border-soft pt-6 sm:grid-cols-3 sm:gap-0 sm:divide-x sm:divide-border-soft">
               {stats.map((stat) => (
                 <div key={stat.label} className="sm:px-4 first:sm:pl-0 last:sm:pr-0">
-                  <div className="text-2xl font-extrabold text-purple-deep">{stat.value}</div>
+                  <div className="text-xl font-extrabold text-purple-deep">{stat.value}</div>
                   <div className="mt-1 text-xs leading-snug text-muted">{stat.label}</div>
                 </div>
               ))}

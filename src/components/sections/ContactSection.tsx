@@ -58,12 +58,12 @@ export function ContactSection({
   }
 
   return (
-    <section id="contact" className="bg-white py-20 sm:py-24" aria-labelledby="contact-heading">
+    <section id="contact" className="bg-white py-12 sm:py-14 lg:py-16" aria-labelledby="contact-heading">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Reveal>
           <h2
             id="contact-heading"
-            className="text-3xl font-extrabold tracking-tight text-[#171717] sm:text-4xl"
+            className="text-2xl font-extrabold tracking-tight text-[#171717] sm:text-3xl"
           >
             Ας δημιουργήσουμε κάτι μαζί.
           </h2>
@@ -73,7 +73,7 @@ export function ContactSection({
           </p>
         </Reveal>
 
-        <div className="mt-12 grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
+        <div className="mt-8 grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
           <Reveal>
             <div className="space-y-4">
               <a
@@ -131,7 +131,7 @@ export function ContactSection({
           <Reveal delay={100}>
             <form
               onSubmit={onSubmit}
-              className="rounded-[1.5rem] border border-border-soft bg-white p-6 shadow-[0_24px_60px_-36px_rgba(76,29,149,0.35)] sm:p-8"
+              className="rounded-[1.5rem] border border-border-soft bg-white p-5 shadow-[0_24px_60px_-36px_rgba(76,29,149,0.35)] sm:p-6"
               noValidate
             >
               <div className="grid gap-4 sm:grid-cols-2">

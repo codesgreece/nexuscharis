@@ -51,7 +51,7 @@ export function AudienceSection() {
   return (
     <section
       id="audience"
-      className="bg-lavender-light py-20 sm:py-24"
+      className="bg-lavender-light py-12 sm:py-14 lg:py-16"
       aria-labelledby="audience-heading"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -61,7 +61,7 @@ export function AudienceSection() {
           </p>
           <h2
             id="audience-heading"
-            className="mt-3 text-3xl font-extrabold tracking-tight text-[#171717] sm:text-4xl"
+            className="mt-3 text-2xl font-extrabold tracking-tight text-[#171717] sm:text-3xl"
           >
             Για ποιους δουλεύουμε
           </h2>
@@ -71,7 +71,7 @@ export function AudienceSection() {
           </p>
         </Reveal>
 
-        <ul className="mt-12 grid list-none gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="mt-8 grid list-none gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {audiences.map((item, i) => {
             const Icon = item.icon;
             return (

@@ -79,7 +79,7 @@ export function TechnologiesSection() {
   return (
     <section
       id="technologies"
-      className="relative overflow-hidden bg-white py-20 sm:py-24"
+      className="relative overflow-hidden bg-white py-12 sm:py-14 lg:py-16"
       aria-labelledby="technologies-heading"
     >
       <div
@@ -98,7 +98,7 @@ export function TechnologiesSection() {
           </p>
           <h2
             id="technologies-heading"
-            className="mt-3 text-3xl font-extrabold tracking-tight text-[#171717] sm:text-4xl"
+            className="mt-3 text-2xl font-extrabold tracking-tight text-[#171717] sm:text-3xl"
           >
             Technologies We Use
           </h2>
@@ -157,7 +157,7 @@ export function TechnologiesSection() {
           id="tech-grid"
           role="tabpanel"
           aria-labelledby={`tech-filter-${filter}`}
-          className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-7"
+          className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-7"
         >
           {visible.map((item, i) => (
             <div
@@ -171,7 +171,7 @@ export function TechnologiesSection() {
         </div>
 
         <Reveal delay={80}>
-          <p className="mt-10 text-center text-sm text-muted">
+          <p className="mt-8 text-center text-sm text-muted">
             <span className="font-semibold text-purple-deep">Core</span> = συχνές επιλογές
             για σύγχρονα web projects ·{" "}
             <span className="font-semibold text-purple-deep">Additional</span> = διαθέσιμες

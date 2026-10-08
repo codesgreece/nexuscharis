@@ -52,7 +52,7 @@ export function PortfolioSection({ projects }: { projects: Project[] }) {
   return (
     <section
       id="portfolio"
-      className="bg-lavender-light py-20 sm:py-24"
+      className="bg-lavender-light py-12 sm:py-14 lg:py-16"
       aria-labelledby="portfolio-heading"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -62,7 +62,7 @@ export function PortfolioSection({ projects }: { projects: Project[] }) {
           </p>
           <h2
             id="portfolio-heading"
-            className="mt-3 text-3xl font-extrabold tracking-tight text-[#171717] sm:text-4xl"
+            className="mt-3 text-2xl font-extrabold tracking-tight text-[#171717] sm:text-3xl"
           >
             Τα έργα μας
           </h2>
@@ -70,7 +70,7 @@ export function PortfolioSection({ projects }: { projects: Project[] }) {
 
         {projects.length === 0 ? (
           <Reveal>
-            <div className="mt-12 flex flex-col items-center justify-center rounded-[1.75rem] border border-dashed border-purple-primary/25 bg-white px-6 py-16 text-center">
+            <div className="mt-8 flex flex-col items-center justify-center rounded-[1.75rem] border border-dashed border-purple-primary/25 bg-white px-6 py-10 text-center">
               <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-lavender-soft text-purple-primary">
                 <FolderOpen className="h-8 w-8" aria-hidden />
               </div>
@@ -90,7 +90,7 @@ export function PortfolioSection({ projects }: { projects: Project[] }) {
             </div>
           </Reveal>
         ) : (
-          <div className="mt-12 grid gap-6 md:grid-cols-2 md:gap-8">
+          <div className="mt-8 grid gap-6 md:grid-cols-2 md:gap-8">
             {projects.map((project, i) => {
               const number = formatProjectNumber(i);
               const tags = getProjectTags(project);

@@ -23,7 +23,7 @@ type Step = {
 
 export function ProcessSection({ steps }: { steps: Step[] }) {
   return (
-    <section className="bg-lavender-light py-20 sm:py-24" aria-labelledby="process-heading">
+    <section className="bg-lavender-light py-12 sm:py-14 lg:py-16" aria-labelledby="process-heading">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Reveal>
           <p className="text-xs font-bold uppercase tracking-[0.18em] text-purple-primary">
@@ -31,13 +31,13 @@ export function ProcessSection({ steps }: { steps: Step[] }) {
           </p>
           <h2
             id="process-heading"
-            className="mt-3 text-3xl font-extrabold tracking-tight text-[#171717] sm:text-4xl"
+            className="mt-3 text-2xl font-extrabold tracking-tight text-[#171717] sm:text-3xl"
           >
             Πώς δουλεύουμε
           </h2>
         </Reveal>
 
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {steps.map((step, i) => {
             const Icon = iconMap[step.icon] || MessageCircle;
             return (

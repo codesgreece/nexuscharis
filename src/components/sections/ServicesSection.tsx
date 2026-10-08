@@ -41,7 +41,7 @@ function FlipCard({ service }: { service: ServiceItem }) {
   return (
     <button
       type="button"
-      className={cn("flip-card h-[220px] w-full text-left focus-ring rounded-[1.25rem]", flipped && "is-flipped")}
+      className={cn("flip-card h-[190px] w-full text-left focus-ring rounded-[1.25rem]", flipped && "is-flipped")}
       onClick={() => setFlipped((v) => !v)}
       aria-pressed={flipped}
       aria-label={`${service.title}. Πάτα για λεπτομέρειες.`}
@@ -65,7 +65,7 @@ function FlipCard({ service }: { service: ServiceItem }) {
 
 export function ServicesSection({ services }: { services: ServiceItem[] }) {
   return (
-    <section id="services" className="bg-white py-20 sm:py-24" aria-labelledby="services-heading">
+    <section id="services" className="bg-white py-12 sm:py-14 lg:py-16" aria-labelledby="services-heading">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Reveal>
           <p className="text-xs font-bold uppercase tracking-[0.18em] text-purple-primary">
@@ -73,7 +73,7 @@ export function ServicesSection({ services }: { services: ServiceItem[] }) {
           </p>
           <h2
             id="services-heading"
-            className="mt-3 text-3xl font-extrabold tracking-tight text-[#171717] sm:text-4xl"
+            className="mt-3 text-2xl font-extrabold tracking-tight text-[#171717] sm:text-3xl"
           >
             Οι Υπηρεσίες μας
           </h2>
@@ -91,7 +91,7 @@ export function ServicesSection({ services }: { services: ServiceItem[] }) {
           </p>
         </Reveal>
 
-        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {services.map((service, i) => (
             <Reveal
               key={service.id}
@@ -105,7 +105,7 @@ export function ServicesSection({ services }: { services: ServiceItem[] }) {
         </div>
 
         <Reveal>
-          <div className="mt-10 flex flex-col items-start justify-between gap-4 rounded-[1.5rem] border border-purple-primary/15 bg-lavender-soft px-6 py-6 sm:flex-row sm:items-center sm:px-8">
+          <div className="mt-8 flex flex-col items-start justify-between gap-4 rounded-[1.5rem] border border-purple-primary/15 bg-lavender-soft px-5 py-5 sm:flex-row sm:items-center sm:px-6">
             <div>
               <h3 className="text-lg font-bold text-[#171717]">Χρειάζεσαι κάτι διαφορετικό;</h3>
               <p className="mt-1 text-sm text-muted">
