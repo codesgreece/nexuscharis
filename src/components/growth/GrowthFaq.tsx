@@ -37,7 +37,7 @@ export function GrowthFaq() {
           </p>
         </Reveal>
 
-        <div className="mt-10 space-y-3 sm:mt-8 sm:space-y-4">
+        <div className="mt-8 space-y-3">
           {growthFaqItems.map((item, index) => {
             const isOpen = openId === item.id;
             const panelId = `growth-faq-panel-${item.id}`;
