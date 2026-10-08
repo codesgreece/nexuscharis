@@ -1,133 +1,257 @@
 import Link from "next/link";
+import type { ReactNode } from "react";
 import { ArrowUp, Mail, Phone } from "lucide-react";
+import {
+  siDribbble,
+  siFacebook,
+  siInstagram,
+  siX,
+  type SimpleIcon,
+} from "simple-icons";
 import { Logo } from "@/components/layout/Logo";
 import { CookieSettingsButton } from "@/components/legal/CookieSettingsButton";
-import { formatPhoneDisplay } from "@/lib/utils";
+import {
+  footerBrandLine,
+  footerCta,
+  footerLegalLinks,
+  footerNavigationLinks,
+  footerServiceLinks,
+  type FooterNavLink,
+  type FooterSocialInput,
+} from "@/content/footer";
+import { cn, formatPhoneDisplay } from "@/lib/utils";
 
-const links = [
-  { href: "/#home", label: "Αρχική" },
-  { href: "/#about", label: "Σχετικά" },
-  { href: "/#services", label: "Υπηρεσίες" },
-  { href: "/#packages", label: "Πακέτα" },
-  { href: "/grow-your-business", label: "Grow Your Business" },
-  { href: "/#portfolio", label: "Portfolio" },
-  { href: "/#faq", label: "FAQ" },
-  { href: "/#contact", label: "Επικοινωνία" },
-];
+/** Archived brand mark — LinkedIn removed upstream from simple-icons (trademark policy). */
+const linkedinIcon: Pick<SimpleIcon, "path" | "title"> = {
+  title: "LinkedIn",
+  path: "M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z",
+};
 
-const legalLinks = [
-  { href: "/privacy", label: "Πολιτική Απορρήτου" },
-  { href: "/cookies", label: "Πολιτική Cookies" },
-  { href: "/terms", label: "Όροι Χρήσης" },
-  { href: "/services-terms", label: "Όροι Υπηρεσιών" },
-  { href: "/copyright", label: "Πνευματικά Δικαιώματα" },
-];
+type SocialIcon = Pick<SimpleIcon, "path" | "title">;
+
+type SocialItem = {
+  href: string;
+  label: string;
+  icon: SocialIcon;
+};
+
+function buildSocialLinks(social: FooterSocialInput | undefined): SocialItem[] {
+  if (!social) return [];
+
+  const candidates: Array<{
+    key: keyof FooterSocialInput;
+    label: string;
+    icon: SocialIcon;
+  }> = [
+    { key: "facebookUrl", label: "Facebook", icon: siFacebook },
+    { key: "instagramUrl", label: "Instagram", icon: siInstagram },
+    { key: "linkedinUrl", label: "LinkedIn", icon: linkedinIcon },
+    { key: "twitterUrl", label: "X (Twitter)", icon: siX },
+    { key: "dribbbleUrl", label: "Dribbble", icon: siDribbble },
+  ];
+
+  return candidates.flatMap(({ key, label, icon }) => {
+    const href = social[key]?.trim();
+    if (!href) return [];
+    return [{ href, label, icon }];
+  });
+}
+
+function usesNativeAnchor(href: string) {
+  // Prefer native anchors for hash targets so in-page scroll works reliably.
+  return href === "/" || href.includes("#");
+}
+
+function FooterTextLink({ href, label }: FooterNavLink) {
+  const className =
+    "rounded text-sm text-muted transition-colors duration-200 hover:text-purple-deep focus-ring";
+
+  if (usesNativeAnchor(href)) {
+    return (
+      <a href={href} className={className}>
+        {label}
+      </a>
+    );
+  }
+
+  return (
+    <Link href={href} className={className}>
+      {label}
+    </Link>
+  );
+}
+
+function SocialIconLinks({
+  items,
+  className,
+}: {
+  items: SocialItem[];
+  className?: string;
+}) {
+  if (items.length === 0) return null;
+
+  return (
+    <ul className={cn("flex flex-wrap items-center gap-2", className)}>
+      {items.map((item) => (
+        <li key={item.href}>
+          <a
+            href={item.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={item.label}
+            className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-border-soft bg-white text-purple-primary transition duration-200 hover:-translate-y-0.5 hover:border-purple-primary/30 hover:text-purple-deep focus-ring"
+          >
+            <svg
+              role="img"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-4 w-4"
+              aria-hidden="true"
+            >
+              <path d={item.icon.path} fill="currentColor" />
+            </svg>
+          </a>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function FooterColumn({
+  title,
+  children,
+}: {
+  title: string;
+  children: ReactNode;
+}) {
+  return (
+    <div>
+      <h2 className="text-sm font-bold tracking-tight text-[#171717]">{title}</h2>
+      {children}
+    </div>
+  );
+}
 
 export function Footer({
   siteName,
   tagline,
   phone,
   email,
+  social,
 }: {
   siteName: string;
   tagline: string;
   phone: string;
   email: string;
+  social?: FooterSocialInput;
 }) {
   const year = new Date().getFullYear();
+  const socialLinks = buildSocialLinks(social);
 
   return (
     <footer className="border-t border-border-soft bg-lavender-light">
-      <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 lg:grid-cols-[1.2fr_1fr_1fr_1fr] lg:px-8">
-        <div>
-          <Logo />
-          <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted">{tagline}</p>
-          <p className="mt-3 text-xs font-semibold uppercase tracking-[0.16em] text-purple-primary">
-            {siteName}
-          </p>
-        </div>
+      <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-12 lg:px-8">
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-5 lg:gap-6 xl:gap-8">
+          {/* Column 1 — NEXUS */}
+          <div className="sm:col-span-2 lg:col-span-1">
+            <Logo href="/" />
+            <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted">{tagline}</p>
+            <p className="mt-3 text-xs font-semibold leading-relaxed text-purple-deep">
+              {footerBrandLine}
+            </p>
+            <p className="sr-only">{siteName}</p>
+            <SocialIconLinks items={socialLinks} className="mt-5" />
+          </div>
 
-        <div>
-          <h2 className="text-sm font-bold text-[#171717]">Πλοήγηση</h2>
-          <ul className="mt-4 space-y-2">
-            {links.map((link) => (
-              <li key={link.href}>
-                {link.href.startsWith("/#") || link.href.startsWith("#") ? (
-                  <a
-                    href={link.href}
-                    className="rounded text-sm text-muted transition hover:text-purple-deep focus-ring"
-                  >
-                    {link.label}
-                  </a>
-                ) : (
-                  <Link
-                    href={link.href}
-                    className="rounded text-sm text-muted transition hover:text-purple-deep focus-ring"
-                  >
-                    {link.label}
-                  </Link>
-                )}
+          {/* Column 2 — Πλοήγηση */}
+          <FooterColumn title="Πλοήγηση">
+            <ul className="mt-3.5 space-y-2">
+              {footerNavigationLinks.map((link) => (
+                <li key={link.href}>
+                  <FooterTextLink {...link} />
+                </li>
+              ))}
+            </ul>
+          </FooterColumn>
+
+          {/* Column 3 — Υπηρεσίες */}
+          <FooterColumn title="Υπηρεσίες">
+            <ul className="mt-3.5 space-y-2">
+              {footerServiceLinks.map((link) => (
+                <li key={`${link.label}-${link.href}`}>
+                  <FooterTextLink {...link} />
+                </li>
+              ))}
+            </ul>
+          </FooterColumn>
+
+          {/* Column 4 — Νομικά */}
+          <FooterColumn title="Νομικά">
+            <ul className="mt-3.5 space-y-2">
+              {footerLegalLinks.map((link) => (
+                <li key={link.href}>
+                  <FooterTextLink {...link} />
+                </li>
+              ))}
+              <li>
+                <CookieSettingsButton />
               </li>
-            ))}
-          </ul>
-        </div>
+            </ul>
+          </FooterColumn>
 
-        <div>
-          <h2 className="text-sm font-bold text-[#171717]">Νομικά</h2>
-          <ul className="mt-4 space-y-2">
-            {legalLinks.map((link) => (
-              <li key={link.href}>
-                <Link
-                  href={link.href}
-                  className="text-sm text-muted transition hover:text-purple-deep focus-ring rounded"
+          {/* Column 5 — Επικοινωνία */}
+          <FooterColumn title="Επικοινωνία">
+            <ul className="mt-3.5 space-y-2.5">
+              <li>
+                <a
+                  href={`tel:${phone}`}
+                  className="inline-flex items-center gap-2 rounded text-sm text-muted transition-colors duration-200 hover:text-purple-deep focus-ring"
                 >
-                  {link.label}
-                </Link>
+                  <Phone className="h-4 w-4 shrink-0 text-purple-primary" aria-hidden />
+                  <span>{formatPhoneDisplay(phone)}</span>
+                </a>
               </li>
-            ))}
-            <li>
-              <CookieSettingsButton />
-            </li>
-          </ul>
-        </div>
+              <li>
+                <a
+                  href={`mailto:${email}`}
+                  className="inline-flex items-center gap-2 rounded text-sm text-muted transition-colors duration-200 hover:text-purple-deep focus-ring"
+                >
+                  <Mail className="h-4 w-4 shrink-0 text-purple-primary" aria-hidden />
+                  <span className="break-all">{email}</span>
+                </a>
+              </li>
+            </ul>
 
-        <div>
-          <h2 className="text-sm font-bold text-[#171717]">Επικοινωνία</h2>
-          <ul className="mt-4 space-y-3">
-            <li>
+            <div className="mt-5 rounded-2xl border border-purple-primary/15 bg-white p-4 shadow-[0_12px_28px_-24px_rgba(76,29,149,0.35)]">
+              <p className="text-sm font-bold text-[#171717]">{footerCta.title}</p>
+              <p className="mt-1.5 text-xs leading-relaxed text-muted">{footerCta.body}</p>
               <a
-                href={`tel:${phone}`}
-                className="inline-flex items-center gap-2 text-sm text-muted hover:text-purple-deep"
+                href={footerCta.href}
+                className="mt-3.5 inline-flex w-full items-center justify-center rounded-2xl bg-purple-primary px-4 py-2.5 text-sm font-semibold text-white transition duration-200 hover:bg-purple-bright focus-ring"
               >
-                <Phone className="h-4 w-4 text-purple-primary" aria-hidden />
-                {formatPhoneDisplay(phone)}
+                {footerCta.button}
               </a>
-            </li>
-            <li>
-              <a
-                href={`mailto:${email}`}
-                className="inline-flex items-center gap-2 text-sm text-muted hover:text-purple-deep"
-              >
-                <Mail className="h-4 w-4 text-purple-primary" aria-hidden />
-                {email}
-              </a>
-            </li>
-          </ul>
+            </div>
+          </FooterColumn>
         </div>
       </div>
 
       <div className="border-t border-border-soft">
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-5 sm:px-6 lg:px-8">
+        <div className="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6 sm:py-5 lg:px-8">
           <p className="text-xs text-muted">
             © {year} NEXUS DEV STUDIO GREECE. All rights reserved.
           </p>
-          <Link
-            href="/#home"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-purple-primary text-white shadow-lg shadow-purple-primary/25 transition hover:-translate-y-0.5 focus-ring"
-            aria-label="Επιστροφή στην κορυφή"
-          >
-            <ArrowUp className="h-4 w-4" />
-          </Link>
+
+          <div className="flex items-center gap-3">
+            <SocialIconLinks items={socialLinks} className="hidden sm:flex" />
+            <Link
+              href="/"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-purple-primary text-white shadow-lg shadow-purple-primary/25 transition duration-200 hover:-translate-y-0.5 focus-ring"
+              aria-label="Επιστροφή στην κορυφή"
+            >
+              <ArrowUp className="h-4 w-4" aria-hidden />
+            </Link>
+          </div>
         </div>
       </div>
     </footer>

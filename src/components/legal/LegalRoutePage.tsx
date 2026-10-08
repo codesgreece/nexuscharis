@@ -48,6 +48,13 @@ export async function LegalRoutePage({
       tagline="Digital solutions designed around your business."
       phone={contact.phone}
       email={contact.email}
+      social={{
+        facebookUrl: contact.facebookUrl,
+        instagramUrl: contact.instagramUrl,
+        linkedinUrl: contact.linkedinUrl,
+        twitterUrl: contact.twitterUrl,
+        dribbbleUrl: contact.dribbbleUrl,
+      }}
       showCookieInventory={showCookieInventory}
     />
   );

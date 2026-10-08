@@ -125,6 +125,13 @@ export default async function HomePage() {
         tagline={settings.tagline || "Digital solutions designed around your business."}
         phone={settings.phone || "6936732844"}
         email={settings.email || "nexusdevstudio@outlook.com"}
+        social={{
+          facebookUrl: settings.facebookUrl,
+          instagramUrl: settings.instagramUrl,
+          linkedinUrl: settings.linkedinUrl,
+          twitterUrl: settings.twitterUrl,
+          dribbbleUrl: settings.dribbbleUrl,
+        }}
       />
       <MarketingPopup popup={data.popups[0] || null} />
     </>
