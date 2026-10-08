@@ -19,6 +19,7 @@ export function LegalPageView({
   tagline,
   phone,
   email,
+  social,
   showCookieInventory = false,
 }: {
   page: LegalPageContent;
@@ -26,6 +27,13 @@ export function LegalPageView({
   tagline: string;
   phone: string;
   email: string;
+  social?: {
+    facebookUrl?: string | null;
+    instagramUrl?: string | null;
+    linkedinUrl?: string | null;
+    twitterUrl?: string | null;
+    dribbbleUrl?: string | null;
+  };
   showCookieInventory?: boolean;
 }) {
   return (
@@ -123,7 +131,13 @@ export function LegalPageView({
           </div>
         </article>
       </main>
-      <Footer siteName={siteName} tagline={tagline} phone={phone} email={email} />
+      <Footer
+        siteName={siteName}
+        tagline={tagline}
+        phone={phone}
+        email={email}
+        social={social}
+      />
     </>
   );
 }

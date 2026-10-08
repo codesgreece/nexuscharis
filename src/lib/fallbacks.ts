@@ -9,6 +9,11 @@ export const fallbackSettings = {
   founderImageUrl: "/images/founder.jpg",
   founderName: "Χριστόπουλος Χαράλαμπος",
   founderTitle: "Founder & Developer",
+  facebookUrl: null as string | null,
+  instagramUrl: null as string | null,
+  linkedinUrl: null as string | null,
+  twitterUrl: null as string | null,
+  dribbbleUrl: null as string | null,
   businessHours: [
     { day: "Δευτέρα", hours: "10:00 - 15:00" },
     { day: "Τρίτη", hours: "09:00 - 21:00" },

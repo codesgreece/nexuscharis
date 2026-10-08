@@ -52,9 +52,21 @@ export async function getLegalContactDefaults() {
       email: settings?.email || FALLBACK_CONTACT.email,
       phone: settings?.phone || FALLBACK_CONTACT.phone,
       founderName: settings?.founderName || FALLBACK_CONTACT.founderName,
+      facebookUrl: settings?.facebookUrl ?? null,
+      instagramUrl: settings?.instagramUrl ?? null,
+      linkedinUrl: settings?.linkedinUrl ?? null,
+      twitterUrl: settings?.twitterUrl ?? null,
+      dribbbleUrl: settings?.dribbbleUrl ?? null,
     };
   } catch {
-    return FALLBACK_CONTACT;
+    return {
+      ...FALLBACK_CONTACT,
+      facebookUrl: null,
+      instagramUrl: null,
+      linkedinUrl: null,
+      twitterUrl: null,
+      dribbbleUrl: null,
+    };
   }
 }
 
