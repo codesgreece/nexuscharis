@@ -10,6 +10,8 @@ export type ContactMailPayload = {
   marketingOptIn: boolean;
 };
 
+export type MailProvider = "resend" | "smtp" | "none";
+
 const DEFAULT_TO = "nexusdevstudio@outlook.com";
 const DEFAULT_FROM = "NEXUS DEV STUDIO <onboarding@resend.dev>";
 
@@ -140,12 +142,12 @@ async function sendViaSmtp(payload: ContactMailPayload): Promise<void> {
 }
 
 /**
- * Sends a contact-form notification to the business inbox.
- * Prefer Resend when RESEND_API_KEY is set; otherwise use SMTP when configured.
+ * Optional server-side notification when Resend or SMTP is configured.
+ * Browser-side FormSubmit covers the default zero-config path.
  */
 export async function sendContactNotification(
   payload: ContactMailPayload,
-): Promise<{ sent: boolean; provider: "resend" | "smtp" | "none"; error?: string }> {
+): Promise<{ sent: boolean; provider: MailProvider; error?: string }> {
   if (process.env.RESEND_API_KEY?.trim()) {
     try {
       await sendViaResend(payload);
@@ -175,7 +177,6 @@ export async function sendContactNotification(
   return {
     sent: false,
     provider: "none",
-    error:
-      "No email provider configured. Set RESEND_API_KEY or SMTP_HOST/SMTP_USER/SMTP_PASS.",
+    error: "No server email provider configured (browser FormSubmit is used instead).",
   };
 }
