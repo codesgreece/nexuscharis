@@ -12,6 +12,7 @@ import { ProcessSection } from "@/components/sections/ProcessSection";
 import { PerformanceSection } from "@/components/sections/PerformanceSection";
 import { TechnologiesSection } from "@/components/sections/TechnologiesSection";
 import { PackagesSection } from "@/components/sections/PackagesSection";
+import { GrowTeaserSection } from "@/components/sections/GrowTeaserSection";
 import { PortfolioSection } from "@/components/sections/PortfolioSection";
 import { FaqSection } from "@/components/sections/FaqSection";
 import { ContactSection } from "@/components/sections/ContactSection";
@@ -105,6 +106,7 @@ export default async function HomePage() {
 
         <AdBanner ads={data.advertisements} position="BEFORE_PACKAGES" />
         <PackagesSection packages={data.packages} />
+        <GrowTeaserSection />
 
         <AdBanner ads={data.advertisements} position="BEFORE_PORTFOLIO" />
         <PortfolioSection projects={data.projects} />

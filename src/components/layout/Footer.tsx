@@ -9,6 +9,7 @@ const links = [
   { href: "/#about", label: "Σχετικά" },
   { href: "/#services", label: "Υπηρεσίες" },
   { href: "/#packages", label: "Πακέτα" },
+  { href: "/grow-your-business", label: "Grow Your Business" },
   { href: "/#portfolio", label: "Portfolio" },
   { href: "/#faq", label: "FAQ" },
   { href: "/#contact", label: "Επικοινωνία" },
@@ -51,9 +52,21 @@ export function Footer({
           <ul className="mt-4 space-y-2">
             {links.map((link) => (
               <li key={link.href}>
-                <a href={link.href} className="text-sm text-muted transition hover:text-purple-deep focus-ring rounded">
-                  {link.label}
-                </a>
+                {link.href.startsWith("/#") || link.href.startsWith("#") ? (
+                  <a
+                    href={link.href}
+                    className="rounded text-sm text-muted transition hover:text-purple-deep focus-ring"
+                  >
+                    {link.label}
+                  </a>
+                ) : (
+                  <Link
+                    href={link.href}
+                    className="rounded text-sm text-muted transition hover:text-purple-deep focus-ring"
+                  >
+                    {link.label}
+                  </Link>
+                )}
               </li>
             ))}
           </ul>
