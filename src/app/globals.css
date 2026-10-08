@@ -186,31 +186,6 @@ body {
   transform: translateZ(0);
 }
 
-.greece-city-marker circle:nth-child(1) {
-  transform-origin: center;
-  transform-box: fill-box;
-  animation: greece-pulse 3.2s ease-in-out infinite;
-}
-
-@keyframes greece-pulse {
-  0%,
-  100% {
-    opacity: 0.45;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.85;
-    transform: scale(1.15);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .greece-city-marker circle:nth-child(1) {
-    animation: none;
-    opacity: 0.55;
-  }
-}
-
 /* Portfolio editorial cards — typography-first, no project images */
 .portfolio-card {
   position: relative;
