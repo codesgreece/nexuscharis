@@ -28,20 +28,22 @@ export function ContactSection({
     const form = e.currentTarget;
     const data = new FormData(form);
 
+    const payload = {
+      name: String(data.get("name") || ""),
+      email: String(data.get("email") || ""),
+      phone: String(data.get("phone") || ""),
+      service: String(data.get("service") || ""),
+      message: String(data.get("message") || ""),
+      website: String(data.get("website") || ""),
+      privacyAccepted: data.get("privacyAccepted") === "on",
+      marketingOptIn: data.get("marketingOptIn") === "on",
+    };
+
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: data.get("name"),
-          email: data.get("email"),
-          phone: data.get("phone"),
-          service: data.get("service"),
-          message: data.get("message"),
-          website: data.get("website"),
-          privacyAccepted: data.get("privacyAccepted") === "on",
-          marketingOptIn: data.get("marketingOptIn") === "on",
-        }),
+        body: JSON.stringify(payload),
       });
       const json = await res.json();
       if (!res.ok) {
@@ -49,6 +51,33 @@ export function ContactSection({
         setError(json.error || "Κάτι πήγε στραβά. Δοκίμασε ξανά.");
         return;
       }
+
+      // Browser-side delivery to the business inbox (no API key required).
+      // First-time use may send an activation email to the inbox.
+      try {
+        await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(email)}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({
+            name: payload.name,
+            email: payload.email,
+            phone: payload.phone || "—",
+            service: payload.service || "—",
+            message: payload.message,
+            marketingOptIn: payload.marketingOptIn ? "Ναι" : "Όχι",
+            _subject: `Νέο μήνυμα επικοινωνίας — ${payload.name}`,
+            _template: "table",
+            _replyto: payload.email,
+            _captcha: "false",
+          }),
+        });
+      } catch {
+        // Inbox delivery is best-effort; the message is already stored.
+      }
+
       setStatus("success");
       form.reset();
     } catch {

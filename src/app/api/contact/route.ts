@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 import { contactSchema } from "@/lib/validations";
 import { checkRateLimit, hashIp } from "@/lib/rate-limit";
+import { sendContactNotification } from "@/lib/mail";
 
 export async function POST(req: NextRequest) {
   try {
@@ -32,18 +33,35 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ ok: true });
     }
 
+    const message = {
+      name: parsed.data.name.trim(),
+      email: parsed.data.email.trim().toLowerCase(),
+      phone: parsed.data.phone?.trim() || null,
+      service: parsed.data.service?.trim() || null,
+      message: parsed.data.message.trim(),
+      privacyAccepted: true,
+      marketingOptIn: Boolean(parsed.data.marketingOptIn),
+    };
+
     await prisma.contactMessage.create({
       data: {
-        name: parsed.data.name.trim(),
-        email: parsed.data.email.trim().toLowerCase(),
-        phone: parsed.data.phone?.trim() || null,
-        service: parsed.data.service?.trim() || null,
-        message: parsed.data.message.trim(),
-        privacyAccepted: true,
-        marketingOptIn: Boolean(parsed.data.marketingOptIn),
+        ...message,
         ipHash: hashIp(ip),
       },
     });
+
+    const mail = await sendContactNotification({
+      name: message.name,
+      email: message.email,
+      phone: message.phone,
+      service: message.service,
+      message: message.message,
+      marketingOptIn: message.marketingOptIn,
+    });
+
+    if (!mail.sent) {
+      console.error("[contact] email notification failed:", mail.provider, mail.error);
+    }
 
     return NextResponse.json({ ok: true });
   } catch {
