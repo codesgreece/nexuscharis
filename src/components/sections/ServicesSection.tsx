@@ -13,6 +13,7 @@ import {
   Smartphone,
 } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
+import { AutumnAccent } from "@/components/effects/AutumnAccent";
 import { serviceAnchorId } from "@/content/seo";
 import { cn } from "@/lib/utils";
 
@@ -65,8 +66,9 @@ function FlipCard({ service }: { service: ServiceItem }) {
 
 export function ServicesSection({ services }: { services: ServiceItem[] }) {
   return (
-    <section id="services" className="bg-white py-12 sm:py-14 lg:py-16" aria-labelledby="services-heading">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <section id="services" className="relative overflow-hidden bg-white py-12 sm:py-14 lg:py-16" aria-labelledby="services-heading">
+      <AutumnAccent variant="services" />
+      <div className="relative z-[1] mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Reveal>
           <p className="text-xs font-bold uppercase tracking-[0.18em] text-purple-primary">
             Τι προσφέρουμε

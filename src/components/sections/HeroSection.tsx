@@ -2,6 +2,7 @@ import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
 import { HandwrittenSignature } from "@/components/sections/HandwrittenSignature";
+import { AutumnAtmosphere } from "@/components/effects/AutumnAtmosphere";
 
 type HeroStat = { value: string; label: string };
 
@@ -40,9 +41,10 @@ export function HeroSection({
     >
       <div className="pointer-events-none absolute inset-0 bg-grid opacity-70" />
       <div className="pointer-events-none absolute -right-20 top-16 h-[320px] w-[320px] rounded-full bg-[radial-gradient(circle,rgba(124,58,237,0.16),transparent_70%)]" />
+      <AutumnAtmosphere />
 
-      <div className="relative mx-auto grid max-w-7xl items-start gap-5 px-4 pb-7 sm:px-6 lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:gap-6 lg:px-8 lg:pb-9 lg:pt-1">
-        <Reveal>
+      <div className="relative z-10 mx-auto grid max-w-7xl items-start gap-5 px-4 pb-7 sm:px-6 lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:gap-6 lg:px-8 lg:pb-9 lg:pt-1">
+        <Reveal className="relative z-[11]">
           <div>
             <span className="inline-flex items-center rounded-full border border-purple-primary/15 bg-lavender-soft px-3 py-1 text-xs font-semibold tracking-wide text-purple-deep">
               {badge}
@@ -95,27 +97,34 @@ export function HeroSection({
           className="relative mx-auto w-full max-w-[280px] sm:max-w-[300px] lg:ml-auto lg:mr-4 lg:max-w-[300px]"
         >
           <div className="relative">
+            <div className="pointer-events-none absolute -right-3 -top-4 h-24 w-36 rounded-full bg-[radial-gradient(circle,rgba(245,158,11,0.12),transparent_70%)] blur-md" aria-hidden="true" />
             <HandwrittenSignature className="relative z-10 -mb-2 ml-0 w-[76%] max-w-[230px] sm:ml-1 sm:max-w-[250px]" />
 
             <div className="purple-glow absolute -inset-5 top-8 -z-10 rounded-full blur-2xl" />
-            <div className="relative overflow-hidden rounded-[1.5rem] border border-purple-primary/15 bg-gradient-to-br from-lavender-soft to-white p-1.5 shadow-[0_24px_60px_-36px_rgba(76,29,149,0.45)]">
-              {/* Width-capped portrait keeps 4:5 ratio without driving ~2 viewport heights */}
-              <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[1.2rem]">
-                <Image
-                  src={founderImageUrl}
-                  alt={`${founderName} — ${founderTitle}, NEXUS DEV STUDIO`}
-                  fill
-                  priority
-                  sizes="(max-width: 768px) 280px, 300px"
-                  className="object-cover object-top"
-                />
+            <div
+              className="pointer-events-none absolute -inset-6 top-10 -z-10 rounded-full bg-[radial-gradient(circle,rgba(245,158,11,0.1),transparent_68%)] blur-2xl"
+              aria-hidden="true"
+            />
+            <div className="relative overflow-hidden rounded-[1.5rem] bg-gradient-to-br from-purple-primary/25 via-[#c4b5fd]/40 to-[rgba(245,158,11,0.22)] p-[1.5px] shadow-[0_24px_60px_-36px_rgba(76,29,149,0.45)]">
+              <div className="overflow-hidden rounded-[1.42rem] bg-gradient-to-br from-lavender-soft to-white p-1.5">
+                {/* Width-capped portrait keeps 4:5 ratio without driving ~2 viewport heights */}
+                <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[1.2rem]">
+                  <Image
+                    src={founderImageUrl}
+                    alt={`${founderName} — ${founderTitle}, NEXUS DEV STUDIO`}
+                    fill
+                    priority
+                    sizes="(max-width: 768px) 280px, 300px"
+                    className="object-cover object-top"
+                  />
+                </div>
               </div>
             </div>
           </div>
         </Reveal>
       </div>
 
-      <div className="relative border-t border-border-soft bg-lavender-light/60">
+      <div className="relative z-10 border-t border-border-soft bg-lavender-light/60">
         <p className="mx-auto max-w-7xl px-4 py-3 text-center text-xs font-semibold tracking-[0.08em] text-purple-deep/80 sm:px-6 lg:px-8">
           {trustLine}
         </p>
