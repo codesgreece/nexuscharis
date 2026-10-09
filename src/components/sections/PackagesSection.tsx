@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { ArrowRight, Check } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
 import { packageMonthlyCards } from "@/content/package-monthly";
@@ -220,12 +221,12 @@ export function PackagesSection({ packages }: { packages: PackageItem[] }) {
           <Reveal delay={120}>
             <p className="mt-5 text-center text-xs text-muted">
               Δες αναλυτικά όλες τις growth υπηρεσίες στο{" "}
-              <a
+              <Link
                 href="/grow-your-business"
                 className="font-semibold text-purple-deep underline-offset-2 hover:underline"
               >
                 Grow Your Business
-              </a>
+              </Link>
               .
             </p>
           </Reveal>

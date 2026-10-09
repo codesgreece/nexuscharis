@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import {
   GROW_PAGE,
@@ -44,6 +45,21 @@ export function GrowYourBusinessView() {
             <p className="mt-5 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
               {GROW_PAGE.subtitle}
             </p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Link
+                href="/nexus-growth"
+                className="inline-flex items-center gap-2 rounded-full bg-purple-primary px-5 py-3 text-sm font-semibold text-white shadow-[0_12px_28px_-14px_rgba(109,40,217,0.65)] transition hover:-translate-y-0.5 hover:bg-purple-bright focus-ring"
+              >
+                NEXUS Growth — 119€/μήνα
+                <ArrowRight className="h-4 w-4" aria-hidden />
+              </Link>
+              <a
+                href="#monthly-services"
+                className="inline-flex items-center gap-2 rounded-full border border-purple-primary/25 bg-white px-5 py-3 text-sm font-semibold text-purple-deep transition hover:bg-lavender-soft focus-ring"
+              >
+                Δες τις υπηρεσίες
+              </a>
+            </div>
           </Reveal>
 
           <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
