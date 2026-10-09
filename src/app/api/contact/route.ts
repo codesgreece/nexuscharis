@@ -61,9 +61,11 @@ export async function POST(req: NextRequest) {
 
     if (!mail.sent) {
       console.error("[contact] email notification failed:", mail.provider, mail.error);
+      // Still return ok — message is stored in Admin — but flag delivery status.
+      return NextResponse.json({ ok: true, emailSent: false });
     }
 
-    return NextResponse.json({ ok: true });
+    return NextResponse.json({ ok: true, emailSent: true });
   } catch {
     return NextResponse.json(
       { error: "Σφάλμα διακομιστή. Δοκίμασε ξανά αργότερα." },
