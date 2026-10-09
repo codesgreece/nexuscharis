@@ -13,6 +13,8 @@ export const footerNavigationLinks: FooterNavLink[] = [
   { href: "/", label: "Αρχική" },
   { href: "/#about", label: "Σχετικά" },
   { href: "/#packages", label: "Πακέτα" },
+  { href: "/grow-your-business", label: "Grow Your Business" },
+  { href: "/nexus-growth", label: "NEXUS Growth" },
   { href: "/#portfolio", label: "Portfolio" },
   { href: "/#faq", label: "FAQ" },
   { href: "/#contact", label: "Επικοινωνία" },
@@ -20,18 +22,18 @@ export const footerNavigationLinks: FooterNavLink[] = [
 
 /**
  * Service discovery links (column 3).
- * Homepage service anchors + Grow Your Business page sections.
- * Swap hrefs to dedicated routes when those pages exist.
+ * Homepage service anchors + Grow Your Business dedicated routes.
  */
 export const footerServiceLinks: FooterNavLink[] = [
   { href: "/#website-development", label: "Ιστοσελίδες" },
   { href: "/#landing-pages", label: "Landing Pages" },
   { href: "/#ecommerce", label: "E-Commerce" },
   { href: "/#services", label: "Web Applications" },
-  { href: "/grow-your-business#seo", label: "SEO" },
-  { href: "/grow-your-business#website-care", label: "Website Care" },
-  { href: "/grow-your-business#local-seo-monthly", label: "Local SEO" },
-  { href: "/grow-your-business#branding", label: "Branding" },
+  { href: "/grow-your-business/seo", label: "SEO" },
+  { href: "/grow-your-business/website-care", label: "Website Care" },
+  { href: "/grow-your-business/local-seo", label: "Local SEO" },
+  { href: "/grow-your-business/branding", label: "Branding" },
+  { href: "/nexus-growth", label: "NEXUS Growth" },
 ];
 
 /** Existing legal routes only. */

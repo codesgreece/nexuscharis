@@ -108,8 +108,8 @@ export const nexusGrowth: GrowthService = {
     "Basic monthly reporting",
     "Priority support",
   ],
-  ctaText: "Ξεκίνα NEXUS Growth",
-  ctaHref: "/#contact",
+  ctaText: "Δες το NEXUS Growth",
+  ctaHref: "/nexus-growth",
 };
 
 export const monthlyServices: GrowthService[] = [
@@ -137,7 +137,7 @@ export const monthlyServices: GrowthService[] = [
       "Monthly report",
     ],
     ctaText: "Μάθε περισσότερα",
-    ctaHref: "/#contact",
+    ctaHref: "/grow-your-business/seo",
   },
   {
     id: "website-care",
@@ -164,8 +164,8 @@ export const monthlyServices: GrowthService[] = [
       "Οι ώρες του πακέτου δεν μεταφέρονται στον επόμενο μήνα.",
     ],
     extraWork: "Επιπλέον εργασία: 30€/ώρα",
-    ctaText: "Απόκτησε Website Care",
-    ctaHref: "/#contact",
+    ctaText: "Μάθε περισσότερα",
+    ctaHref: "/grow-your-business/website-care",
   },
   {
     id: "website-care-pro",
@@ -255,8 +255,8 @@ export const monthlyServices: GrowthService[] = [
         ],
       },
     ],
-    ctaText: "Ξεκίνα SEO Content",
-    ctaHref: "/#contact",
+    ctaText: "Μάθε περισσότερα",
+    ctaHref: "/grow-your-business/seo-content",
   },
   {
     id: "social-media",
@@ -286,8 +286,8 @@ export const monthlyServices: GrowthService[] = [
         ],
       },
     ],
-    ctaText: "Ξεκίνα Social Content",
-    ctaHref: "/#contact",
+    ctaText: "Μάθε περισσότερα",
+    ctaHref: "/grow-your-business/social-media",
   },
   {
     id: "local-seo-monthly",
@@ -307,8 +307,8 @@ export const monthlyServices: GrowthService[] = [
       "Website ↔ Google Business optimization",
       "Review strategy",
     ],
-    ctaText: "Βελτίωσε το Local SEO",
-    ctaHref: "/#contact",
+    ctaText: "Μάθε περισσότερα",
+    ctaHref: "/grow-your-business/local-seo",
   },
 ];
 
@@ -353,8 +353,8 @@ export const oneTimeServices: GrowthService[] = [
       "Mobile performance check",
       "Performance report",
     ],
-    ctaText: "Βελτίωσε την ταχύτητα",
-    ctaHref: "/#contact",
+    ctaText: "Μάθε περισσότερα",
+    ctaHref: "/grow-your-business/speed-boost",
   },
   {
     id: "branding",
@@ -392,8 +392,8 @@ export const oneTimeServices: GrowthService[] = [
         ],
       },
     ],
-    ctaText: "Δημιούργησε το brand σου",
-    ctaHref: "/#contact",
+    ctaText: "Μάθε περισσότερα",
+    ctaHref: "/grow-your-business/branding",
   },
   {
     id: "professional-email",
@@ -412,8 +412,8 @@ export const oneTimeServices: GrowthService[] = [
       "Outlook / Gmail configuration",
       "Email verification",
     ],
-    ctaText: "Ρύθμισε το επαγγελματικό email",
-    ctaHref: "/#contact",
+    ctaText: "Μάθε περισσότερα",
+    ctaHref: "/grow-your-business/professional-email",
   },
   {
     id: "local-seo-setup",
@@ -433,8 +433,8 @@ export const oneTimeServices: GrowthService[] = [
       "Local SEO setup",
     ],
     notes: ["Η μηνιαία Local SEO υποστήριξη ξεκινά από 39€/μήνα μετά το setup."],
-    ctaText: "Βελτίωσε το Local SEO",
-    ctaHref: "/#contact",
+    ctaText: "Μάθε περισσότερα",
+    ctaHref: "/grow-your-business/local-seo",
   },
 ];
 
@@ -499,19 +499,31 @@ export const growthFaqItems: GrowthFaqItem[] = [
 
 export const growthPathHints: GrowthPathHint[] = [
   { need: "Χρειάζομαι μία αλλαγή", solution: "One-Time Fix", href: "#one-time-fix" },
-  { need: "Θέλω συχνές αλλαγές", solution: "Website Care", href: "#website-care" },
+  {
+    need: "Θέλω συχνές αλλαγές",
+    solution: "Website Care",
+    href: "/grow-your-business/website-care",
+  },
   { need: "Θέλω περισσότερη υποστήριξη", solution: "Care Pro", href: "#website-care-pro" },
   {
     need: "Θέλω η NEXUS να αναλαμβάνει συνεχώς το website",
     solution: "Dedicated Support",
     href: "#dedicated-support",
   },
-  { need: "Θέλω να ανέβω στη Google", solution: "SEO", href: "#seo" },
-  { need: "Θέλω Google Business / τοπική προβολή", solution: "Local SEO", href: "#local-seo-monthly" },
-  { need: "Θέλω καλύτερη ταχύτητα", solution: "Speed Boost", href: "#speed-boost" },
+  { need: "Θέλω να ανέβω στη Google", solution: "SEO", href: "/grow-your-business/seo" },
+  {
+    need: "Θέλω Google Business / τοπική προβολή",
+    solution: "Local SEO",
+    href: "/grow-your-business/local-seo",
+  },
+  {
+    need: "Θέλω καλύτερη ταχύτητα",
+    solution: "Speed Boost",
+    href: "/grow-your-business/speed-boost",
+  },
   {
     need: "Θέλω ολοκληρωμένη υποστήριξη + SEO",
     solution: "NEXUS Growth",
-    href: "#nexus-growth",
+    href: "/nexus-growth",
   },
 ];
