@@ -1,0 +1,277 @@
+.root {
+  --px-bg: 0px;
+  --py-bg: 0px;
+  --px-mid: 0px;
+  --py-mid: 0px;
+  --px-fg: 0px;
+  --py-fg: 0px;
+  --scroll-y: 0px;
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  /* No root z-index: layer z-indexes participate in the section stacking context
+     so FG leaves can pass over the portrait while copy/CTAs stay above. */
+}
+
+.glow {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 55% 50% at 82% 42%, rgba(245, 158, 11, 0.08), transparent 70%),
+    radial-gradient(ellipse 40% 35% at 92% 78%, rgba(234, 88, 12, 0.05), transparent 72%),
+    radial-gradient(ellipse 35% 30% at 8% 88%, rgba(245, 158, 11, 0.045), transparent 70%),
+    radial-gradient(ellipse 30% 28% at 70% 12%, rgba(234, 88, 12, 0.035), transparent 68%);
+}
+
+.glowStatic {
+  opacity: 0.7;
+}
+
+.wind {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.35;
+}
+
+.windPath {
+  fill: none;
+  stroke: rgba(180, 83, 9, 0.14);
+  stroke-width: 1.1;
+  stroke-linecap: round;
+  stroke-dasharray: 6 18;
+  animation: autumn-wind 14s linear infinite;
+}
+
+.windPathSlow {
+  stroke: rgba(217, 119, 6, 0.1);
+  animation-duration: 22s;
+  animation-direction: reverse;
+}
+
+.windPathSoft {
+  stroke: rgba(245, 158, 11, 0.08);
+  animation-duration: 18s;
+}
+
+.layer {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+}
+
+.layerBg {
+  transform: translate3d(var(--px-bg), calc(var(--py-bg) + var(--scroll-y) * 0.25), 0);
+  z-index: 1;
+}
+
+.layerMid {
+  transform: translate3d(var(--px-mid), calc(var(--py-mid) + var(--scroll-y) * 0.55), 0);
+  z-index: 2;
+}
+
+.layerFg {
+  transform: translate3d(var(--px-fg), calc(var(--py-fg) + var(--scroll-y) * 0.9), 0);
+  z-index: 12;
+}
+
+.leaf {
+  position: absolute;
+  top: -12%;
+  left: var(--leaf-left);
+  width: var(--leaf-size);
+  height: auto;
+  opacity: var(--leaf-opacity);
+  color: var(--leaf-color);
+  filter: blur(var(--leaf-blur));
+  transform: rotate(var(--leaf-rot)) scale(var(--leaf-scale));
+  animation-name: autumn-fall;
+  animation-duration: var(--leaf-duration);
+  animation-delay: var(--leaf-delay);
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  will-change: transform, opacity;
+}
+
+.leafSvg {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 1px 1px rgba(120, 53, 15, 0.12));
+}
+
+.isReduced .leaf {
+  animation: none !important;
+  top: var(--leaf-static-top, 18%);
+  opacity: calc(var(--leaf-opacity) * 0.55);
+}
+
+.isReduced .windPath,
+.isReduced .windPathSlow,
+.isReduced .windPathSoft {
+  animation: none !important;
+  opacity: 0.45;
+}
+
+.isReduced .layerBg,
+.isReduced .layerMid,
+.isReduced .layerFg {
+  transform: none;
+  will-change: auto;
+}
+
+@keyframes autumn-fall {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(var(--leaf-rot)) scale(var(--leaf-scale));
+    opacity: 0;
+  }
+  8% {
+    opacity: var(--leaf-opacity);
+  }
+  50% {
+    transform: translate3d(var(--leaf-drift), 55vh, 0)
+      rotate(calc(var(--leaf-rot) + var(--leaf-spin)))
+      scale(var(--leaf-scale));
+  }
+  92% {
+    opacity: var(--leaf-opacity);
+  }
+  100% {
+    transform: translate3d(calc(var(--leaf-drift) * -0.35), 110vh, 0)
+      rotate(calc(var(--leaf-rot) + var(--leaf-spin) * 1.8))
+      scale(calc(var(--leaf-scale) * 0.92));
+    opacity: 0;
+  }
+}
+
+@keyframes autumn-wind {
+  0% {
+    stroke-dashoffset: 0;
+    transform: translateX(-2%);
+  }
+  100% {
+    stroke-dashoffset: -120;
+    transform: translateX(3%);
+  }
+}
+
+/* Mobile: fewer leaves, less blur/glow */
+@media (max-width: 767px) {
+  .glow {
+    opacity: 0.55;
+    background:
+      radial-gradient(ellipse 50% 42% at 78% 40%, rgba(245, 158, 11, 0.055), transparent 72%),
+      radial-gradient(ellipse 36% 30% at 90% 82%, rgba(234, 88, 12, 0.035), transparent 74%);
+  }
+
+  .wind {
+    opacity: 0.18;
+  }
+
+  .leafMobileHide {
+    display: none;
+  }
+
+  .leaf {
+    filter: blur(calc(var(--leaf-blur) * 0.45));
+  }
+
+  .layerFg .leaf {
+    opacity: calc(var(--leaf-opacity) * 0.65);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .leaf {
+    animation: none !important;
+  }
+
+  .windPath,
+  .windPathSlow,
+  .windPathSoft {
+    animation: none !important;
+  }
+
+  .layerBg,
+  .layerMid,
+  .layerFg {
+    transform: none !important;
+    will-change: auto;
+  }
+}
+
+/* Soft accents for non-hero sections */
+.accentRoot {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.accentGlowSoft {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 45% 40% at 90% 20%, rgba(245, 158, 11, 0.045), transparent 70%),
+    radial-gradient(ellipse 35% 35% at 10% 85%, rgba(234, 88, 12, 0.03), transparent 72%);
+}
+
+.accentGlowWarm {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 50% 45% at 85% 30%, rgba(245, 158, 11, 0.055), transparent 68%),
+    radial-gradient(ellipse 40% 35% at 15% 90%, rgba(180, 83, 9, 0.03), transparent 70%);
+}
+
+.accentGlowCta {
+  position: absolute;
+  right: -8%;
+  bottom: -18%;
+  width: min(280px, 55vw);
+  height: min(220px, 40vw);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.07), transparent 70%);
+  filter: blur(8px);
+}
+
+.accentLeaf {
+  position: absolute;
+  width: var(--leaf-size, 18px);
+  opacity: var(--leaf-opacity, 0.22);
+  color: var(--leaf-color, #d97706);
+  filter: blur(0.4px);
+  animation: autumn-drift 16s ease-in-out infinite;
+  animation-delay: var(--leaf-delay, 0s);
+}
+
+@keyframes autumn-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(-12deg);
+  }
+  50% {
+    transform: translate3d(10px, 14px, 0) rotate(18deg);
+  }
+}
+
+@media (max-width: 767px) {
+  .accentLeaf {
+    opacity: calc(var(--leaf-opacity, 0.22) * 0.7);
+  }
+
+  .accentLeafHideMobile {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .accentLeaf {
+    animation: none !important;
+  }
+}

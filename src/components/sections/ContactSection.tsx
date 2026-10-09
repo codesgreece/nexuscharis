@@ -3,6 +3,7 @@
 import { FormEvent, useState } from "react";
 import { CheckCircle2, Clock3, Loader2, Mail, Phone, AlertCircle } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
+import { AutumnAccent } from "@/components/effects/AutumnAccent";
 import { formatPhoneDisplay } from "@/lib/utils";
 
 type Hours = { day: string; hours: string };
@@ -58,8 +59,9 @@ export function ContactSection({
   }
 
   return (
-    <section id="contact" className="bg-white py-12 sm:py-14 lg:py-16" aria-labelledby="contact-heading">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <section id="contact" className="relative overflow-hidden bg-white py-12 sm:py-14 lg:py-16" aria-labelledby="contact-heading">
+      <AutumnAccent variant="cta" />
+      <div className="relative z-[1] mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Reveal>
           <h2
             id="contact-heading"

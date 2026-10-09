@@ -1,5 +1,6 @@
 import { ArrowUpRight, Briefcase, Rocket, ShoppingBag, Store, User, UserRound } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
+import { AutumnAccent } from "@/components/effects/AutumnAccent";
 import cardStyles from "@/components/sections/AudienceSection.module.css";
 import networkStyles from "@/components/sections/AudienceNetwork.module.css";
 
@@ -92,6 +93,7 @@ export function AudienceSection() {
       aria-labelledby="audience-heading"
     >
       <AudienceNetworkDecor />
+      <AutumnAccent variant="audience" />
 
       <div className="relative z-[1] mx-auto max-w-[1320px] px-4 sm:px-6 lg:px-8">
         <Reveal>

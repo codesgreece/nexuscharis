@@ -1,6 +1,7 @@
 import { ArrowRight } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
 import { GreeceCoverageMap } from "@/components/sections/GreeceCoverageMap";
+import { AutumnAccent } from "@/components/effects/AutumnAccent";
 
 const serviceLine =
   "Website • E-Commerce • Landing Pages • Apps • Custom Digital Solutions";
@@ -16,8 +17,9 @@ export function CoverageSection() {
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(124,58,237,0.07),transparent_55%)]"
         aria-hidden="true"
       />
+      <AutumnAccent variant="coverage" />
 
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="relative z-[1] mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid items-center gap-7 lg:grid-cols-[1.2fr_0.8fr] lg:gap-8 xl:grid-cols-[1.25fr_0.75fr]">
           <Reveal>
             <p className="text-xs font-bold uppercase tracking-[0.18em] text-purple-primary">
