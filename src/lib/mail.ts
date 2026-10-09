@@ -142,25 +142,13 @@ async function sendViaSmtp(payload: ContactMailPayload): Promise<void> {
 }
 
 /**
- * Optional server-side notification when Resend or SMTP is configured.
- * Browser-side FormSubmit covers the default zero-config path.
+ * Sends a contact-form notification to the business inbox.
+ * Prefer SMTP (Outlook) when configured, otherwise Resend.
  */
 export async function sendContactNotification(
   payload: ContactMailPayload,
 ): Promise<{ sent: boolean; provider: MailProvider; error?: string }> {
-  if (process.env.RESEND_API_KEY?.trim()) {
-    try {
-      await sendViaResend(payload);
-      return { sent: true, provider: "resend" };
-    } catch (err) {
-      return {
-        sent: false,
-        provider: "resend",
-        error: err instanceof Error ? err.message : "Unknown Resend error",
-      };
-    }
-  }
-
+  // Prefer SMTP for Outlook.com destinations — no third-party domain verify needed.
   if (hasSmtpConfig()) {
     try {
       await sendViaSmtp(payload);
@@ -174,9 +162,23 @@ export async function sendContactNotification(
     }
   }
 
+  if (process.env.RESEND_API_KEY?.trim()) {
+    try {
+      await sendViaResend(payload);
+      return { sent: true, provider: "resend" };
+    } catch (err) {
+      return {
+        sent: false,
+        provider: "resend",
+        error: err instanceof Error ? err.message : "Unknown Resend error",
+      };
+    }
+  }
+
   return {
     sent: false,
     provider: "none",
-    error: "No server email provider configured (browser FormSubmit is used instead).",
+    error:
+      "No email provider configured. Set SMTP_HOST/SMTP_USER/SMTP_PASS (Outlook) or RESEND_API_KEY.",
   };
 }
