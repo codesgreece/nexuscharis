@@ -1,7 +1,7 @@
 import type { CSSProperties } from "react";
 import { cn } from "@/lib/utils";
 import styles from "@/components/effects/AutumnAtmosphere.module.css";
-import { LeafGlyph } from "@/components/effects/AutumnLeaves";
+import { BotanicalGlyph } from "@/components/effects/botanicals/BotanicalGlyphs";
 
 type AccentVariant = "services" | "audience" | "coverage" | "cta";
 
@@ -39,7 +39,7 @@ export function AutumnAccent({
               } as CSSProperties
             }
           >
-            <LeafGlyph variant={1} className={styles.leafSvg} />
+            <BotanicalGlyph kind="maple" color="#D97706" className={styles.leafSvg} />
           </span>
           <span
             className={styles.accentLeaf}
@@ -55,7 +55,7 @@ export function AutumnAccent({
               } as CSSProperties
             }
           >
-            <LeafGlyph variant={0} className={styles.leafSvg} />
+            <BotanicalGlyph kind="dried" color="#B45309" className={styles.leafSvg} />
           </span>
         </>
       )}

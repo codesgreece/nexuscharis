@@ -36,17 +36,16 @@ export function HeroSection({
   return (
     <section
       id="home"
-      className="relative overflow-hidden bg-white pt-20 sm:pt-[5.5rem]"
+      className="relative overflow-hidden bg-[#fff7ed]/40 pt-20 sm:pt-[5.5rem]"
       aria-labelledby="hero-heading"
     >
-      <div className="pointer-events-none absolute inset-0 bg-grid opacity-70" />
-      <div className="pointer-events-none absolute -right-20 top-16 h-[320px] w-[320px] rounded-full bg-[radial-gradient(circle,rgba(124,58,237,0.16),transparent_70%)]" />
+      {/* Full art-directed autumn scene: lighting, botanicals, wind, depth */}
       <AutumnAtmosphere />
 
       <div className="relative z-10 mx-auto grid max-w-7xl items-start gap-5 px-4 pb-7 sm:px-6 lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:gap-6 lg:px-8 lg:pb-9 lg:pt-1">
         <Reveal className="relative z-[11]">
           <div>
-            <span className="inline-flex items-center rounded-full border border-purple-primary/15 bg-lavender-soft px-3 py-1 text-xs font-semibold tracking-wide text-purple-deep">
+            <span className="inline-flex items-center rounded-full border border-purple-primary/15 bg-lavender-soft/90 px-3 py-1 text-xs font-semibold tracking-wide text-purple-deep shadow-[0_0_24px_-8px_rgba(109,40,217,0.25)]">
               {badge}
             </span>
 
@@ -64,23 +63,26 @@ export function HeroSection({
             <div className="mt-5 flex flex-wrap gap-2.5">
               <a
                 href={primaryCtaUrl}
-                className="inline-flex items-center gap-2 rounded-2xl bg-purple-primary px-5 py-2.5 text-sm font-semibold text-white shadow-[0_14px_34px_-14px_rgba(109,40,217,0.75)] transition-all hover:-translate-y-0.5 hover:bg-purple-bright focus-ring"
+                className="inline-flex items-center gap-2 rounded-2xl bg-purple-primary px-5 py-2.5 text-sm font-semibold text-white shadow-[0_14px_34px_-14px_rgba(109,40,217,0.75),0_0_28px_-10px_rgba(245,158,11,0.35)] transition-all hover:-translate-y-0.5 hover:bg-purple-bright hover:shadow-[0_18px_40px_-14px_rgba(109,40,217,0.8),0_0_32px_-8px_rgba(245,158,11,0.4)] focus-ring"
               >
                 {primaryCtaText}
                 <ArrowRight className="h-4 w-4" aria-hidden />
               </a>
               <a
                 href={secondaryCtaUrl}
-                className="inline-flex items-center gap-2 rounded-2xl border border-purple-primary/25 bg-white px-5 py-2.5 text-sm font-semibold text-purple-deep transition hover:bg-lavender-soft focus-ring"
+                className="inline-flex items-center gap-2 rounded-2xl border border-purple-primary/25 bg-white/90 px-5 py-2.5 text-sm font-semibold text-purple-deep backdrop-blur-[2px] transition hover:bg-lavender-soft focus-ring"
               >
                 {secondaryCtaText}
               </a>
             </div>
 
-            <div className="mt-5 grid max-w-xl grid-cols-1 gap-2.5 border-t border-border-soft pt-4 sm:grid-cols-3 sm:gap-0 sm:divide-x sm:divide-border-soft">
+            <div className="mt-5 grid max-w-xl grid-cols-1 gap-2.5 border-t border-border-soft/80 pt-4 sm:grid-cols-3 sm:gap-0 sm:divide-x sm:divide-border-soft/80">
               {stats.map((stat) => (
-                <div key={stat.label} className="sm:px-3 first:sm:pl-0 last:sm:pr-0">
-                  <div className="text-lg font-extrabold text-purple-deep sm:text-xl">
+                <div
+                  key={stat.label}
+                  className="rounded-xl sm:rounded-none sm:px-3 first:sm:pl-0 last:sm:pr-0"
+                >
+                  <div className="text-lg font-extrabold text-purple-deep [text-shadow:0_0_20px_rgba(245,158,11,0.18)] sm:text-xl">
                     {stat.value}
                   </div>
                   <div className="mt-0.5 text-[11px] leading-snug text-muted sm:text-xs">
@@ -96,18 +98,32 @@ export function HeroSection({
           delay={120}
           className="relative mx-auto w-full max-w-[280px] sm:max-w-[300px] lg:ml-auto lg:mr-4 lg:max-w-[300px]"
         >
-          <div className="relative">
-            <div className="pointer-events-none absolute -right-3 -top-4 h-24 w-36 rounded-full bg-[radial-gradient(circle,rgba(245,158,11,0.12),transparent_70%)] blur-md" aria-hidden="true" />
-            <HandwrittenSignature className="relative z-10 -mb-2 ml-0 w-[76%] max-w-[230px] sm:ml-1 sm:max-w-[250px]" />
-
-            <div className="purple-glow absolute -inset-5 top-8 -z-10 rounded-full blur-2xl" />
+          <div className="relative motion-safe:animate-[hero-portrait-float_7s_ease-in-out_infinite]">
+            {/* Signature warm ambient — purple stays dominant */}
             <div
-              className="pointer-events-none absolute -inset-6 top-10 -z-10 rounded-full bg-[radial-gradient(circle,rgba(245,158,11,0.1),transparent_68%)] blur-2xl"
+              className="pointer-events-none absolute -right-2 -top-3 h-28 w-40 rounded-full bg-[radial-gradient(circle,rgba(109,40,217,0.14),transparent_68%)] blur-md"
               aria-hidden="true"
             />
-            <div className="relative overflow-hidden rounded-[1.5rem] bg-gradient-to-br from-purple-primary/25 via-[#c4b5fd]/40 to-[rgba(245,158,11,0.22)] p-[1.5px] shadow-[0_24px_60px_-36px_rgba(76,29,149,0.45)]">
-              <div className="overflow-hidden rounded-[1.42rem] bg-gradient-to-br from-lavender-soft to-white p-1.5">
-                {/* Width-capped portrait keeps 4:5 ratio without driving ~2 viewport heights */}
+            <div
+              className="pointer-events-none absolute -right-4 -top-5 h-20 w-32 rounded-full bg-[radial-gradient(circle,rgba(245,158,11,0.1),transparent_70%)] blur-md"
+              aria-hidden="true"
+            />
+            <HandwrittenSignature className="relative z-10 -mb-2 ml-0 w-[76%] max-w-[230px] motion-safe:animate-[hero-signature-float_8s_ease-in-out_infinite] sm:ml-1 sm:max-w-[250px]" />
+
+            {/* Dual lighting: purple brand + warm autumn rim */}
+            <div className="purple-glow absolute -inset-5 top-8 -z-10 rounded-full blur-2xl" />
+            <div
+              className="pointer-events-none absolute -inset-7 top-6 -z-10 rounded-full bg-[radial-gradient(circle_at_70%_30%,rgba(245,158,11,0.16),transparent_58%)] blur-2xl"
+              aria-hidden="true"
+            />
+            <div
+              className="pointer-events-none absolute -bottom-4 -left-3 -z-10 h-28 w-28 rounded-full bg-[radial-gradient(circle,rgba(109,40,217,0.18),transparent_70%)] blur-xl"
+              aria-hidden="true"
+            />
+
+            {/* Thin glass frame: lavender → warm highlight */}
+            <div className="relative overflow-hidden rounded-[1.5rem] bg-gradient-to-br from-purple-primary/30 via-[#ddd6fe]/50 to-[rgba(245,158,11,0.28)] p-px shadow-[0_28px_64px_-34px_rgba(76,29,149,0.5),0_0_40px_-18px_rgba(245,158,11,0.28)]">
+              <div className="overflow-hidden rounded-[1.45rem] border border-white/60 bg-gradient-to-br from-white/95 via-lavender-soft/90 to-[#fff7ed]/80 p-1.5 backdrop-blur-[1px]">
                 <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[1.2rem]">
                   <Image
                     src={founderImageUrl}
@@ -117,6 +133,11 @@ export function HeroSection({
                     sizes="(max-width: 768px) 280px, 300px"
                     className="object-cover object-top"
                   />
+                  {/* Soft warm rim light — does not tint the B&W portrait */}
+                  <div
+                    className="pointer-events-none absolute inset-0 rounded-[1.2rem] shadow-[inset_0_0_28px_rgba(245,158,11,0.08),inset_0_0_1px_rgba(255,255,255,0.35)]"
+                    aria-hidden="true"
+                  />
                 </div>
               </div>
             </div>
@@ -124,7 +145,7 @@ export function HeroSection({
         </Reveal>
       </div>
 
-      <div className="relative z-10 border-t border-border-soft bg-lavender-light/60">
+      <div className="relative z-10 border-t border-border-soft/70 bg-lavender-light/50 backdrop-blur-[2px]">
         <p className="mx-auto max-w-7xl px-4 py-3 text-center text-xs font-semibold tracking-[0.08em] text-purple-deep/80 sm:px-6 lg:px-8">
           {trustLine}
         </p>

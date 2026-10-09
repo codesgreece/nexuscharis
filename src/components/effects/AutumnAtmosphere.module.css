@@ -1,3 +1,8 @@
+/* ============================================================
+   Hero autumn art direction — 5-level depth scene
+   L1 gradients · L2 botanicals · L3 grid/particles/wind · L4 content · L5 FG
+   ============================================================ */
+
 .root {
   --px-bg: 0px;
   --py-bg: 0px;
@@ -10,54 +15,173 @@
   position: absolute;
   inset: 0;
   overflow: hidden;
-  /* No root z-index: layer z-indexes participate in the section stacking context
-     so FG leaves can pass over the portrait while copy/CTAs stay above. */
 }
 
-.glow {
+/* —— LEVEL 1: atmospheric light —— */
+.lighting {
   position: absolute;
   inset: 0;
   z-index: 0;
   background:
-    radial-gradient(ellipse 55% 50% at 82% 42%, rgba(245, 158, 11, 0.08), transparent 70%),
-    radial-gradient(ellipse 40% 35% at 92% 78%, rgba(234, 88, 12, 0.05), transparent 72%),
-    radial-gradient(ellipse 35% 30% at 8% 88%, rgba(245, 158, 11, 0.045), transparent 70%),
-    radial-gradient(ellipse 30% 28% at 70% 12%, rgba(234, 88, 12, 0.035), transparent 68%);
+    /* warm golden afternoon light — top-right */
+    radial-gradient(ellipse 70% 55% at 88% 18%, rgba(245, 158, 11, 0.11), transparent 62%),
+    /* soft cream ivory wash */
+    radial-gradient(ellipse 80% 60% at 30% 0%, rgba(255, 247, 237, 0.55), transparent 58%),
+    /* purple brand ambient — left/brand area */
+    radial-gradient(ellipse 55% 50% at 12% 35%, rgba(109, 40, 217, 0.08), transparent 65%),
+    /* warm glow behind portrait zone */
+    radial-gradient(ellipse 48% 52% at 82% 48%, rgba(234, 88, 12, 0.07), transparent 68%),
+    /* low amber floor light */
+    radial-gradient(ellipse 60% 40% at 50% 100%, rgba(180, 83, 9, 0.05), transparent 70%),
+    /* soft lavender edge */
+    radial-gradient(ellipse 40% 45% at 100% 85%, rgba(196, 181, 253, 0.12), transparent 72%),
+    /* base soft white → cream */
+    linear-gradient(165deg, #ffffff 0%, #faf8ff 38%, #fff7ed 100%);
 }
 
-.glowStatic {
-  opacity: 0.7;
-}
-
-.wind {
+.grain {
   position: absolute;
   inset: 0;
   z-index: 0;
+  opacity: 0.035;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+}
+
+.gridSoft {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: 0.35;
+  mask-image: radial-gradient(ellipse 75% 70% at 40% 40%, #000 20%, transparent 78%);
+  -webkit-mask-image: radial-gradient(ellipse 75% 70% at 40% 40%, #000 20%, transparent 78%);
+  background-image:
+    linear-gradient(to right, rgba(109, 40, 217, 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(109, 40, 217, 0.045) 1px, transparent 1px);
+  background-size: 52px 52px;
+}
+
+/* —— LEVEL 2: static botanical silhouettes —— */
+.botanicalLayer {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  transform: translate3d(var(--px-bg), calc(var(--py-bg) + var(--scroll-y) * 0.2), 0);
+  will-change: transform;
+}
+
+.branch {
+  --branch-rot: 8deg;
+  --branch-sx: 1;
+  position: absolute;
+  top: -4%;
+  right: -6%;
+  width: min(340px, 42vw);
+  height: auto;
+  opacity: 0.28;
+  transform: rotate(var(--branch-rot)) scaleX(var(--branch-sx));
+  animation: branch-breathe 14s ease-in-out infinite;
+  filter: drop-shadow(0 4px 12px rgba(120, 53, 15, 0.08));
+}
+
+.branchBottom {
+  --branch-rot: -162deg;
+  --branch-sx: -1;
+  top: auto;
+  bottom: -8%;
+  right: -4%;
+  width: min(280px, 36vw);
+  opacity: 0.18;
+  animation-duration: 18s;
+  animation-delay: -4s;
+}
+
+.silhouette {
+  position: absolute;
+  opacity: 0.07;
+  filter: blur(2.5px);
+  animation: silhouette-drift 20s ease-in-out infinite;
+}
+
+.silhouetteA {
+  top: 12%;
+  left: -2%;
+  width: 72px;
+  animation-delay: -3s;
+}
+
+.silhouetteB {
+  top: 58%;
+  left: 38%;
+  width: 56px;
+  opacity: 0.05;
+  filter: blur(3.5px);
+  animation-delay: -9s;
+}
+
+.silhouetteC {
+  top: 8%;
+  right: 28%;
+  width: 48px;
+  opacity: 0.06;
+  filter: blur(2.8px);
+  animation-delay: -14s;
+}
+
+/* —— LEVEL 3: wind + particles —— */
+.wind {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
   width: 100%;
   height: 100%;
-  opacity: 0.35;
+  opacity: 0.4;
 }
 
 .windPath {
   fill: none;
-  stroke: rgba(180, 83, 9, 0.14);
-  stroke-width: 1.1;
+  stroke: rgba(255, 247, 237, 0.55);
+  stroke-width: 1;
   stroke-linecap: round;
-  stroke-dasharray: 6 18;
-  animation: autumn-wind 14s linear infinite;
+  stroke-dasharray: 4 22;
+  animation: autumn-wind 16s linear infinite;
 }
 
-.windPathSlow {
-  stroke: rgba(217, 119, 6, 0.1);
+.windPathAmber {
+  stroke: rgba(245, 158, 11, 0.14);
   animation-duration: 22s;
   animation-direction: reverse;
 }
 
-.windPathSoft {
-  stroke: rgba(245, 158, 11, 0.08);
-  animation-duration: 18s;
+.windPathLavender {
+  stroke: rgba(167, 139, 250, 0.16);
+  animation-duration: 19s;
 }
 
+.particles {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+
+.particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: rgba(245, 158, 11, 0.35);
+  filter: blur(0.5px);
+  animation: particle-float 12s ease-in-out infinite;
+}
+
+.particle:nth-child(odd) {
+  background: rgba(167, 139, 250, 0.28);
+  width: 2px;
+  height: 2px;
+}
+
+/* —— Motion layers —— */
 .layer {
   position: absolute;
   inset: 0;
@@ -65,23 +189,23 @@
 }
 
 .layerBg {
-  transform: translate3d(var(--px-bg), calc(var(--py-bg) + var(--scroll-y) * 0.25), 0);
-  z-index: 1;
+  transform: translate3d(var(--px-bg), calc(var(--py-bg) + var(--scroll-y) * 0.28), 0);
+  z-index: 2;
 }
 
 .layerMid {
   transform: translate3d(var(--px-mid), calc(var(--py-mid) + var(--scroll-y) * 0.55), 0);
-  z-index: 2;
+  z-index: 3;
 }
 
 .layerFg {
-  transform: translate3d(var(--px-fg), calc(var(--py-fg) + var(--scroll-y) * 0.9), 0);
+  transform: translate3d(var(--px-fg), calc(var(--py-fg) + var(--scroll-y) * 0.95), 0);
   z-index: 12;
 }
 
 .leaf {
   position: absolute;
-  top: -12%;
+  top: -14%;
   left: var(--leaf-left);
   width: var(--leaf-size);
   height: auto;
@@ -89,10 +213,10 @@
   color: var(--leaf-color);
   filter: blur(var(--leaf-blur));
   transform: rotate(var(--leaf-rot)) scale(var(--leaf-scale));
-  animation-name: autumn-fall;
+  animation-name: autumn-fall-curve;
   animation-duration: var(--leaf-duration);
   animation-delay: var(--leaf-delay);
-  animation-timing-function: linear;
+  animation-timing-function: cubic-bezier(0.33, 0.02, 0.45, 1);
   animation-iteration-count: infinite;
   will-change: transform, opacity;
 }
@@ -101,49 +225,62 @@
   display: block;
   width: 100%;
   height: auto;
-  filter: drop-shadow(0 1px 1px rgba(120, 53, 15, 0.12));
+  filter: drop-shadow(0 2px 3px rgba(120, 53, 15, 0.14));
 }
 
 .isReduced .leaf {
   animation: none !important;
   top: var(--leaf-static-top, 18%);
-  opacity: calc(var(--leaf-opacity) * 0.55);
+  opacity: calc(var(--leaf-opacity) * 0.5);
 }
 
 .isReduced .windPath,
-.isReduced .windPathSlow,
-.isReduced .windPathSoft {
+.isReduced .windPathAmber,
+.isReduced .windPathLavender,
+.isReduced .branch,
+.isReduced .branchBottom,
+.isReduced .silhouette,
+.isReduced .particle {
   animation: none !important;
-  opacity: 0.45;
 }
 
 .isReduced .layerBg,
 .isReduced .layerMid,
-.isReduced .layerFg {
+.isReduced .layerFg,
+.isReduced .botanicalLayer {
   transform: none;
   will-change: auto;
 }
 
-@keyframes autumn-fall {
+@keyframes autumn-fall-curve {
   0% {
     transform: translate3d(0, 0, 0) rotate(var(--leaf-rot)) scale(var(--leaf-scale));
     opacity: 0;
   }
-  8% {
+  6% {
     opacity: var(--leaf-opacity);
   }
-  50% {
-    transform: translate3d(var(--leaf-drift), 55vh, 0)
-      rotate(calc(var(--leaf-rot) + var(--leaf-spin)))
+  35% {
+    transform: translate3d(
+        calc(var(--leaf-drift) * 0.55 + var(--leaf-curve)),
+        38vh,
+        0
+      )
+      rotate(calc(var(--leaf-rot) + var(--leaf-spin) * 0.45))
       scale(var(--leaf-scale));
+  }
+  70% {
+    transform: translate3d(var(--leaf-drift), 72vh, 0)
+      rotate(calc(var(--leaf-rot) + var(--leaf-spin) * 1.1))
+      scale(calc(var(--leaf-scale) * 0.97));
   }
   92% {
     opacity: var(--leaf-opacity);
   }
   100% {
-    transform: translate3d(calc(var(--leaf-drift) * -0.35), 110vh, 0)
-      rotate(calc(var(--leaf-rot) + var(--leaf-spin) * 1.8))
-      scale(calc(var(--leaf-scale) * 0.92));
+    transform: translate3d(calc(var(--leaf-drift) * 0.35), 112vh, 0)
+      rotate(calc(var(--leaf-rot) + var(--leaf-spin) * 1.7))
+      scale(calc(var(--leaf-scale) * 0.9));
     opacity: 0;
   }
 }
@@ -151,56 +288,44 @@
 @keyframes autumn-wind {
   0% {
     stroke-dashoffset: 0;
-    transform: translateX(-2%);
+    transform: translateX(-1.5%);
   }
   100% {
-    stroke-dashoffset: -120;
-    transform: translateX(3%);
+    stroke-dashoffset: -140;
+    transform: translateX(2.5%);
   }
 }
 
-/* Mobile: fewer leaves, less blur/glow */
-@media (max-width: 767px) {
-  .glow {
+@keyframes branch-breathe {
+  0%,
+  100% {
+    transform: rotate(var(--branch-rot)) scaleX(var(--branch-sx)) translate3d(0, 0, 0);
+  }
+  50% {
+    transform: rotate(calc(var(--branch-rot) + 2deg)) scaleX(var(--branch-sx))
+      translate3d(-4px, 3px, 0);
+  }
+}
+
+@keyframes silhouette-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(8px, 10px, 0) rotate(4deg);
+  }
+}
+
+@keyframes particle-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+    opacity: 0.2;
+  }
+  50% {
+    transform: translate3d(6px, -14px, 0);
     opacity: 0.55;
-    background:
-      radial-gradient(ellipse 50% 42% at 78% 40%, rgba(245, 158, 11, 0.055), transparent 72%),
-      radial-gradient(ellipse 36% 30% at 90% 82%, rgba(234, 88, 12, 0.035), transparent 74%);
-  }
-
-  .wind {
-    opacity: 0.18;
-  }
-
-  .leafMobileHide {
-    display: none;
-  }
-
-  .leaf {
-    filter: blur(calc(var(--leaf-blur) * 0.45));
-  }
-
-  .layerFg .leaf {
-    opacity: calc(var(--leaf-opacity) * 0.65);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .leaf {
-    animation: none !important;
-  }
-
-  .windPath,
-  .windPathSlow,
-  .windPathSoft {
-    animation: none !important;
-  }
-
-  .layerBg,
-  .layerMid,
-  .layerFg {
-    transform: none !important;
-    will-change: auto;
   }
 }
 
@@ -246,32 +371,76 @@
   opacity: var(--leaf-opacity, 0.22);
   color: var(--leaf-color, #d97706);
   filter: blur(0.4px);
-  animation: autumn-drift 16s ease-in-out infinite;
+  animation: silhouette-drift 16s ease-in-out infinite;
   animation-delay: var(--leaf-delay, 0s);
 }
 
-@keyframes autumn-drift {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0) rotate(-12deg);
-  }
-  50% {
-    transform: translate3d(10px, 14px, 0) rotate(18deg);
-  }
-}
-
 @media (max-width: 767px) {
-  .accentLeaf {
-    opacity: calc(var(--leaf-opacity, 0.22) * 0.7);
+  .lighting {
+    background:
+      radial-gradient(ellipse 60% 45% at 85% 20%, rgba(245, 158, 11, 0.07), transparent 65%),
+      radial-gradient(ellipse 70% 50% at 20% 0%, rgba(255, 247, 237, 0.4), transparent 60%),
+      radial-gradient(ellipse 50% 45% at 10% 40%, rgba(109, 40, 217, 0.06), transparent 68%),
+      radial-gradient(ellipse 45% 40% at 80% 55%, rgba(234, 88, 12, 0.045), transparent 70%),
+      linear-gradient(165deg, #ffffff 0%, #faf8ff 45%, #fff7ed 100%);
   }
 
+  .grain {
+    opacity: 0.02;
+  }
+
+  .gridSoft {
+    opacity: 0.22;
+  }
+
+  .branch {
+    width: min(200px, 55vw);
+    opacity: 0.16;
+  }
+
+  .branchBottom,
+  .silhouetteB,
+  .silhouetteC,
+  .leafMobileHide,
   .accentLeafHideMobile {
+    display: none;
+  }
+
+  .wind {
+    opacity: 0.2;
+  }
+
+  .leaf {
+    filter: blur(calc(var(--leaf-blur) * 0.4));
+  }
+
+  .layerFg .leaf {
+    opacity: calc(var(--leaf-opacity) * 0.6);
+  }
+
+  .particles .particle:nth-child(n + 5) {
     display: none;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .leaf,
+  .windPath,
+  .windPathAmber,
+  .windPathLavender,
+  .branch,
+  .branchBottom,
+  .silhouette,
+  .particle,
   .accentLeaf {
     animation: none !important;
+  }
+
+  .layerBg,
+  .layerMid,
+  .layerFg,
+  .botanicalLayer {
+    transform: none !important;
+    will-change: auto;
   }
 }
