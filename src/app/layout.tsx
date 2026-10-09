@@ -77,8 +77,19 @@ export async function generateMetadata(): Promise<Metadata> {
     publisher: "NEXUS DEV STUDIO GREECE",
     applicationName: "NEXUS DEV STUDIO GREECE",
     category: "technology",
-    // Icons come from App Router file conventions:
-    // src/app/favicon.ico, icon.png, icon.svg, apple-icon.png
+    // App Router file conventions (src/app/favicon.ico, icon.png, apple-icon.png)
+    // plus stable public PNGs for Google / Safari discovery.
+    icons: {
+      icon: [
+        { url: "/favicon.ico", sizes: "48x48" },
+        { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+        { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+        { url: "/favicon-48x48.png", sizes: "48x48", type: "image/png" },
+        { url: "/icon.png", type: "image/png" },
+      ],
+      apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+      shortcut: ["/favicon.ico"],
+    },
     openGraph: {
       type: "website",
       locale: "el_GR",
@@ -150,7 +161,7 @@ function JsonLd() {
         url: `${site}/`,
         logo: {
           "@type": "ImageObject",
-          url: absoluteUrl("/images/logo.svg"),
+          url: absoluteUrl("/images/logo-mark.png"),
         },
         image: absoluteUrl("/images/founder.jpg"),
         email: "nexusdevstudio@outlook.com",
