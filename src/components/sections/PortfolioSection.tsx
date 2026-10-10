@@ -47,16 +47,37 @@ function PortfolioCardDecor() {
   );
 }
 
-function BrowserChrome({ title }: { title: string }) {
+function BrowserChrome({
+  title,
+  tabs,
+}: {
+  title: string;
+  /** Optional extra tab labels — kept compact so many can fit */
+  tabs?: string[];
+}) {
+  const tabLabels = (tabs?.length ? tabs : [title]).slice(0, 6);
+
   return (
     <div className="mb-5 overflow-hidden rounded-xl border border-soft-border bg-soft-cream/80">
-      <div className="flex items-center gap-1.5 border-b border-soft-border px-3 py-2">
-        <span className="h-2 w-2 rounded-full bg-muted-amber/70" />
-        <span className="h-2 w-2 rounded-full bg-purple-primary/35" />
-        <span className="h-2 w-2 rounded-full bg-purple-primary/20" />
-        <span className="ml-2 truncate rounded-md bg-warm-ivory px-2 py-0.5 text-[10px] font-medium text-muted">
-          {title}
-        </span>
+      <div className="flex items-center gap-1.5 border-b border-soft-border px-2.5 py-1.5">
+        <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-muted-amber/70" />
+        <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-purple-primary/35" />
+        <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-purple-primary/20" />
+        <div className="ml-1.5 flex min-w-0 flex-1 items-center gap-1 overflow-hidden">
+          {tabLabels.map((label, index) => (
+            <span
+              key={`${label}-${index}`}
+              className={
+                index === 0
+                  ? "max-w-[4.75rem] shrink-0 truncate rounded-md bg-warm-ivory px-1.5 py-0.5 text-[9px] font-medium leading-tight text-warm-charcoal ring-1 ring-soft-border sm:max-w-[5.5rem]"
+                  : "max-w-[4.25rem] shrink-0 truncate rounded-md bg-warm-ivory/55 px-1.5 py-0.5 text-[9px] font-medium leading-tight text-muted sm:max-w-[5rem]"
+              }
+              title={label}
+            >
+              {label}
+            </span>
+          ))}
+        </div>
       </div>
       <div className="relative flex h-24 items-end justify-center bg-gradient-to-br from-lavender/50 via-warm-ivory to-soft-cream px-4 pb-3 sm:h-28">
         <div className="w-full max-w-[11rem] rounded-lg border border-purple-primary/15 bg-warm-ivory/90 p-2.5 shadow-[0_8px_20px_-14px_rgba(65,42,66,0.25)]">
