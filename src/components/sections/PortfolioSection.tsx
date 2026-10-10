@@ -63,16 +63,15 @@ function BrowserChrome({
         <span className="h-1 w-1 shrink-0 rounded-full bg-muted-amber/70" />
         <span className="h-1 w-1 shrink-0 rounded-full bg-purple-primary/35" />
         <span className="h-1 w-1 shrink-0 rounded-full bg-purple-primary/20" />
-        <div className="ml-1 flex min-w-0 flex-1 items-center gap-0.5 overflow-hidden">
+        <div className="ml-1 flex min-w-0 flex-1 flex-wrap items-center gap-1 overflow-hidden">
           {tabLabels.map((label, index) => (
             <span
               key={`${label}-${index}`}
               className={
                 index === 0
-                  ? "max-w-[2.5rem] shrink-0 truncate rounded bg-warm-ivory px-1 py-px text-[7px] font-medium leading-none text-warm-charcoal ring-1 ring-soft-border sm:max-w-[3rem] sm:text-[8px]"
-                  : "max-w-[2.25rem] shrink-0 truncate rounded bg-warm-ivory/45 px-1 py-px text-[7px] font-medium leading-none text-muted sm:max-w-[2.75rem] sm:text-[8px]"
+                  ? "rounded bg-warm-ivory px-1.5 py-0.5 text-[9px] font-medium leading-tight text-warm-charcoal ring-1 ring-soft-border sm:text-[10px]"
+                  : "rounded bg-warm-ivory/50 px-1.5 py-0.5 text-[9px] font-medium leading-tight text-muted sm:text-[10px]"
               }
-              title={label}
             >
               {label}
             </span>
