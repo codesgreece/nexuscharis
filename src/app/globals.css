@@ -269,6 +269,35 @@ body {
   border: 1px solid rgba(232, 222, 211, 0.85);
 }
 
+/* Navbar link underline / active glow */
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 18%;
+  right: 18%;
+  bottom: 0.35rem;
+  height: 1.5px;
+  border-radius: 999px;
+  background: var(--purple-primary);
+  opacity: 0;
+  transform: scaleX(0.4);
+  transition:
+    opacity 0.22s ease,
+    transform 0.22s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .nav-link:not([aria-current="page"]):hover::after {
+    opacity: 0.55;
+    transform: scaleX(1);
+  }
+}
+
+.nav-link[aria-current="page"]::after,
+.nav-link[aria-expanded="true"]::after {
+  display: none;
+}
+
 .flip-card {
   perspective: 1000px;
 }
@@ -377,28 +406,20 @@ body {
   position: relative;
 }
 
-.process-track::before {
-  content: "";
-  pointer-events: none;
-  position: absolute;
-  top: 2.1rem;
-  left: 8%;
-  right: 8%;
-  height: 2px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(109, 40, 217, 0.25) 15%,
-    rgba(217, 154, 85, 0.35) 50%,
-    rgba(109, 40, 217, 0.25) 85%,
-    transparent
-  );
-  z-index: 0;
+.process-line-draw {
+  animation: process-draw 2.8s cubic-bezier(0.22, 1, 0.36, 1) 0.4s forwards;
 }
 
-@media (max-width: 1023px) {
-  .process-track::before {
-    display: none;
+@keyframes process-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .process-line-draw {
+    animation: none !important;
+    stroke-dashoffset: 0 !important;
   }
 }
 

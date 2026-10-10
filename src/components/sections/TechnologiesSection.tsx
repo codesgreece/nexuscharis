@@ -68,11 +68,24 @@ function TechCard({ item }: { item: TechItem }) {
 
 export function TechnologiesSection() {
   const [filter, setFilter] = useState<TechFilterId>("all");
+  const [showAll, setShowAll] = useState(false);
 
   const visible = useMemo(() => {
-    if (filter === "all") return TECHNOLOGIES;
-    return TECHNOLOGIES.filter((t) => t.category === filter);
-  }, [filter]);
+    const base =
+      filter === "all"
+        ? TECHNOLOGIES
+        : TECHNOLOGIES.filter((t) => t.category === filter);
+
+    if (filter === "all" && !showAll) {
+      return base.filter((t) => t.tier === "core");
+    }
+    return base;
+  }, [filter, showAll]);
+
+  const hiddenCount =
+    filter === "all" && !showAll
+      ? TECHNOLOGIES.filter((t) => t.tier === "additional").length
+      : 0;
 
   return (
     <section
@@ -88,6 +101,8 @@ export function TechnologiesSection() {
             "linear-gradient(to right, rgba(237,228,255,0.06) 1px, transparent 1px), linear-gradient(to bottom, rgba(237,228,255,0.06) 1px, transparent 1px)",
         }}
       />
+      <div className="pointer-events-none absolute -right-20 top-10 h-72 w-72 rounded-full bg-muted-amber/12 blur-3xl" />
+      <div className="pointer-events-none absolute -left-16 bottom-0 h-64 w-64 rounded-full bg-purple-electric/20 blur-3xl" />
 
       <div className="relative z-[1] mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Reveal>
@@ -137,12 +152,15 @@ export function TechnologiesSection() {
                   aria-controls="tech-grid"
                   id={`tech-filter-${item.id}`}
                   className={cn(
-                    "rounded-xl px-3.5 py-2 text-xs font-bold tracking-wide transition duration-300 focus-ring sm:text-sm",
+                    "min-h-10 rounded-full px-3.5 py-2 text-xs font-bold tracking-wide transition duration-300 focus-ring sm:text-sm",
                     active
-                      ? "bg-lavender text-purple-deep shadow-[0_10px_24px_-14px_rgba(237,228,255,0.4)]"
-                      : "border border-white/15 bg-white/5 text-lavender/80 hover:border-muted-amber/30 hover:bg-white/10",
+                      ? "bg-lavender text-purple-deep shadow-[0_0_22px_-6px_rgba(237,228,255,0.55)]"
+                      : "border border-white/15 bg-warm-ivory/8 text-lavender/80 hover:border-muted-amber/30 hover:bg-white/10",
                   )}
-                  onClick={() => setFilter(item.id)}
+                  onClick={() => {
+                    setFilter(item.id);
+                    setShowAll(false);
+                  }}
                 >
                   {item.label}
                 </button>
@@ -155,7 +173,7 @@ export function TechnologiesSection() {
           id="tech-grid"
           role="tabpanel"
           aria-labelledby={`tech-filter-${filter}`}
-          className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-7"
+          className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6"
         >
           {visible.map((item, i) => (
             <div
@@ -167,6 +185,18 @@ export function TechnologiesSection() {
             </div>
           ))}
         </div>
+
+        {hiddenCount > 0 ? (
+          <div className="mt-6 text-center">
+            <button
+              type="button"
+              className="min-h-11 rounded-full border border-white/20 bg-white/6 px-5 py-2.5 text-sm font-semibold text-lavender transition hover:bg-white/12 focus-ring"
+              onClick={() => setShowAll(true)}
+            >
+              Δες +{hiddenCount} additional technologies
+            </button>
+          </div>
+        ) : null}
 
         <Reveal delay={80}>
           <p className="mt-8 text-center text-sm text-lavender/55">

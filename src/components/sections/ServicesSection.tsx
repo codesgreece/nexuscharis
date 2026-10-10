@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
 import { AutumnAccent } from "@/components/effects/AutumnAccent";
 import { ServiceVisual } from "@/components/sections/ServiceVisuals";
@@ -15,34 +15,58 @@ type ServiceItem = {
   icon: string;
 };
 
-function FlipCard({ service }: { service: ServiceItem }) {
-  const [flipped, setFlipped] = useState(false);
+function ServiceShowcaseCard({ service }: { service: ServiceItem }) {
+  const [open, setOpen] = useState(false);
 
   return (
-    <button
-      type="button"
+    <article
       className={cn(
-        "flip-card h-[200px] w-full text-left focus-ring rounded-[1.25rem]",
-        flipped && "is-flipped",
+        "group relative flex h-full flex-col overflow-hidden rounded-[1.35rem] border border-soft-border bg-gradient-to-br from-warm-ivory to-soft-cream p-4 shadow-[0_14px_36px_-28px_rgba(65,42,66,0.18)] transition duration-300",
+        "hover:-translate-y-1 hover:border-purple-primary/35 hover:shadow-[0_22px_48px_-28px_rgba(109,40,217,0.28)]",
       )}
-      onClick={() => setFlipped((v) => !v)}
-      aria-pressed={flipped}
-      aria-label={`${service.title}. Πάτα για λεπτομέρειες.`}
     >
-      <div className="flip-card-inner">
-        <div className="flip-face border border-soft-border bg-gradient-to-br from-warm-ivory to-soft-cream p-5 shadow-[0_14px_36px_-28px_rgba(65,42,66,0.2)]">
-          <div className="flex h-14 w-full items-center justify-center rounded-2xl border border-purple-primary/10 bg-lavender/60 px-2">
-            <ServiceVisual icon={service.icon} className="h-9 w-14" />
-          </div>
-          <h3 className="mt-4 text-lg font-bold text-warm-charcoal">{service.title}</h3>
-          <p className="mt-2 text-sm text-muted">Πάτα ή hover για λεπτομέρειες</p>
+      <button
+        type="button"
+        className="w-full text-left focus-ring rounded-[1.1rem]"
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+        aria-label={`${service.title}. Πάτα για λεπτομέρειες.`}
+      >
+        <div className="relative flex h-[7.5rem] items-center justify-center overflow-hidden rounded-[1.1rem] border border-purple-primary/10 bg-lavender/50 px-3 transition duration-300 group-hover:bg-lavender/80">
+          <div
+            className="pointer-events-none absolute inset-0 opacity-0 transition duration-500 group-hover:opacity-100"
+            style={{
+              background:
+                "radial-gradient(ellipse at 70% 30%, rgba(109,40,217,0.12), transparent 55%)",
+            }}
+            aria-hidden
+          />
+          <ServiceVisual
+            icon={service.icon}
+            className="relative h-[4.75rem] w-[7.25rem] transition duration-500 group-hover:-translate-y-0.5 group-hover:scale-[1.03]"
+          />
         </div>
-        <div className="flip-face flip-back border border-purple-primary/20 bg-gradient-to-br from-purple-deep to-purple-primary p-6 text-white shadow-lg">
-          <h3 className="text-lg font-bold">{service.title}</h3>
-          <p className="mt-3 text-sm leading-relaxed text-white/90">{service.description}</p>
+
+        <div className="mt-4 flex items-start justify-between gap-2">
+          <h3 className="text-lg font-bold text-warm-charcoal">{service.title}</h3>
+          <ArrowUpRight
+            className="mt-0.5 h-4 w-4 shrink-0 text-purple-primary opacity-0 transition duration-300 group-hover:opacity-100"
+            aria-hidden
+          />
         </div>
-      </div>
-    </button>
+        <p
+          className={cn(
+            "mt-2 text-sm leading-relaxed text-muted transition-all",
+            open ? "line-clamp-none" : "line-clamp-2",
+          )}
+        >
+          {service.description}
+        </p>
+        <p className="mt-3 text-xs font-semibold text-purple-primary">
+          {open ? "Κλείσιμο λεπτομερειών" : "Περισσότερα"}
+        </p>
+      </button>
+    </article>
   );
 }
 
@@ -74,7 +98,7 @@ export function ServicesSection({ services }: { services: ServiceItem[] }) {
           </p>
         </Reveal>
 
-        <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {services.map((service, i) => (
             <Reveal
               key={service.id}
@@ -82,7 +106,7 @@ export function ServicesSection({ services }: { services: ServiceItem[] }) {
               className="scroll-mt-28"
               id={serviceAnchorId(service.title)}
             >
-              <FlipCard service={service} />
+              <ServiceShowcaseCard service={service} />
             </Reveal>
           ))}
         </div>
@@ -97,7 +121,7 @@ export function ServicesSection({ services }: { services: ServiceItem[] }) {
             </div>
             <a
               href="#contact"
-              className="cta-glow inline-flex items-center gap-2 rounded-full bg-gradient-to-br from-purple-primary to-purple-bright px-5 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 focus-ring"
+              className="cta-glow inline-flex min-h-11 items-center gap-2 rounded-full bg-gradient-to-br from-purple-primary to-purple-bright px-5 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 focus-ring"
             >
               Επικοινωνία για custom λύση
               <ArrowRight className="h-4 w-4" aria-hidden />

@@ -44,7 +44,7 @@ export const footerLegalLinks: FooterNavLink[] = [
   { href: "/services-terms", label: "Όροι Υπηρεσιών" },
 ];
 
-export const footerBrandLine = "Websites • E-Commerce • SEO • Digital Solutions";
+export const footerBrandLine = "Websites. Apps. Digital Growth.";
 
 export const footerCta = {
   title: "Έχεις ένα project στο μυαλό σου;",

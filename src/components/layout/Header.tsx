@@ -119,14 +119,22 @@ export function Header() {
     return activeHash === item.hash;
   };
 
+  const navItemClass = (active: boolean) =>
+    cn(
+      "nav-link relative inline-flex items-center gap-1 rounded-full px-2.5 py-2 text-xs font-medium transition-all duration-200 focus-ring xl:px-3 xl:text-[13px]",
+      active
+        ? "bg-lavender text-purple-deep shadow-[0_0_18px_-4px_rgba(109,40,217,0.45)]"
+        : "text-muted hover:text-purple-deep",
+    );
+
   return (
     <header
       ref={headerRef}
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-all duration-300",
         scrolled || mobileOpen
-          ? "border-b border-soft-border/80 bg-warm-ivory/90 shadow-[0_8px_30px_rgba(65,42,66,0.08)] backdrop-blur-xl"
-          : "bg-warm-ivory/70 backdrop-blur-md",
+          ? "border-b border-soft-border/70 bg-warm-ivory/85 shadow-[0_10px_36px_rgba(65,42,66,0.1)] backdrop-blur-xl"
+          : "border-b border-transparent bg-warm-ivory/55 backdrop-blur-md",
       )}
     >
       <div className="mx-auto flex h-[72px] max-w-7xl items-center justify-between gap-3 px-4 sm:px-6 lg:px-8">
@@ -140,6 +148,7 @@ export function Header() {
             if (item.kind === "services" || item.kind === "grow") {
               const isOpen = openMenu === item.kind;
               const menuId = item.kind === "services" ? servicesMenuId : growMenuId;
+              const active = linkActive(item) || isOpen;
               return (
                 <div
                   key={item.label}
@@ -149,15 +158,11 @@ export function Header() {
                 >
                   <button
                     type="button"
-                    className={cn(
-                      "inline-flex items-center gap-1 rounded-xl px-2 py-2 text-xs font-medium transition-colors focus-ring xl:px-2.5 xl:text-[13px]",
-                      linkActive(item) || isOpen
-                        ? "bg-lavender text-purple-deep"
-                        : "text-muted hover:text-purple-deep",
-                    )}
+                    className={navItemClass(active)}
                     aria-expanded={isOpen}
                     aria-haspopup="true"
                     aria-controls={menuId}
+                    aria-current={linkActive(item) ? "page" : undefined}
                     onClick={() => setOpenMenu(isOpen ? null : item.kind)}
                   >
                     {item.label}
@@ -281,16 +286,13 @@ export function Header() {
               );
             }
 
+            const active = linkActive(item);
             return (
               <a
                 key={item.href}
                 href={item.href}
-                className={cn(
-                  "rounded-xl px-2 py-2 text-xs font-medium transition-colors focus-ring xl:px-2.5 xl:text-[13px]",
-                  linkActive(item)
-                    ? "bg-lavender text-purple-deep"
-                    : "text-muted hover:text-purple-deep",
-                )}
+                className={navItemClass(active)}
+                aria-current={active ? "page" : undefined}
               >
                 {item.label}
               </a>

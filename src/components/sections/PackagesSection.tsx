@@ -30,6 +30,15 @@ function isQuotePrice(price: string) {
   return !/\d/.test(price) || /κατόπιν|προσφορ|συνεννόηση/i.test(price);
 }
 
+/** Visual hierarchy by package title — does not change prices or content. */
+function packageVariant(title: string, highlighted: boolean) {
+  const t = title.toLowerCase();
+  if (/business|e-?commerce|e‑commerce/.test(t)) return "business" as const;
+  if (/custom/.test(t)) return "custom" as const;
+  if (/professional/.test(t) || highlighted) return "professional" as const;
+  return "starter" as const;
+}
+
 export function PackagesSection({ packages }: { packages: PackageItem[] }) {
   const sectionRef = useRef<HTMLElement>(null);
   const [ready, setReady] = useState(false);
@@ -95,11 +104,19 @@ export function PackagesSection({ packages }: { packages: PackageItem[] }) {
           {packages.map((pkg, i) => {
             const features = asFeatures(pkg.features);
             const quote = isQuotePrice(pkg.price);
+            const variant = packageVariant(pkg.title, pkg.highlighted);
+            const strongCta = variant === "business" || pkg.highlighted;
 
             return (
               <Reveal key={pkg.id} delay={i * 65}>
                 <article
-                  className={cn(styles.card, pkg.highlighted && styles.cardFeatured)}
+                  className={cn(
+                    styles.card,
+                    variant === "starter" && styles.cardStarter,
+                    variant === "professional" && styles.cardProfessional,
+                    variant === "business" && styles.cardFeatured,
+                    variant === "custom" && styles.cardCustom,
+                  )}
                 >
                   {pkg.highlighted && (
                     <span className={styles.badge}>
@@ -156,7 +173,7 @@ export function PackagesSection({ packages }: { packages: PackageItem[] }) {
                     className={cn(
                       styles.cta,
                       "focus-ring",
-                      pkg.highlighted ? styles.ctaPrimary : styles.ctaSecondary,
+                      strongCta ? styles.ctaPrimary : styles.ctaSecondary,
                     )}
                   >
                     {pkg.ctaText}

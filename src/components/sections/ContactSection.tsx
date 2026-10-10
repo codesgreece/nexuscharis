@@ -58,15 +58,17 @@ export function ContactSection({
   }
 
   const inputClass =
-    "h-11 w-full rounded-xl border border-white/15 bg-white/8 px-3 text-sm text-warm-ivory outline-none transition placeholder:text-lavender/40 focus:border-muted-amber/50 focus:ring-2 focus:ring-muted-amber/20";
+    "h-11 w-full rounded-xl border border-soft-border bg-warm-ivory px-3 text-sm text-warm-charcoal outline-none transition placeholder:text-muted/60 focus:border-purple-primary/45 focus:ring-2 focus:ring-purple-primary/15";
 
   return (
     <section
       id="contact"
-      className="surface-deep section-texture relative overflow-hidden py-12 sm:py-14 lg:py-16"
+      className="surface-deep section-texture relative overflow-hidden py-14 sm:py-16 lg:py-20"
       aria-labelledby="contact-heading"
     >
-      {/* Connected-line graphics */}
+      <div className="pointer-events-none absolute -right-24 top-0 h-80 w-80 rounded-full bg-muted-amber/15 blur-3xl" />
+      <div className="pointer-events-none absolute -left-16 bottom-0 h-72 w-72 rounded-full bg-purple-electric/20 blur-3xl" />
+
       <svg
         className="pointer-events-none absolute inset-0 h-full w-full opacity-30"
         aria-hidden
@@ -96,67 +98,67 @@ export function ContactSection({
       </svg>
 
       <div className="relative z-[1] mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <Reveal>
-          <p className="text-xs font-bold uppercase tracking-[0.18em] text-muted-amber">
-            Contact
-          </p>
-          <h2
-            id="contact-heading"
-            className="mt-3 text-2xl font-extrabold tracking-tight text-warm-ivory sm:text-3xl"
-          >
-            Ας δημιουργήσουμε κάτι που λειτουργεί για την επιχείρησή σου.
-          </h2>
-          <p className="mt-4 max-w-2xl text-base leading-relaxed text-lavender/70">
-            Έχεις μια ιδέα, μια επιχείρηση που χρειάζεται καλύτερη ψηφιακή παρουσία ή ένα project
-            που θέλεις να μετατρέψουμε σε πραγματικότητα; Επικοινώνησε μαζί μου.
-          </p>
-        </Reveal>
-
-        <div className="mt-8 grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
+        <div className="grid items-start gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:gap-12">
           <Reveal>
-            <div className="space-y-4">
+            <p className="text-xs font-bold uppercase tracking-[0.18em] text-muted-amber">
+              Contact
+            </p>
+            <h2
+              id="contact-heading"
+              className="mt-3 text-3xl font-extrabold tracking-tight text-warm-ivory sm:text-4xl lg:text-[2.75rem] lg:leading-[1.15]"
+            >
+              Έχεις μια ιδέα;
+              <br />
+              Ας τη φτιάξουμε.
+            </h2>
+            <p className="mt-4 max-w-md text-base leading-relaxed text-lavender/70">
+              Έχεις μια επιχείρηση που χρειάζεται καλύτερη ψηφιακή παρουσία ή ένα project
+              που θέλεις να μετατρέψουμε σε πραγματικότητα; Επικοινώνησε μαζί μου.
+            </p>
+
+            <div className="mt-8 space-y-3">
               <a
                 href={`tel:${phone}`}
-                className="flex items-center gap-4 rounded-[1.25rem] border border-white/12 bg-white/6 p-5 transition hover:border-muted-amber/35 hover:bg-white/10 focus-ring"
+                className="flex min-h-11 items-center gap-4 rounded-2xl border border-white/12 bg-white/6 p-4 transition hover:border-muted-amber/35 hover:bg-white/10 focus-ring"
               >
-                <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-lavender/15 text-lavender">
+                <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-lavender/15 text-lavender">
                   <Phone className="h-5 w-5" />
                 </span>
                 <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-amber">
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-amber">
                     Τηλέφωνο
                   </p>
-                  <p className="mt-1 font-bold text-warm-ivory">{formatPhoneDisplay(phone)}</p>
+                  <p className="mt-0.5 font-bold text-warm-ivory">{formatPhoneDisplay(phone)}</p>
                 </div>
               </a>
 
               <a
                 href={`mailto:${email}`}
-                className="flex items-center gap-4 rounded-[1.25rem] border border-white/12 bg-white/6 p-5 transition hover:border-muted-amber/35 hover:bg-white/10 focus-ring"
+                className="flex min-h-11 items-center gap-4 rounded-2xl border border-white/12 bg-white/6 p-4 transition hover:border-muted-amber/35 hover:bg-white/10 focus-ring"
               >
-                <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-lavender/15 text-lavender">
+                <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-lavender/15 text-lavender">
                   <Mail className="h-5 w-5" />
                 </span>
                 <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-amber">
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-amber">
                     Email
                   </p>
-                  <p className="mt-1 font-bold text-warm-ivory">{email}</p>
+                  <p className="mt-0.5 font-bold text-warm-ivory">{email}</p>
                 </div>
               </a>
 
-              <div className="rounded-[1.25rem] border border-white/12 bg-white/6 p-5">
-                <div className="mb-4 flex items-center gap-3">
-                  <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-lavender/15 text-lavender">
+              <div className="rounded-2xl border border-white/12 bg-white/6 p-4">
+                <div className="mb-3 flex items-center gap-3">
+                  <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-lavender/15 text-lavender">
                     <Clock3 className="h-5 w-5" />
                   </span>
                   <p className="font-bold text-warm-ivory">Ώρες Επικοινωνίας</p>
                 </div>
-                <ul className="space-y-2">
+                <ul className="space-y-1.5">
                   {businessHours.map((item) => (
                     <li
                       key={item.day}
-                      className="flex items-start justify-between gap-3 border-b border-white/10 py-2 text-sm last:border-0"
+                      className="flex items-start justify-between gap-3 border-b border-white/10 py-1.5 text-sm last:border-0"
                     >
                       <span className="font-medium text-lavender">{item.day}</span>
                       <span className="text-right text-lavender/60">{item.hours}</span>
@@ -170,16 +172,23 @@ export function ContactSection({
           <Reveal delay={100}>
             <form
               onSubmit={onSubmit}
-              className="rounded-[1.5rem] border border-white/12 bg-white/8 p-5 shadow-[0_24px_60px_-36px_rgba(0,0,0,0.5)] backdrop-blur-sm sm:p-6"
+              className="rounded-[1.5rem] border border-white/20 bg-warm-ivory/95 p-5 shadow-[0_28px_64px_-36px_rgba(0,0,0,0.55)] backdrop-blur-md sm:p-7"
               noValidate
             >
-              <div className="grid gap-4 sm:grid-cols-2">
+              <p className="text-xs font-bold uppercase tracking-[0.16em] text-purple-primary">
+                Ζήτησε προσφορά
+              </p>
+              <p className="mt-1 text-sm text-muted">
+                Συμπλήρωσε τη φόρμα και θα επικοινωνήσω σύντομα μαζί σου.
+              </p>
+
+              <div className="mt-5 grid gap-4 sm:grid-cols-2">
                 <label className="block sm:col-span-1">
-                  <span className="mb-1.5 block text-sm font-semibold text-lavender">Όνομα</span>
+                  <span className="mb-1.5 block text-sm font-semibold text-warm-charcoal">Όνομα</span>
                   <input name="name" required autoComplete="name" className={inputClass} />
                 </label>
                 <label className="block">
-                  <span className="mb-1.5 block text-sm font-semibold text-lavender">Email</span>
+                  <span className="mb-1.5 block text-sm font-semibold text-warm-charcoal">Email</span>
                   <input
                     name="email"
                     type="email"
@@ -189,34 +198,30 @@ export function ContactSection({
                   />
                 </label>
                 <label className="block">
-                  <span className="mb-1.5 block text-sm font-semibold text-lavender">Τηλέφωνο</span>
+                  <span className="mb-1.5 block text-sm font-semibold text-warm-charcoal">Τηλέφωνο</span>
                   <input name="phone" type="tel" autoComplete="tel" className={inputClass} />
                 </label>
                 <label className="block">
-                  <span className="mb-1.5 block text-sm font-semibold text-lavender">Υπηρεσία</span>
+                  <span className="mb-1.5 block text-sm font-semibold text-warm-charcoal">Υπηρεσία</span>
                   <select name="service" className={inputClass} defaultValue="">
-                    <option value="" className="bg-purple-deep text-warm-ivory">
-                      Επίλεξε υπηρεσία
-                    </option>
+                    <option value="">Επίλεξε υπηρεσία</option>
                     {services.map((s) => (
-                      <option key={s.title} value={s.title} className="bg-purple-deep text-warm-ivory">
+                      <option key={s.title} value={s.title}>
                         {s.title}
                       </option>
                     ))}
-                    <option value="Custom" className="bg-purple-deep text-warm-ivory">
-                      Custom Project
-                    </option>
+                    <option value="Custom">Custom Project</option>
                   </select>
                 </label>
               </div>
 
               <label className="mt-4 block">
-                <span className="mb-1.5 block text-sm font-semibold text-lavender">Μήνυμα</span>
+                <span className="mb-1.5 block text-sm font-semibold text-warm-charcoal">Μήνυμα</span>
                 <textarea
                   name="message"
                   required
                   rows={5}
-                  className="w-full resize-y rounded-xl border border-white/15 bg-white/8 px-3 py-2.5 text-sm text-warm-ivory outline-none transition focus:border-muted-amber/50 focus:ring-2 focus:ring-muted-amber/20"
+                  className="w-full resize-y rounded-xl border border-soft-border bg-warm-ivory px-3 py-2.5 text-sm text-warm-charcoal outline-none transition focus:border-purple-primary/45 focus:ring-2 focus:ring-purple-primary/15"
                 />
               </label>
 
@@ -230,12 +235,12 @@ export function ContactSection({
               />
 
               <div className="mt-5 space-y-3">
-                <label className="flex items-start gap-3 text-sm leading-relaxed text-lavender/80">
+                <label className="flex items-start gap-3 text-sm leading-relaxed text-muted">
                   <input
                     type="checkbox"
                     name="privacyAccepted"
                     required
-                    className="mt-1 h-4 w-4 shrink-0 rounded border-white/20 bg-white/10 text-purple-primary focus:ring-muted-amber/30"
+                    className="mt-1 h-4 w-4 shrink-0 rounded border-soft-border text-purple-primary focus:ring-purple-primary/30"
                   />
                   <span>
                     Έχω διαβάσει και αποδέχομαι την{" "}
@@ -243,18 +248,18 @@ export function ContactSection({
                       href="/privacy"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="font-semibold text-muted-amber underline underline-offset-2 hover:text-lavender"
+                      className="font-semibold text-purple-deep underline underline-offset-2 hover:text-purple-primary"
                     >
                       Πολιτική Απορρήτου
                     </a>
                     .
                   </span>
                 </label>
-                <label className="flex items-start gap-3 text-sm leading-relaxed text-lavender/80">
+                <label className="flex items-start gap-3 text-sm leading-relaxed text-muted">
                   <input
                     type="checkbox"
                     name="marketingOptIn"
-                    className="mt-1 h-4 w-4 shrink-0 rounded border-white/20 bg-white/10 text-purple-primary focus:ring-muted-amber/30"
+                    className="mt-1 h-4 w-4 shrink-0 rounded border-soft-border text-purple-primary focus:ring-purple-primary/30"
                   />
                   <span>
                     Επιθυμώ να λαμβάνω ενημερώσεις και προσφορές από το NEXUS DEV STUDIO.
@@ -265,7 +270,7 @@ export function ContactSection({
 
               {status === "success" && (
                 <p
-                  className="mt-4 flex items-center gap-2 rounded-xl bg-green-500/15 px-3 py-2 text-sm text-green-300"
+                  className="mt-4 flex items-center gap-2 rounded-xl bg-green-50 px-3 py-2 text-sm text-green-700"
                   role="status"
                 >
                   <CheckCircle2 className="h-4 w-4" />
@@ -274,7 +279,7 @@ export function ContactSection({
               )}
               {status === "error" && (
                 <p
-                  className="mt-4 flex items-center gap-2 rounded-xl bg-red-500/15 px-3 py-2 text-sm text-red-300"
+                  className="mt-4 flex items-center gap-2 rounded-xl bg-red-50 px-3 py-2 text-sm text-red-700"
                   role="alert"
                 >
                   <AlertCircle className="h-4 w-4" />
@@ -285,7 +290,7 @@ export function ContactSection({
               <button
                 type="submit"
                 disabled={status === "loading"}
-                className="cta-glow mt-6 inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-br from-purple-primary to-purple-bright px-5 py-3.5 text-sm font-semibold text-white transition hover:-translate-y-0.5 focus-ring disabled:opacity-60"
+                className="cta-glow mt-6 inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-br from-purple-primary to-purple-bright px-5 py-3.5 text-sm font-semibold text-white transition hover:-translate-y-0.5 focus-ring disabled:opacity-60"
               >
                 {status === "loading" ? (
                   <>

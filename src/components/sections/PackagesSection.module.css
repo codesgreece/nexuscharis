@@ -72,15 +72,42 @@
     box-shadow 0.28s ease;
 }
 
-.cardFeatured {
-  border: 1.5px solid rgba(109, 40, 217, 0.35);
+.cardStarter {
+  background: linear-gradient(180deg, #fffcf7 0%, #f5ede3 100%);
+}
+
+.cardProfessional {
+  border-color: rgba(109, 40, 217, 0.22);
   background:
-    radial-gradient(ellipse 70% 50% at 90% 0%, rgba(217, 154, 85, 0.16), transparent 55%),
+    radial-gradient(ellipse 70% 45% at 100% 0%, rgba(237, 228, 255, 0.95), transparent 55%),
+    linear-gradient(165deg, #f8f4ff 0%, #ede4ff 55%, #fffcf7 100%);
+  box-shadow:
+    0 16px 36px -26px rgba(109, 40, 217, 0.28),
+    0 0 0 1px rgba(109, 40, 217, 0.04);
+}
+
+.cardCustom {
+  border-style: dashed;
+  border-color: rgba(109, 40, 217, 0.28);
+  background: linear-gradient(180deg, #fffcf7 0%, #fff 100%);
+}
+
+.cardFeatured {
+  border: 1.5px solid rgba(109, 40, 217, 0.45);
+  background:
+    radial-gradient(ellipse 70% 50% at 90% 0%, rgba(217, 154, 85, 0.18), transparent 55%),
     linear-gradient(165deg, #2e1a4a 0%, #241535 55%, #1a0f28 100%);
   color: #fffcf7;
   box-shadow:
-    0 22px 48px -28px rgba(36, 21, 53, 0.55),
-    0 0 0 1px rgba(237, 228, 255, 0.06);
+    0 28px 56px -28px rgba(36, 21, 53, 0.65),
+    0 0 40px -12px rgba(109, 40, 217, 0.45);
+}
+
+@media (min-width: 1100px) {
+  .cardFeatured {
+    transform: scale(1.03);
+    z-index: 1;
+  }
 }
 
 .cardFeatured h3,
