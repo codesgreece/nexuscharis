@@ -69,8 +69,8 @@ function BrowserChrome({
               key={`${label}-${index}`}
               className={
                 index === 0
-                  ? "max-w-[2.5rem] shrink-0 truncate rounded px-1 py-px text-[7px] font-medium leading-none text-warm-charcoal ring-1 ring-soft-border sm:max-w-[3rem] sm:text-[8px]"
-                  : "max-w-[2.25rem] shrink-0 truncate rounded bg-warm-ivory/50 px-1 py-px text-[7px] font-medium leading-none text-muted sm:max-w-[2.75rem] sm:text-[8px]"
+                  ? "max-w-[2.5rem] shrink-0 truncate rounded bg-warm-ivory px-1 py-px text-[7px] font-medium leading-none text-warm-charcoal ring-1 ring-soft-border sm:max-w-[3rem] sm:text-[8px]"
+                  : "max-w-[2.25rem] shrink-0 truncate rounded bg-warm-ivory/45 px-1 py-px text-[7px] font-medium leading-none text-muted sm:max-w-[2.75rem] sm:text-[8px]"
               }
               title={label}
             >
