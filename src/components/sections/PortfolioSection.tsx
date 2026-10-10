@@ -58,8 +58,8 @@ function BrowserChrome({
   const tabLabels = (tabs?.length ? tabs : [title]).slice(0, 6);
 
   return (
-    <div className="mb-5 overflow-hidden rounded-xl border border-soft-border bg-soft-cream/80">
-      <div className="flex items-center gap-1 border-b border-soft-border px-2 py-1">
+    <div className="mb-3 overflow-hidden rounded-lg border border-soft-border bg-soft-cream/80">
+      <div className="flex items-center gap-1 border-b border-soft-border px-1.5 py-0.5">
         <span className="h-1 w-1 shrink-0 rounded-full bg-muted-amber/70" />
         <span className="h-1 w-1 shrink-0 rounded-full bg-purple-primary/35" />
         <span className="h-1 w-1 shrink-0 rounded-full bg-purple-primary/20" />
@@ -79,12 +79,12 @@ function BrowserChrome({
           ))}
         </div>
       </div>
-      <div className="relative flex h-24 items-end justify-center bg-gradient-to-br from-lavender/50 via-warm-ivory to-soft-cream px-4 pb-3 sm:h-28">
-        <div className="w-full max-w-[11rem] rounded-lg border border-purple-primary/15 bg-warm-ivory/90 p-2.5 shadow-[0_8px_20px_-14px_rgba(65,42,66,0.25)]">
-          <div className="h-2 w-2/3 rounded bg-purple-primary/25" />
-          <div className="mt-1.5 h-1.5 w-full rounded bg-soft-border" />
-          <div className="mt-1 h-1.5 w-4/5 rounded bg-soft-border" />
-          <div className="mt-2 h-5 w-16 rounded-md bg-muted-amber/50" />
+      <div className="relative flex h-14 items-end justify-center bg-gradient-to-br from-lavender/50 via-warm-ivory to-soft-cream px-3 pb-2 sm:h-16">
+        <div className="w-full max-w-[7.5rem] rounded-md border border-purple-primary/15 bg-warm-ivory/90 p-1.5 shadow-[0_6px_14px_-12px_rgba(65,42,66,0.25)]">
+          <div className="h-1.5 w-2/3 rounded bg-purple-primary/25" />
+          <div className="mt-1 h-1 w-full rounded bg-soft-border" />
+          <div className="mt-0.5 h-1 w-4/5 rounded bg-soft-border" />
+          <div className="mt-1.5 h-3.5 w-12 rounded bg-muted-amber/50" />
         </div>
       </div>
     </div>
@@ -128,7 +128,7 @@ export function PortfolioSection({ projects }: { projects: Project[] }) {
             </div>
           </Reveal>
         ) : (
-          <div className="mt-8 grid gap-6 md:grid-cols-2 md:gap-8">
+          <div className="mt-6 grid gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
             {projects.map((project, i) => {
               const number = formatProjectNumber(i);
               const tags = getProjectTags(project);
@@ -136,7 +136,7 @@ export function PortfolioSection({ projects }: { projects: Project[] }) {
               const hasCaseStudy = isSafeExternalUrl(project.caseStudyUrl);
 
               return (
-                <Reveal key={project.id} delay={i * 80}>
+                <Reveal key={project.id} delay={i * 60}>
                   <article className="portfolio-card group">
                     <div className="portfolio-card-glow" aria-hidden />
                     <PortfolioCardDecor />
@@ -145,12 +145,12 @@ export function PortfolioSection({ projects }: { projects: Project[] }) {
                     </span>
 
                     <div className="relative z-10 flex h-full min-h-0 flex-col">
-                      <div className="flex items-start justify-between gap-4">
+                      <div className="flex items-start justify-between gap-2">
                         <span className="portfolio-card-index">{number}</span>
                         <span className="portfolio-card-category">{project.category}</span>
                       </div>
 
-                      <div className="mt-5 flex-1 sm:mt-6">
+                      <div className="mt-3 flex-1">
                         <BrowserChrome title={project.title} />
                         <h3 className="portfolio-card-title">{project.title}</h3>
                         {project.description?.trim() ? (
@@ -168,7 +168,7 @@ export function PortfolioSection({ projects }: { projects: Project[] }) {
                         </ul>
                       ) : null}
 
-                      <div className="mt-8 flex flex-col gap-3 sm:mt-10">
+                      <div className="mt-4 flex flex-col gap-2">
                         {hasLive ? (
                           <a
                             href={project.liveUrl!}
@@ -178,7 +178,7 @@ export function PortfolioSection({ projects }: { projects: Project[] }) {
                           >
                             <span>View Live Project</span>
                             <ArrowUpRight
-                              className="portfolio-card-cta-arrow h-5 w-5 shrink-0"
+                              className="portfolio-card-cta-arrow h-3.5 w-3.5 shrink-0"
                               aria-hidden
                             />
                           </a>
@@ -191,7 +191,7 @@ export function PortfolioSection({ projects }: { projects: Project[] }) {
                             className="portfolio-card-secondary focus-ring"
                           >
                             Case Study
-                            <ArrowUpRight className="h-3.5 w-3.5" aria-hidden />
+                            <ArrowUpRight className="h-3 w-3" aria-hidden />
                           </a>
                         ) : null}
                       </div>
