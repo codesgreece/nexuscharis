@@ -75,16 +75,16 @@ export function HeroSection({
               </a>
             </div>
 
-            <div className="mt-5 grid max-w-xl grid-cols-1 gap-2.5 border-t border-soft-border/80 pt-4 sm:grid-cols-3 sm:gap-0 sm:divide-x sm:divide-soft-border/80">
+            <div className="mt-5 grid max-w-xl grid-cols-3 gap-2.5">
               {stats.map((stat) => (
                 <div
                   key={stat.label}
-                  className="rounded-xl sm:rounded-none sm:px-3 first:sm:pl-0 last:sm:pr-0"
+                  className="rounded-2xl border border-soft-border/80 bg-gradient-to-b from-warm-ivory to-soft-cream/80 px-2.5 py-3 text-center shadow-[0_8px_24px_-20px_rgba(65,42,66,0.2)] sm:px-3"
                 >
-                  <div className="text-lg font-extrabold text-purple-deep [text-shadow:0_0_20px_rgba(217,154,85,0.18)] sm:text-xl">
+                  <div className="text-xl font-extrabold tracking-tight text-purple-deep [text-shadow:0_0_22px_rgba(109,40,217,0.22)] sm:text-2xl">
                     {stat.value}
                   </div>
-                  <div className="mt-0.5 text-[11px] leading-snug text-muted sm:text-xs">
+                  <div className="mt-1 text-[10px] font-semibold leading-snug text-muted sm:text-[11px]">
                     {stat.label}
                   </div>
                 </div>

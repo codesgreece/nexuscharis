@@ -39,19 +39,30 @@
     background-color 0.28s ease;
 }
 
-.iconWrap {
-  display: inline-flex;
-  height: 3.4rem;
-  width: 4.5rem;
+.visual {
+  display: flex;
+  height: 5.25rem;
+  width: 100%;
   align-items: center;
   justify-content: center;
-  border-radius: 0.95rem;
-  background: color-mix(in srgb, var(--lavender) 70%, white);
+  border-radius: 1rem;
+  background:
+    radial-gradient(ellipse 70% 60% at 80% 20%, rgba(217, 154, 85, 0.12), transparent 55%),
+    linear-gradient(160deg, #ede4ff 0%, #fffcf7 100%);
   border: 1px solid color-mix(in srgb, var(--purple-primary) 12%, transparent);
   transition:
     transform 0.26s cubic-bezier(0.22, 1, 0.36, 1),
     background-color 0.26s ease,
     box-shadow 0.26s ease;
+}
+
+.category {
+  margin-top: 1rem;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--purple-primary);
 }
 
 .arrow {
@@ -85,9 +96,9 @@
       0 0 0 1px rgba(109, 40, 217, 0.04);
   }
 
-  .card:hover .iconWrap {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 18px -10px rgba(109, 40, 217, 0.35);
+  .card:hover .visual {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 10px 22px -12px rgba(109, 40, 217, 0.4);
   }
 
   .card:hover .arrow {
@@ -103,7 +114,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .card,
-  .iconWrap,
+  .visual,
   .arrow {
     transition: none !important;
   }
@@ -112,7 +123,7 @@
     transform: none;
   }
 
-  .card:hover .iconWrap {
+  .card:hover .visual {
     transform: none;
   }
 }

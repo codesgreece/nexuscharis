@@ -148,20 +148,23 @@ export function Footer({
   const socialLinks = buildSocialLinks(social);
 
   return (
-    <footer className="surface-charcoal border-t border-white/8">
+    <footer className="surface-deep border-t border-white/8">
       <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-12 lg:px-8">
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-5 lg:gap-6 xl:gap-8">
           <div className="sm:col-span-2 lg:col-span-1">
             <Logo href="/" tone="light" />
-            <p className="mt-4 max-w-xs text-sm leading-relaxed text-lavender/65">{tagline}</p>
-            <p className="mt-3 text-xs font-semibold leading-relaxed text-muted-amber/90">
+            <p className="mt-3 text-[11px] font-bold uppercase tracking-[0.16em] text-muted-amber">
+              NEXUS DEV STUDIO · GREECE
+            </p>
+            <p className="mt-3 max-w-xs text-sm font-semibold leading-relaxed text-warm-ivory">
               {footerBrandLine}
             </p>
+            <p className="mt-2 max-w-xs text-sm leading-relaxed text-lavender/60">{tagline}</p>
             <p className="sr-only">{siteName}</p>
             <SocialIconLinks items={socialLinks} className="mt-5" />
           </div>
 
-          <FooterColumn title="Πλοήγηση">
+          <FooterColumn title="Navigation">
             <ul className="mt-3.5 space-y-2">
               {footerNavigationLinks.map((link) => (
                 <li key={link.href}>
@@ -171,7 +174,7 @@ export function Footer({
             </ul>
           </FooterColumn>
 
-          <FooterColumn title="Υπηρεσίες">
+          <FooterColumn title="Services">
             <ul className="mt-3.5 space-y-2">
               {footerServiceLinks.map((link) => (
                 <li key={`${link.label}-${link.href}`}>
@@ -181,8 +184,14 @@ export function Footer({
             </ul>
           </FooterColumn>
 
-          <FooterColumn title="Νομικά">
+          <FooterColumn title="Company">
             <ul className="mt-3.5 space-y-2">
+              <li>
+                <FooterTextLink href="/#about" label="Σχετικά" />
+              </li>
+              <li>
+                <FooterTextLink href="/#faq" label="FAQ" />
+              </li>
               {footerLegalLinks.map((link) => (
                 <li key={link.href}>
                   <FooterTextLink {...link} />
@@ -194,12 +203,12 @@ export function Footer({
             </ul>
           </FooterColumn>
 
-          <FooterColumn title="Επικοινωνία">
+          <FooterColumn title="Contact">
             <ul className="mt-3.5 space-y-2.5">
               <li>
                 <a
                   href={`tel:${phone}`}
-                  className="inline-flex items-center gap-2 rounded text-sm text-lavender/65 transition-colors duration-200 hover:text-lavender focus-ring"
+                  className="inline-flex min-h-11 items-center gap-2 rounded text-sm text-lavender/65 transition-colors duration-200 hover:text-lavender focus-ring"
                 >
                   <Phone className="h-4 w-4 shrink-0 text-muted-amber" aria-hidden />
                   <span>{formatPhoneDisplay(phone)}</span>
@@ -208,7 +217,7 @@ export function Footer({
               <li>
                 <a
                   href={`mailto:${email}`}
-                  className="inline-flex items-center gap-2 rounded text-sm text-lavender/65 transition-colors duration-200 hover:text-lavender focus-ring"
+                  className="inline-flex min-h-11 items-center gap-2 rounded text-sm text-lavender/65 transition-colors duration-200 hover:text-lavender focus-ring"
                 >
                   <Mail className="h-4 w-4 shrink-0 text-muted-amber" aria-hidden />
                   <span className="break-all">{email}</span>
@@ -216,12 +225,12 @@ export function Footer({
               </li>
             </ul>
 
-            <div className="mt-5 rounded-2xl border border-white/12 bg-white/6 p-4">
+            <div className="mt-5 rounded-2xl border border-white/12 bg-white/6 p-4 backdrop-blur-sm">
               <p className="text-sm font-bold text-warm-ivory">{footerCta.title}</p>
               <p className="mt-1.5 text-xs leading-relaxed text-lavender/60">{footerCta.body}</p>
               <a
                 href={footerCta.href}
-                className="cta-glow mt-3.5 inline-flex w-full items-center justify-center rounded-2xl bg-gradient-to-br from-purple-primary to-purple-bright px-4 py-2.5 text-sm font-semibold text-white transition duration-200 hover:-translate-y-0.5 focus-ring"
+                className="cta-glow mt-3.5 inline-flex min-h-11 w-full items-center justify-center rounded-2xl bg-gradient-to-br from-purple-primary to-purple-bright px-4 py-2.5 text-sm font-semibold text-white transition duration-200 hover:-translate-y-0.5 focus-ring"
               >
                 {footerCta.button}
               </a>

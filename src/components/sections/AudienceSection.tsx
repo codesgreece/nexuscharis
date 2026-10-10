@@ -9,31 +9,37 @@ import networkStyles from "@/components/sections/AudienceNetwork.module.css";
 
 const audiences = [
   {
+    category: "Small Businesses",
     title: "Μικρές Επιχειρήσεις",
     description:
       "Δημιουργούμε επαγγελματικές ιστοσελίδες που βοηθούν μια μικρή επιχείρηση να αποκτήσει σύγχρονη και αξιόπιστη παρουσία στο διαδίκτυο.",
   },
   {
+    category: "Freelancers",
     title: "Ελεύθεροι Επαγγελματίες",
     description:
       "Personal websites, portfolios και landing pages που παρουσιάζουν σωστά τις υπηρεσίες και την προσωπική επαγγελματική ταυτότητα.",
   },
   {
+    category: "E-Commerce",
     title: "Καταστήματα & E-Commerce",
     description:
       "Σύγχρονα e-shops σχεδιασμένα για εύκολη πλοήγηση, προϊόντα, παραγγελίες και μια καλύτερη εμπειρία αγοράς.",
   },
   {
+    category: "Service Businesses",
     title: "Επιχειρήσεις Υπηρεσιών",
     description:
       "Ιστοσελίδες που παρουσιάζουν ξεκάθαρα τις υπηρεσίες μιας επιχείρησης και κάνουν την επικοινωνία με τον πελάτη πιο εύκολη.",
   },
   {
+    category: "Startups",
     title: "Startups & Νέα Projects",
     description:
       "Από την αρχική ιδέα μέχρι ένα ολοκληρωμένο digital product, δημιουργούμε custom λύσεις σύμφωνα με τις ανάγκες κάθε project.",
   },
   {
+    category: "Personal Brands",
     title: "Προσωπικά Brands",
     description:
       "Portfolio websites και προσωπικές ψηφιακές παρουσίες που δημιουργούν μια ξεχωριστή και επαγγελματική εικόνα.",
@@ -119,13 +125,14 @@ export function AudienceSection() {
                       <ArrowUpRight className="h-3.5 w-3.5" />
                     </span>
 
-                    <div className={cardStyles.iconWrap}>
+                    <div className={cardStyles.visual}>
                       {Illust ? (
-                        <Illust className="h-10 w-[3.25rem]" />
+                        <Illust className="h-14 w-[5.5rem]" />
                       ) : null}
                     </div>
 
-                    <h3 className="mt-4 pr-8 text-[1.05rem] font-bold leading-snug text-warm-charcoal">
+                    <p className={cardStyles.category}>{item.category}</p>
+                    <h3 className="mt-1.5 pr-8 text-[1.05rem] font-bold leading-snug text-warm-charcoal">
                       {item.title}
                     </h3>
                     <p className="mt-1.5 text-sm leading-relaxed text-muted">
