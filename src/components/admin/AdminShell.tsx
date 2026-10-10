@@ -24,6 +24,7 @@ import {
   Menu,
   BadgePercent,
   Bell,
+  Briefcase,
   RectangleHorizontal,
   Scale,
 } from "lucide-react";
@@ -60,6 +61,13 @@ const NAV: NavGroup[] = [
       { href: "/admin/offers", label: "Offers", icon: BadgePercent },
       { href: "/admin/popups", label: "Popups", icon: Bell },
       { href: "/admin/advertisements", label: "Advertisements", icon: Megaphone },
+    ],
+  },
+  {
+    title: "Careers",
+    items: [
+      { href: "/admin/careers", label: "Careers", icon: Briefcase },
+      { href: "/admin/careers/applications", label: "Applications", icon: MessageSquare },
     ],
   },
   {

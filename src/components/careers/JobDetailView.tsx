@@ -4,38 +4,46 @@ import { ApplicationForm } from "@/components/careers/ApplicationForm";
 import { Reveal } from "@/components/ui/Reveal";
 import type { Job } from "@/content/jobs";
 
-function BulletList({ items }: { items: string[] }) {
+function RichBlock({ html }: { html: string }) {
+  if (!html?.trim()) return null;
   return (
-    <ul className="mt-3 space-y-2.5">
-      {items.map((item) => (
-        <li key={item} className="flex items-start gap-2.5 text-sm leading-relaxed text-muted">
-          <span
-            className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-purple-primary shadow-[0_0_0_3px_rgba(109,40,217,0.12)]"
-            aria-hidden
-          />
-          <span>{item}</span>
-        </li>
-      ))}
-    </ul>
+    <div
+      className="careers-prose mt-3 text-sm leading-relaxed text-muted sm:text-base [&_a]:font-semibold [&_a]:text-purple-primary [&_a]:underline [&_h2]:mb-2 [&_h2]:mt-4 [&_h2]:text-base [&_h2]:font-extrabold [&_h2]:text-warm-charcoal [&_h3]:mb-1.5 [&_h3]:mt-3 [&_h3]:text-sm [&_h3]:font-bold [&_h3]:text-warm-charcoal [&_li]:my-1 [&_ol]:my-2 [&_ol]:list-decimal [&_ol]:pl-5 [&_p]:mb-2 [&_strong]:font-bold [&_strong]:text-warm-charcoal [&_ul]:my-2 [&_ul]:list-disc [&_ul]:pl-5"
+      dangerouslySetInnerHTML={{ __html: html }}
+    />
   );
 }
 
-export function JobDetailView({ job }: { job: Job }) {
+export function JobDetailView({
+  job,
+  preview = false,
+}: {
+  job: Job;
+  preview?: boolean;
+}) {
+  const accepting = job.acceptingApplications !== false && job.status !== "CLOSED";
+
   return (
     <div className="surface-ivory section-texture relative overflow-hidden pb-16 pt-8 sm:pt-10">
       <div className="pointer-events-none absolute -right-20 top-20 h-72 w-72 rounded-full bg-purple-primary/10 blur-3xl" />
       <div className="pointer-events-none absolute -left-16 bottom-40 h-64 w-64 rounded-full bg-muted-amber/10 blur-3xl" />
 
       <div className="relative z-[1] mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <Reveal>
-          <Link
-            href="/careers"
-            className="inline-flex min-h-10 items-center gap-1.5 rounded-lg text-sm font-semibold text-purple-deep transition hover:text-purple-primary focus-ring"
-          >
-            <ArrowLeft className="h-4 w-4" aria-hidden />
-            Careers
-          </Link>
-        </Reveal>
+        {!preview ? (
+          <Reveal>
+            <Link
+              href="/careers"
+              className="inline-flex min-h-10 items-center gap-1.5 rounded-lg text-sm font-semibold text-purple-deep transition hover:text-purple-primary focus-ring"
+            >
+              <ArrowLeft className="h-4 w-4" aria-hidden />
+              Careers
+            </Link>
+          </Reveal>
+        ) : (
+          <p className="text-xs font-bold uppercase tracking-[0.16em] text-purple-primary">
+            Preview mode
+          </p>
+        )}
 
         <div className="mt-6 grid items-start gap-8 lg:grid-cols-[minmax(0,1fr)_320px] lg:gap-10">
           <div className="min-w-0">
@@ -56,21 +64,34 @@ export function JobDetailView({ job }: { job: Job }) {
                 <span className="inline-flex rounded-full bg-lavender px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-purple-deep">
                   {job.category}
                 </span>
+                {job.salary ? (
+                  <span className="inline-flex text-sm font-medium text-warm-charcoal">
+                    {job.salary}
+                  </span>
+                ) : null}
               </div>
-              <p className="mt-5 max-w-2xl text-base leading-relaxed text-muted">
-                {job.description}
-              </p>
+              <RichBlock html={job.description} />
             </Reveal>
 
-            <div className="mt-10 space-y-8">
+            {!accepting ? (
               <Reveal>
-                <section aria-labelledby="role-heading">
-                  <h2 id="role-heading" className="text-lg font-extrabold text-warm-charcoal">
-                    Ο ρόλος
-                  </h2>
-                  <p className="mt-2 text-sm leading-relaxed text-muted sm:text-base">{job.role}</p>
-                </section>
+                <div className="mt-6 rounded-[1.25rem] border border-amber-200 bg-amber-50 px-4 py-3 text-sm font-medium text-amber-900">
+                  Η συγκεκριμένη θέση δεν δέχεται πλέον αιτήσεις.
+                </div>
               </Reveal>
+            ) : null}
+
+            <div className="mt-10 space-y-8">
+              {job.role?.trim() ? (
+                <Reveal>
+                  <section aria-labelledby="role-heading">
+                    <h2 id="role-heading" className="text-lg font-extrabold text-warm-charcoal">
+                      Ο ρόλος
+                    </h2>
+                    <RichBlock html={job.role} />
+                  </section>
+                </Reveal>
+              ) : null}
 
               <Reveal>
                 <section aria-labelledby="responsibilities-heading">
@@ -80,7 +101,7 @@ export function JobDetailView({ job }: { job: Job }) {
                   >
                     Αρμοδιότητες
                   </h2>
-                  <BulletList items={job.responsibilities} />
+                  <RichBlock html={job.responsibilities} />
                 </section>
               </Reveal>
 
@@ -89,7 +110,7 @@ export function JobDetailView({ job }: { job: Job }) {
                   <h2 id="requirements-heading" className="text-lg font-extrabold text-warm-charcoal">
                     Τι ζητάμε
                   </h2>
-                  <BulletList items={job.requirements} />
+                  <RichBlock html={job.requirements} />
                 </section>
               </Reveal>
 
@@ -98,30 +119,32 @@ export function JobDetailView({ job }: { job: Job }) {
                   <h2 id="benefits-heading" className="text-lg font-extrabold text-warm-charcoal">
                     Τι προσφέρουμε
                   </h2>
-                  <BulletList items={job.benefits} />
+                  <RichBlock html={job.benefits} />
                 </section>
               </Reveal>
 
-              <Reveal>
-                <section
-                  aria-labelledby="why-nexus-heading"
-                  className="rounded-[1.35rem] border border-purple-primary/15 bg-lavender/40 p-5 sm:p-6"
-                >
-                  <h2 id="why-nexus-heading" className="text-lg font-extrabold text-warm-charcoal">
-                    Γιατί NEXUS
-                  </h2>
-                  <p className="mt-2 text-sm leading-relaxed text-muted sm:text-base">
-                    {job.whyNexus}
-                  </p>
-                </section>
-              </Reveal>
+              {job.whyNexus?.trim() ? (
+                <Reveal>
+                  <section
+                    aria-labelledby="why-nexus-heading"
+                    className="rounded-[1.35rem] border border-purple-primary/15 bg-lavender/40 p-5 sm:p-6"
+                  >
+                    <h2 id="why-nexus-heading" className="text-lg font-extrabold text-warm-charcoal">
+                      Γιατί NEXUS
+                    </h2>
+                    <RichBlock html={job.whyNexus} />
+                  </section>
+                </Reveal>
+              ) : null}
             </div>
 
-            <div className="mt-12 lg:mt-14">
-              <Reveal>
-                <ApplicationForm job={job} />
-              </Reveal>
-            </div>
+            {accepting && !preview ? (
+              <div className="mt-12 lg:mt-14">
+                <Reveal>
+                  <ApplicationForm job={job} />
+                </Reveal>
+              </div>
+            ) : null}
           </div>
 
           <aside className="lg:sticky lg:top-28">
@@ -150,13 +173,33 @@ export function JobDetailView({ job }: { job: Job }) {
                     </dt>
                     <dd className="mt-0.5 font-semibold text-warm-charcoal">{job.category}</dd>
                   </div>
+                  {job.experience ? (
+                    <div>
+                      <dt className="text-[11px] font-bold uppercase tracking-wide text-muted/70">
+                        Experience
+                      </dt>
+                      <dd className="mt-0.5 font-semibold text-warm-charcoal">{job.experience}</dd>
+                    </div>
+                  ) : null}
                 </dl>
-                <a
-                  href="#apply"
-                  className="cta-glow mt-6 inline-flex min-h-11 w-full items-center justify-center rounded-2xl bg-gradient-to-br from-purple-primary to-purple-bright px-5 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 focus-ring"
-                >
-                  Κάνε Αίτηση
-                </a>
+                {accepting ? (
+                  preview ? (
+                    <span className="cta-glow mt-6 inline-flex min-h-11 w-full items-center justify-center rounded-2xl bg-gradient-to-br from-purple-primary to-purple-bright px-5 py-3 text-sm font-semibold text-white opacity-80">
+                      Κάνε Αίτηση
+                    </span>
+                  ) : (
+                    <a
+                      href="#apply"
+                      className="cta-glow mt-6 inline-flex min-h-11 w-full items-center justify-center rounded-2xl bg-gradient-to-br from-purple-primary to-purple-bright px-5 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 focus-ring"
+                    >
+                      Κάνε Αίτηση
+                    </a>
+                  )
+                ) : (
+                  <p className="mt-6 rounded-2xl border border-soft-border bg-soft-cream px-4 py-3 text-center text-sm font-semibold text-muted">
+                    Κλειστή θέση
+                  </p>
+                )}
               </div>
             </Reveal>
           </aside>

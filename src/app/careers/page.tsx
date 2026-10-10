@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { CareersPageView } from "@/components/careers/CareersPageView";
-import { CAREERS_PAGE, getActiveJobs } from "@/content/jobs";
+import { CAREERS_PAGE } from "@/content/jobs";
 import { absoluteUrl, getSiteUrl } from "@/lib/utils";
 import { getPublicSiteData } from "@/server/services/content";
+import { getActivePublicJobs } from "@/server/services/careers";
 
 export const dynamic = "force-dynamic";
 
@@ -35,8 +36,8 @@ export function generateMetadata(): Metadata {
   };
 }
 
-function buildCareersJsonLd() {
-  const active = getActiveJobs();
+async function buildCareersJsonLd() {
+  const active = await getActivePublicJobs();
   const site = getSiteUrl();
 
   return {
@@ -63,15 +64,18 @@ function buildCareersJsonLd() {
 }
 
 export default async function CareersPage() {
-  const data = await getPublicSiteData();
+  const [data, activeJobs, jsonLd] = await Promise.all([
+    getPublicSiteData(),
+    getActivePublicJobs(),
+    buildCareersJsonLd(),
+  ]);
   const settings = data.settings!;
-  const activeJobs = getActiveJobs();
 
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(buildCareersJsonLd()) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <Header />
       <main className="bg-warm-ivory pt-[72px]">

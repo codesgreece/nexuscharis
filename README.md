@@ -27,6 +27,13 @@ npm run dev
 - URL: `/admin`
 - Credentials: `ADMIN_EMAIL` / `ADMIN_PASSWORD` from `.env`
 - No public registration
+- Careers CMS: `/admin/careers` (jobs, draft/active/closed, applications, secure CV download)
+
+## Careers
+
+- Public: `/careers` and `/careers/[slug]` (ACTIVE jobs from the database)
+- Applications are stored in PostgreSQL with CV bytes (admin-only download via `/api/admin/cvs/[id]`)
+- Email notifications reuse the existing contact SMTP / Resend setup
 
 ## Vercel (production)
 
