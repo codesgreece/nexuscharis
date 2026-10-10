@@ -16,6 +16,7 @@ export const footerNavigationLinks: FooterNavLink[] = [
   { href: "/grow-your-business", label: "Grow Your Business" },
   { href: "/nexus-growth", label: "NEXUS Growth" },
   { href: "/#portfolio", label: "Portfolio" },
+  { href: "/careers", label: "Careers" },
   { href: "/#faq", label: "FAQ" },
   { href: "/#contact", label: "Επικοινωνία" },
 ];

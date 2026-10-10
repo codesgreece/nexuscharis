@@ -114,6 +114,7 @@ export const primaryNav = [
     kind: "grow" as const,
   },
   { href: "/#portfolio", label: "Portfolio", kind: "link" as const, hash: "#portfolio" },
+  { href: "/careers", label: "Careers", kind: "route" as const },
   { href: "/#faq", label: "FAQ", kind: "link" as const, hash: "#faq" },
   { href: "/#contact", label: "Επικοινωνία", kind: "link" as const, hash: "#contact" },
 ];
@@ -160,4 +161,8 @@ export function isServicesNavActive(pathname: string, hash: string) {
     h === "android-apps" ||
     h === "admin-panels"
   );
+}
+
+export function isCareersNavActive(pathname: string) {
+  return pathname === "/careers" || pathname.startsWith("/careers/");
 }
