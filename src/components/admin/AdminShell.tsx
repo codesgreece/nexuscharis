@@ -86,6 +86,14 @@ const NAV: NavGroup[] = [
 
 function isActive(pathname: string, href: string) {
   if (href === "/admin") return pathname === "/admin";
+  // Keep Careers vs Applications mutually exclusive in the sidebar.
+  if (href === "/admin/careers") {
+    return (
+      pathname === "/admin/careers" ||
+      (pathname.startsWith("/admin/careers/") &&
+        !pathname.startsWith("/admin/careers/applications"))
+    );
+  }
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
