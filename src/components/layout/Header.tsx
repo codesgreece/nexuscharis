@@ -125,8 +125,8 @@ export function Header() {
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-all duration-300",
         scrolled || mobileOpen
-          ? "border-b border-border-soft/80 bg-white/90 shadow-[0_8px_30px_rgba(76,29,149,0.06)] backdrop-blur-xl"
-          : "bg-transparent",
+          ? "border-b border-soft-border/80 bg-warm-ivory/90 shadow-[0_8px_30px_rgba(65,42,66,0.08)] backdrop-blur-xl"
+          : "bg-warm-ivory/70 backdrop-blur-md",
       )}
     >
       <div className="mx-auto flex h-[72px] max-w-7xl items-center justify-between gap-3 px-4 sm:px-6 lg:px-8">
@@ -152,7 +152,7 @@ export function Header() {
                     className={cn(
                       "inline-flex items-center gap-1 rounded-xl px-2 py-2 text-xs font-medium transition-colors focus-ring xl:px-2.5 xl:text-[13px]",
                       linkActive(item) || isOpen
-                        ? "bg-lavender-soft text-purple-deep"
+                        ? "bg-lavender text-purple-deep"
                         : "text-muted hover:text-purple-deep",
                     )}
                     aria-expanded={isOpen}
@@ -174,7 +174,7 @@ export function Header() {
                     id={menuId}
                     role="menu"
                     className={cn(
-                      "absolute left-1/2 top-full z-50 mt-2 w-[min(92vw,22rem)] -translate-x-1/2 rounded-2xl border border-border-soft bg-white/95 p-3 shadow-[0_24px_60px_-28px_rgba(76,29,149,0.45)] backdrop-blur-xl transition-[opacity,transform] duration-200",
+                      "absolute left-1/2 top-full z-50 mt-2 w-[min(92vw,22rem)] -translate-x-1/2 rounded-2xl border border-soft-border bg-warm-ivory/95 p-3 shadow-[0_24px_60px_-28px_rgba(65,42,66,0.28)] backdrop-blur-xl transition-[opacity,transform] duration-200",
                       item.kind === "grow" && "w-[min(92vw,34rem)]",
                       isOpen
                         ? "pointer-events-auto translate-y-0 opacity-100"
@@ -195,10 +195,10 @@ export function Header() {
                               <a
                                 href={svc.href}
                                 role="menuitem"
-                                className="block rounded-xl px-3 py-2.5 transition hover:bg-lavender-soft focus-ring"
+                                className="block rounded-xl px-3 py-2.5 transition hover:bg-lavender focus-ring"
                                 onClick={closeMenus}
                               >
-                                <span className="block text-sm font-semibold text-[#171717]">
+                                <span className="block text-sm font-semibold text-warm-charcoal">
                                   {svc.label}
                                 </span>
                                 {svc.description ? (
@@ -223,10 +223,10 @@ export function Header() {
                                 <Link
                                   href={svc.href}
                                   role="menuitem"
-                                  className="block rounded-xl px-3 py-2.5 transition hover:bg-lavender-soft focus-ring"
+                                  className="block rounded-xl px-3 py-2.5 transition hover:bg-lavender focus-ring"
                                   onClick={closeMenus}
                                 >
-                                  <span className="block text-sm font-semibold text-[#171717]">
+                                  <span className="block text-sm font-semibold text-warm-charcoal">
                                     {svc.label}
                                   </span>
                                   {svc.description ? (
@@ -250,7 +250,7 @@ export function Header() {
                           href={growFeatured.href}
                           role="menuitem"
                           onClick={closeMenus}
-                          className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border-2 border-purple-primary/40 bg-gradient-to-b from-lavender-soft via-white to-white p-4 shadow-[0_18px_40px_-28px_rgba(109,40,217,0.55)] transition hover:-translate-y-0.5 focus-ring"
+                          className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border-2 border-purple-primary/40 bg-gradient-to-b from-lavender via-warm-ivory to-soft-cream p-4 shadow-[0_18px_40px_-28px_rgba(109,40,217,0.45)] transition hover:-translate-y-0.5 focus-ring"
                         >
                           <div>
                             <span className="inline-flex rounded-full bg-purple-deep px-2 py-0.5 text-[10px] font-bold text-white">
@@ -259,7 +259,7 @@ export function Header() {
                             <p className="mt-3 text-[10px] font-bold uppercase tracking-[0.14em] text-purple-primary">
                               NEXUS GROWTH
                             </p>
-                            <p className="mt-1 text-base font-extrabold text-[#171717]">
+                            <p className="mt-1 text-base font-extrabold text-warm-charcoal">
                               {growFeatured.label}
                             </p>
                             <p className="mt-2 text-xs leading-relaxed text-muted">
@@ -288,7 +288,7 @@ export function Header() {
                 className={cn(
                   "rounded-xl px-2 py-2 text-xs font-medium transition-colors focus-ring xl:px-2.5 xl:text-[13px]",
                   linkActive(item)
-                    ? "bg-lavender-soft text-purple-deep"
+                    ? "bg-lavender text-purple-deep"
                     : "text-muted hover:text-purple-deep",
                 )}
               >
@@ -301,7 +301,7 @@ export function Header() {
         <div className="flex items-center gap-2 sm:gap-3">
           <Link
             href={headerCta.href}
-            className="hidden items-center gap-2 rounded-full bg-purple-primary px-4 py-2.5 text-sm font-semibold text-white shadow-[0_10px_28px_-12px_rgba(109,40,217,0.7)] transition-all hover:-translate-y-0.5 hover:bg-purple-bright focus-ring sm:inline-flex lg:px-5"
+            className="cta-glow hidden items-center gap-2 rounded-full bg-gradient-to-br from-purple-primary to-purple-bright px-4 py-2.5 text-sm font-semibold text-white transition-all hover:-translate-y-0.5 focus-ring sm:inline-flex lg:px-5"
           >
             {headerCta.label}
             <ArrowRight className="h-4 w-4" aria-hidden />
@@ -309,7 +309,7 @@ export function Header() {
 
           <button
             type="button"
-            className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-border-soft bg-white text-purple-deep focus-ring lg:hidden"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-soft-border bg-warm-ivory text-purple-deep focus-ring lg:hidden"
             aria-expanded={mobileOpen}
             aria-controls="mobile-nav"
             aria-label={mobileOpen ? "Κλείσιμο μενού" : "Άνοιγμα μενού"}
@@ -323,7 +323,7 @@ export function Header() {
       <div
         id="mobile-nav"
         className={cn(
-          "max-h-[calc(100dvh-72px)] overflow-y-auto border-t border-border-soft bg-white lg:hidden",
+          "max-h-[calc(100dvh-72px)] overflow-y-auto border-t border-soft-border bg-warm-ivory lg:hidden",
           mobileOpen ? "block" : "hidden",
         )}
       >
@@ -336,7 +336,7 @@ export function Header() {
                 <div key={item.label} className="rounded-xl">
                   <button
                     type="button"
-                    className="flex w-full items-center justify-between rounded-xl px-4 py-3 text-left text-base font-medium text-[#171717] hover:bg-lavender-soft focus-ring"
+                    className="flex w-full items-center justify-between rounded-xl px-4 py-3 text-left text-base font-medium text-warm-charcoal hover:bg-lavender focus-ring"
                     aria-expanded={expanded}
                     aria-controls={panelId}
                     onClick={() =>
@@ -366,7 +366,7 @@ export function Header() {
                             <a
                               key={svc.href}
                               href={svc.href}
-                              className="block rounded-lg px-3 py-2.5 text-sm text-[#171717] hover:bg-lavender-soft"
+                              className="block rounded-lg px-3 py-2.5 text-sm text-warm-charcoal hover:bg-lavender"
                               onClick={() => setMobileOpen(false)}
                             >
                               <span className="font-semibold">{svc.label}</span>
@@ -380,7 +380,7 @@ export function Header() {
                             <Link
                               key={svc.href}
                               href={svc.href}
-                              className="block rounded-lg px-3 py-2.5 text-sm text-[#171717] hover:bg-lavender-soft"
+                              className="block rounded-lg px-3 py-2.5 text-sm text-warm-charcoal hover:bg-lavender"
                               onClick={() => setMobileOpen(false)}
                             >
                               <span className="font-semibold">{svc.label}</span>
@@ -403,13 +403,13 @@ export function Header() {
                             </Link>
                             <Link
                               href={growFeatured.href}
-                              className="mt-1 block rounded-xl border border-purple-primary/30 bg-gradient-to-br from-lavender-soft to-white px-3 py-3"
+                              className="mt-1 block rounded-xl border border-purple-primary/30 bg-gradient-to-br from-lavender to-soft-cream px-3 py-3"
                               onClick={() => setMobileOpen(false)}
                             >
                               <span className="inline-flex rounded-full bg-purple-deep px-2 py-0.5 text-[10px] font-bold text-white">
                                 {growFeatured.badge}
                               </span>
-                              <span className="mt-2 block font-extrabold text-[#171717]">
+                              <span className="mt-2 block font-extrabold text-warm-charcoal">
                                 {growFeatured.label}
                               </span>
                               <span className="mt-1 block text-xs text-muted">
@@ -432,7 +432,7 @@ export function Header() {
               <a
                 key={item.href}
                 href={item.href}
-                className="rounded-xl px-4 py-3 text-base font-medium text-[#171717] hover:bg-lavender-soft"
+                className="rounded-xl px-4 py-3 text-base font-medium text-warm-charcoal hover:bg-lavender"
                 onClick={() => setMobileOpen(false)}
               >
                 {item.label}
@@ -443,7 +443,7 @@ export function Header() {
           <Link
             href={headerCta.href}
             onClick={() => setMobileOpen(false)}
-            className="mt-2 inline-flex items-center justify-center gap-2 rounded-2xl bg-purple-primary px-5 py-3 font-semibold text-white"
+            className="cta-glow mt-2 inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-br from-purple-primary to-purple-bright px-5 py-3 font-semibold text-white"
           >
             {headerCta.label}
             <ArrowRight className="h-4 w-4" />

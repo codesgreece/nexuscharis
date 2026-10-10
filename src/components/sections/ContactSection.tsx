@@ -3,7 +3,6 @@
 import { FormEvent, useState } from "react";
 import { CheckCircle2, Clock3, Loader2, Mail, Phone, AlertCircle } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
-import { AutumnAccent } from "@/components/effects/AutumnAccent";
 import { formatPhoneDisplay } from "@/lib/utils";
 
 type Hours = { day: string; hours: string };
@@ -58,18 +57,56 @@ export function ContactSection({
     }
   }
 
+  const inputClass =
+    "h-11 w-full rounded-xl border border-white/15 bg-white/8 px-3 text-sm text-warm-ivory outline-none transition placeholder:text-lavender/40 focus:border-muted-amber/50 focus:ring-2 focus:ring-muted-amber/20";
+
   return (
-    <section id="contact" className="relative overflow-hidden bg-white py-12 sm:py-14 lg:py-16" aria-labelledby="contact-heading">
-      <AutumnAccent variant="cta" />
+    <section
+      id="contact"
+      className="surface-deep section-texture relative overflow-hidden py-12 sm:py-14 lg:py-16"
+      aria-labelledby="contact-heading"
+    >
+      {/* Connected-line graphics */}
+      <svg
+        className="pointer-events-none absolute inset-0 h-full w-full opacity-30"
+        aria-hidden
+      >
+        <defs>
+          <linearGradient id="contactLine" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#6D28D9" stopOpacity="0" />
+            <stop offset="50%" stopColor="#D99A55" stopOpacity="0.5" />
+            <stop offset="100%" stopColor="#EDE4FF" stopOpacity="0" />
+          </linearGradient>
+        </defs>
+        <path
+          d="M0 120 C200 80, 400 160, 700 100 S1100 40, 1400 90"
+          fill="none"
+          stroke="url(#contactLine)"
+          strokeWidth="1"
+          strokeDasharray="4 14"
+        />
+        <path
+          d="M0 280 C250 240, 500 320, 800 260 S1200 200, 1600 250"
+          fill="none"
+          stroke="url(#contactLine)"
+          strokeWidth="1"
+          strokeDasharray="4 18"
+          opacity="0.6"
+        />
+      </svg>
+
       <div className="relative z-[1] mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Reveal>
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-muted-amber">
+            Contact
+          </p>
           <h2
             id="contact-heading"
-            className="text-2xl font-extrabold tracking-tight text-[#171717] sm:text-3xl"
+            className="mt-3 text-2xl font-extrabold tracking-tight text-warm-ivory sm:text-3xl"
           >
-            Ας δημιουργήσουμε κάτι μαζί.
+            Ας δημιουργήσουμε κάτι που λειτουργεί για την επιχείρησή σου.
           </h2>
-          <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">
+          <p className="mt-4 max-w-2xl text-base leading-relaxed text-lavender/70">
             Έχεις μια ιδέα, μια επιχείρηση που χρειάζεται καλύτερη ψηφιακή παρουσία ή ένα project
             που θέλεις να μετατρέψουμε σε πραγματικότητα; Επικοινώνησε μαζί μου.
           </p>
@@ -80,49 +117,49 @@ export function ContactSection({
             <div className="space-y-4">
               <a
                 href={`tel:${phone}`}
-                className="flex items-center gap-4 rounded-[1.25rem] border border-border-soft bg-lavender-light p-5 transition hover:border-purple-primary/30 focus-ring"
+                className="flex items-center gap-4 rounded-[1.25rem] border border-white/12 bg-white/6 p-5 transition hover:border-muted-amber/35 hover:bg-white/10 focus-ring"
               >
-                <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-purple-primary shadow-sm">
+                <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-lavender/15 text-lavender">
                   <Phone className="h-5 w-5" />
                 </span>
                 <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.12em] text-purple-primary">
+                  <p className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-amber">
                     Τηλέφωνο
                   </p>
-                  <p className="mt-1 font-bold text-[#171717]">{formatPhoneDisplay(phone)}</p>
+                  <p className="mt-1 font-bold text-warm-ivory">{formatPhoneDisplay(phone)}</p>
                 </div>
               </a>
 
               <a
                 href={`mailto:${email}`}
-                className="flex items-center gap-4 rounded-[1.25rem] border border-border-soft bg-lavender-light p-5 transition hover:border-purple-primary/30 focus-ring"
+                className="flex items-center gap-4 rounded-[1.25rem] border border-white/12 bg-white/6 p-5 transition hover:border-muted-amber/35 hover:bg-white/10 focus-ring"
               >
-                <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-purple-primary shadow-sm">
+                <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-lavender/15 text-lavender">
                   <Mail className="h-5 w-5" />
                 </span>
                 <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.12em] text-purple-primary">
+                  <p className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-amber">
                     Email
                   </p>
-                  <p className="mt-1 font-bold text-[#171717]">{email}</p>
+                  <p className="mt-1 font-bold text-warm-ivory">{email}</p>
                 </div>
               </a>
 
-              <div className="rounded-[1.25rem] border border-border-soft bg-lavender-light p-5">
+              <div className="rounded-[1.25rem] border border-white/12 bg-white/6 p-5">
                 <div className="mb-4 flex items-center gap-3">
-                  <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-purple-primary shadow-sm">
+                  <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-lavender/15 text-lavender">
                     <Clock3 className="h-5 w-5" />
                   </span>
-                  <p className="font-bold text-[#171717]">Ώρες Επικοινωνίας</p>
+                  <p className="font-bold text-warm-ivory">Ώρες Επικοινωνίας</p>
                 </div>
                 <ul className="space-y-2">
                   {businessHours.map((item) => (
                     <li
                       key={item.day}
-                      className="flex items-start justify-between gap-3 border-b border-border-soft/70 py-2 text-sm last:border-0"
+                      className="flex items-start justify-between gap-3 border-b border-white/10 py-2 text-sm last:border-0"
                     >
-                      <span className="font-medium text-[#171717]">{item.day}</span>
-                      <span className="text-right text-muted">{item.hours}</span>
+                      <span className="font-medium text-lavender">{item.day}</span>
+                      <span className="text-right text-lavender/60">{item.hours}</span>
                     </li>
                   ))}
                 </ul>
@@ -133,67 +170,56 @@ export function ContactSection({
           <Reveal delay={100}>
             <form
               onSubmit={onSubmit}
-              className="rounded-[1.5rem] border border-border-soft bg-white p-5 shadow-[0_24px_60px_-36px_rgba(76,29,149,0.35)] sm:p-6"
+              className="rounded-[1.5rem] border border-white/12 bg-white/8 p-5 shadow-[0_24px_60px_-36px_rgba(0,0,0,0.5)] backdrop-blur-sm sm:p-6"
               noValidate
             >
               <div className="grid gap-4 sm:grid-cols-2">
                 <label className="block sm:col-span-1">
-                  <span className="mb-1.5 block text-sm font-semibold text-[#171717]">Όνομα</span>
-                  <input
-                    name="name"
-                    required
-                    autoComplete="name"
-                    className="h-11 w-full rounded-xl border border-border-soft bg-lavender-light/40 px-3 text-sm outline-none transition focus:border-purple-primary focus:ring-2 focus:ring-purple-primary/20"
-                  />
+                  <span className="mb-1.5 block text-sm font-semibold text-lavender">Όνομα</span>
+                  <input name="name" required autoComplete="name" className={inputClass} />
                 </label>
                 <label className="block">
-                  <span className="mb-1.5 block text-sm font-semibold text-[#171717]">Email</span>
+                  <span className="mb-1.5 block text-sm font-semibold text-lavender">Email</span>
                   <input
                     name="email"
                     type="email"
                     required
                     autoComplete="email"
-                    className="h-11 w-full rounded-xl border border-border-soft bg-lavender-light/40 px-3 text-sm outline-none transition focus:border-purple-primary focus:ring-2 focus:ring-purple-primary/20"
+                    className={inputClass}
                   />
                 </label>
                 <label className="block">
-                  <span className="mb-1.5 block text-sm font-semibold text-[#171717]">Τηλέφωνο</span>
-                  <input
-                    name="phone"
-                    type="tel"
-                    autoComplete="tel"
-                    className="h-11 w-full rounded-xl border border-border-soft bg-lavender-light/40 px-3 text-sm outline-none transition focus:border-purple-primary focus:ring-2 focus:ring-purple-primary/20"
-                  />
+                  <span className="mb-1.5 block text-sm font-semibold text-lavender">Τηλέφωνο</span>
+                  <input name="phone" type="tel" autoComplete="tel" className={inputClass} />
                 </label>
                 <label className="block">
-                  <span className="mb-1.5 block text-sm font-semibold text-[#171717]">Υπηρεσία</span>
-                  <select
-                    name="service"
-                    className="h-11 w-full rounded-xl border border-border-soft bg-lavender-light/40 px-3 text-sm outline-none transition focus:border-purple-primary focus:ring-2 focus:ring-purple-primary/20"
-                    defaultValue=""
-                  >
-                    <option value="">Επίλεξε υπηρεσία</option>
+                  <span className="mb-1.5 block text-sm font-semibold text-lavender">Υπηρεσία</span>
+                  <select name="service" className={inputClass} defaultValue="">
+                    <option value="" className="bg-purple-deep text-warm-ivory">
+                      Επίλεξε υπηρεσία
+                    </option>
                     {services.map((s) => (
-                      <option key={s.title} value={s.title}>
+                      <option key={s.title} value={s.title} className="bg-purple-deep text-warm-ivory">
                         {s.title}
                       </option>
                     ))}
-                    <option value="Custom">Custom Project</option>
+                    <option value="Custom" className="bg-purple-deep text-warm-ivory">
+                      Custom Project
+                    </option>
                   </select>
                 </label>
               </div>
 
               <label className="mt-4 block">
-                <span className="mb-1.5 block text-sm font-semibold text-[#171717]">Μήνυμα</span>
+                <span className="mb-1.5 block text-sm font-semibold text-lavender">Μήνυμα</span>
                 <textarea
                   name="message"
                   required
                   rows={5}
-                  className="w-full resize-y rounded-xl border border-border-soft bg-lavender-light/40 px-3 py-2.5 text-sm outline-none transition focus:border-purple-primary focus:ring-2 focus:ring-purple-primary/20"
+                  className="w-full resize-y rounded-xl border border-white/15 bg-white/8 px-3 py-2.5 text-sm text-warm-ivory outline-none transition focus:border-muted-amber/50 focus:ring-2 focus:ring-muted-amber/20"
                 />
               </label>
 
-              {/* Honeypot */}
               <input
                 type="text"
                 name="website"
@@ -204,12 +230,12 @@ export function ContactSection({
               />
 
               <div className="mt-5 space-y-3">
-                <label className="flex items-start gap-3 text-sm leading-relaxed text-[#333]">
+                <label className="flex items-start gap-3 text-sm leading-relaxed text-lavender/80">
                   <input
                     type="checkbox"
                     name="privacyAccepted"
                     required
-                    className="mt-1 h-4 w-4 shrink-0 rounded border-border-soft text-purple-primary focus:ring-purple-primary/30"
+                    className="mt-1 h-4 w-4 shrink-0 rounded border-white/20 bg-white/10 text-purple-primary focus:ring-muted-amber/30"
                   />
                   <span>
                     Έχω διαβάσει και αποδέχομαι την{" "}
@@ -217,18 +243,18 @@ export function ContactSection({
                       href="/privacy"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="font-semibold text-purple-primary underline underline-offset-2 hover:text-purple-bright"
+                      className="font-semibold text-muted-amber underline underline-offset-2 hover:text-lavender"
                     >
                       Πολιτική Απορρήτου
                     </a>
                     .
                   </span>
                 </label>
-                <label className="flex items-start gap-3 text-sm leading-relaxed text-[#333]">
+                <label className="flex items-start gap-3 text-sm leading-relaxed text-lavender/80">
                   <input
                     type="checkbox"
                     name="marketingOptIn"
-                    className="mt-1 h-4 w-4 shrink-0 rounded border-border-soft text-purple-primary focus:ring-purple-primary/30"
+                    className="mt-1 h-4 w-4 shrink-0 rounded border-white/20 bg-white/10 text-purple-primary focus:ring-muted-amber/30"
                   />
                   <span>
                     Επιθυμώ να λαμβάνω ενημερώσεις και προσφορές από το NEXUS DEV STUDIO.
@@ -238,13 +264,19 @@ export function ContactSection({
               </div>
 
               {status === "success" && (
-                <p className="mt-4 flex items-center gap-2 rounded-xl bg-green-50 px-3 py-2 text-sm text-green-700" role="status">
+                <p
+                  className="mt-4 flex items-center gap-2 rounded-xl bg-green-500/15 px-3 py-2 text-sm text-green-300"
+                  role="status"
+                >
                   <CheckCircle2 className="h-4 w-4" />
                   Το μήνυμά σου στάλθηκε επιτυχώς. Θα επικοινωνήσω σύντομα μαζί σου.
                 </p>
               )}
               {status === "error" && (
-                <p className="mt-4 flex items-center gap-2 rounded-xl bg-red-50 px-3 py-2 text-sm text-red-700" role="alert">
+                <p
+                  className="mt-4 flex items-center gap-2 rounded-xl bg-red-500/15 px-3 py-2 text-sm text-red-300"
+                  role="alert"
+                >
                   <AlertCircle className="h-4 w-4" />
                   {error}
                 </p>
@@ -253,7 +285,7 @@ export function ContactSection({
               <button
                 type="submit"
                 disabled={status === "loading"}
-                className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-purple-primary px-5 py-3.5 text-sm font-semibold text-white transition hover:bg-purple-bright focus-ring disabled:opacity-60"
+                className="cta-glow mt-6 inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-br from-purple-primary to-purple-bright px-5 py-3.5 text-sm font-semibold text-white transition hover:-translate-y-0.5 focus-ring disabled:opacity-60"
               >
                 {status === "loading" ? (
                   <>

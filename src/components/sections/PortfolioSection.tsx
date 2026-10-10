@@ -12,7 +12,6 @@ type Project = {
   liveUrl: string | null;
   caseStudyUrl: string | null;
   featured: boolean;
-  /** Optional tech tags when present in data — never invented. */
   technologies?: string[] | null;
 };
 
@@ -48,33 +47,51 @@ function PortfolioCardDecor() {
   );
 }
 
+function BrowserChrome({ title }: { title: string }) {
+  return (
+    <div className="mb-5 overflow-hidden rounded-xl border border-soft-border bg-soft-cream/80">
+      <div className="flex items-center gap-1.5 border-b border-soft-border px-3 py-2">
+        <span className="h-2 w-2 rounded-full bg-muted-amber/70" />
+        <span className="h-2 w-2 rounded-full bg-purple-primary/35" />
+        <span className="h-2 w-2 rounded-full bg-purple-primary/20" />
+        <span className="ml-2 truncate rounded-md bg-warm-ivory px-2 py-0.5 text-[10px] font-medium text-muted">
+          {title}
+        </span>
+      </div>
+      <div className="relative flex h-24 items-end justify-center bg-gradient-to-br from-lavender/50 via-warm-ivory to-soft-cream px-4 pb-3 sm:h-28">
+        <div className="w-full max-w-[11rem] rounded-lg border border-purple-primary/15 bg-warm-ivory/90 p-2.5 shadow-[0_8px_20px_-14px_rgba(65,42,66,0.25)]">
+          <div className="h-2 w-2/3 rounded bg-purple-primary/25" />
+          <div className="mt-1.5 h-1.5 w-full rounded bg-soft-border" />
+          <div className="mt-1 h-1.5 w-4/5 rounded bg-soft-border" />
+          <div className="mt-2 h-5 w-16 rounded-md bg-muted-amber/50" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function PortfolioSection({ projects }: { projects: Project[] }) {
   return (
     <section
       id="portfolio"
-      className="bg-lavender-light py-12 sm:py-14 lg:py-16"
+      className="surface-cream section-texture relative overflow-hidden py-12 sm:py-14 lg:py-16"
       aria-labelledby="portfolio-heading"
     >
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="relative z-[1] mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Reveal>
-          <p className="text-xs font-bold uppercase tracking-[0.18em] text-purple-primary">
-            Portfolio
-          </p>
-          <h2
-            id="portfolio-heading"
-            className="mt-3 text-2xl font-extrabold tracking-tight text-[#171717] sm:text-3xl"
-          >
+          <p className="eyebrow">Portfolio</p>
+          <h2 id="portfolio-heading" className="section-title mt-3">
             Τα έργα μας
           </h2>
         </Reveal>
 
         {projects.length === 0 ? (
           <Reveal>
-            <div className="mt-8 flex flex-col items-center justify-center rounded-[1.75rem] border border-dashed border-purple-primary/25 bg-white px-6 py-10 text-center">
-              <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-lavender-soft text-purple-primary">
+            <div className="mt-8 flex flex-col items-center justify-center rounded-[1.75rem] border border-dashed border-purple-primary/25 bg-warm-ivory px-6 py-10 text-center">
+              <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-lavender text-purple-primary">
                 <FolderOpen className="h-8 w-8" aria-hidden />
               </div>
-              <h3 className="mt-6 text-xl font-bold text-[#171717]">
+              <h3 className="mt-6 text-xl font-bold text-warm-charcoal">
                 Τα επόμενα projects θα εμφανιστούν εδώ.
               </h3>
               <p className="mt-3 max-w-md text-sm leading-relaxed text-muted">
@@ -83,7 +100,7 @@ export function PortfolioSection({ projects }: { projects: Project[] }) {
               </p>
               <a
                 href="#contact"
-                className="mt-6 inline-flex rounded-2xl bg-purple-primary px-5 py-3 text-sm font-semibold text-white transition hover:bg-purple-bright focus-ring"
+                className="cta-glow mt-6 inline-flex rounded-2xl bg-gradient-to-br from-purple-primary to-purple-bright px-5 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 focus-ring"
               >
                 Επικοινώνησε για νέο project
               </a>
@@ -112,7 +129,8 @@ export function PortfolioSection({ projects }: { projects: Project[] }) {
                         <span className="portfolio-card-category">{project.category}</span>
                       </div>
 
-                      <div className="mt-8 flex-1 sm:mt-10">
+                      <div className="mt-5 flex-1 sm:mt-6">
+                        <BrowserChrome title={project.title} />
                         <h3 className="portfolio-card-title">{project.title}</h3>
                         {project.description?.trim() ? (
                           <p className="portfolio-card-desc">{project.description}</p>

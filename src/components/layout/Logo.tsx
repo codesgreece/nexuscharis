@@ -10,11 +10,14 @@ export function Logo({
   showText = true,
   href = "/#home",
   interactive = false,
+  tone = "dark",
 }: {
   className?: string;
   showText?: boolean;
   href?: string;
   interactive?: boolean;
+  /** Use `light` on deep/charcoal surfaces */
+  tone?: "dark" | "light";
 }) {
   if (interactive) {
     return (
@@ -42,10 +45,20 @@ export function Logo({
       />
       {showText && (
         <span className="leading-tight">
-          <span className="block text-sm font-bold tracking-wide text-[#171717] sm:text-[15px]">
+          <span
+            className={cn(
+              "block text-sm font-bold tracking-wide sm:text-[15px]",
+              tone === "light" ? "text-warm-ivory" : "text-warm-charcoal",
+            )}
+          >
             NEXUS DEV STUDIO
           </span>
-          <span className="block text-[10px] font-semibold uppercase tracking-[0.18em] text-purple-primary">
+          <span
+            className={cn(
+              "block text-[10px] font-semibold uppercase tracking-[0.18em]",
+              tone === "light" ? "text-muted-amber" : "text-purple-primary",
+            )}
+          >
             Greece
           </span>
         </span>

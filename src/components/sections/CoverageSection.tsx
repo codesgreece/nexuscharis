@@ -10,11 +10,11 @@ export function CoverageSection() {
   return (
     <section
       id="greece"
-      className="relative overflow-hidden bg-white py-12 sm:py-14 lg:py-16"
+      className="surface-lavender section-texture relative overflow-hidden py-12 sm:py-14 lg:py-16"
       aria-labelledby="coverage-heading"
     >
       <div
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(124,58,237,0.07),transparent_55%)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_70%_40%,rgba(36,21,53,0.06),transparent_55%)]"
         aria-hidden="true"
       />
       <AutumnAccent variant="coverage" />
@@ -22,20 +22,15 @@ export function CoverageSection() {
       <div className="relative z-[1] mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid items-center gap-7 lg:grid-cols-[1.2fr_0.8fr] lg:gap-8 xl:grid-cols-[1.25fr_0.75fr]">
           <Reveal>
-            <p className="text-xs font-bold uppercase tracking-[0.18em] text-purple-primary">
-              Coverage
-            </p>
-            <h2
-              id="coverage-heading"
-              className="mt-3 text-2xl font-extrabold tracking-tight text-[#171717] sm:text-3xl"
-            >
+            <p className="eyebrow">Coverage</p>
+            <h2 id="coverage-heading" className="section-title mt-3">
               Σε όλη την Ελλάδα
             </h2>
             <p className="mt-4 text-base leading-relaxed text-muted sm:text-lg">
               Συνεργαζόμαστε με επιχειρήσεις και επαγγελματίες σε όλη την Ελλάδα,
               ανεξάρτητα από την τοποθεσία τους.
             </p>
-            <p className="mt-4 text-base leading-relaxed text-[#171717]/90 sm:text-lg">
+            <p className="mt-4 text-base leading-relaxed text-warm-charcoal/90 sm:text-lg">
               Η συνεργασία γίνεται εξ αποστάσεως, από την πρώτη συζήτηση μέχρι την
               ολοκλήρωση και την παράδοση του project.
             </p>
@@ -64,7 +59,7 @@ export function CoverageSection() {
             </p>
             <a
               href="#contact"
-              className="inline-flex items-center gap-2 rounded-2xl bg-purple-primary px-6 py-3.5 text-sm font-semibold text-white shadow-[0_10px_30px_-12px_rgba(109,40,217,0.55)] transition duration-300 hover:-translate-y-0.5 hover:bg-purple-bright focus-ring"
+              className="cta-glow inline-flex items-center gap-2 rounded-2xl bg-gradient-to-br from-purple-primary to-purple-bright px-6 py-3.5 text-sm font-semibold text-white transition duration-300 hover:-translate-y-0.5 focus-ring"
             >
               Ξεκίνα το Project σου
               <ArrowRight className="h-4 w-4" aria-hidden="true" />

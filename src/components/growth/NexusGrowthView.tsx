@@ -49,58 +49,86 @@ const monthlyProcess = [
 export function NexusGrowthView() {
   return (
     <>
-      <section className="relative overflow-hidden bg-lavender-light pb-12 pt-8 sm:pb-14 sm:pt-10">
-        <div className="pointer-events-none absolute inset-0 bg-grid opacity-50" />
-        <div className="pointer-events-none absolute -right-24 top-0 h-80 w-80 rounded-full bg-purple-primary/20 blur-3xl" />
-        <div className="pointer-events-none absolute -left-20 bottom-0 h-64 w-64 rounded-full bg-purple-electric/10 blur-3xl" />
+      <section className="surface-deep section-texture relative overflow-hidden pb-12 pt-8 sm:pb-14 sm:pt-10">
+        <div className="pointer-events-none absolute -right-24 top-0 h-80 w-80 rounded-full bg-muted-amber/20 blur-3xl" />
+        <div className="pointer-events-none absolute -left-20 bottom-0 h-64 w-64 rounded-full bg-purple-electric/25 blur-3xl" />
 
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="relative z-[1] mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal>
             <Breadcrumbs
+              tone="light"
               items={[
                 { label: "Αρχική", href: "/" },
                 { label: "Grow Your Business", href: "/grow-your-business" },
                 { label: "NEXUS Growth" },
               ]}
             />
-            <div className="mt-8 max-w-3xl">
-              <div className="inline-flex items-center gap-2 rounded-full border border-purple-primary/20 bg-white/80 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.16em] text-purple-deep shadow-sm">
-                <span className="rounded-full bg-purple-primary px-2 py-0.5 text-white">
-                  BEST VALUE
-                </span>
-                Monthly recurring
+            <div className="mt-8 grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
+              <div className="max-w-3xl">
+                <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/8 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.16em] text-lavender shadow-sm">
+                  <span className="rounded-full bg-muted-amber px-2 py-0.5 text-purple-deep">
+                    BEST VALUE
+                  </span>
+                  Monthly recurring
+                </div>
+                <p className="mt-5 text-xs font-bold uppercase tracking-[0.18em] text-muted-amber">
+                  NEXUS GROWTH
+                </p>
+                <h1 className="mt-3 text-3xl font-extrabold tracking-tight text-warm-ivory sm:text-4xl lg:text-5xl">
+                  Το website σου δεν χρειάζεται απλώς να υπάρχει.
+                  <span className="mt-2 block text-lavender">
+                    Πρέπει να δουλεύει για την επιχείρησή σου.
+                  </span>
+                </h1>
+                <p className="mt-5 max-w-2xl text-base leading-relaxed text-lavender/70 sm:text-lg">
+                  {nexusGrowth.description} Ολοκληρωμένη μηνιαία υπηρεσία με SEO, συντήρηση και
+                  συνεχή υποστήριξη.
+                </p>
+                <p className="mt-6 text-4xl font-extrabold text-warm-ivory sm:text-5xl">
+                  119€
+                  <span className="ml-2 text-lg font-bold text-lavender/55">/μήνα</span>
+                </p>
+                <div className="mt-8 flex flex-wrap gap-3">
+                  <Link
+                    href="/#contact"
+                    className="cta-glow inline-flex items-center gap-2 rounded-full bg-gradient-to-br from-purple-primary to-purple-bright px-6 py-3.5 text-sm font-semibold text-white transition hover:-translate-y-0.5 focus-ring"
+                  >
+                    Ξεκίνα με NEXUS Growth →
+                  </Link>
+                  <a
+                    href="#includes"
+                    className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/8 px-6 py-3.5 text-sm font-semibold text-lavender transition hover:bg-white/12 focus-ring"
+                  >
+                    Δες τι περιλαμβάνει
+                  </a>
+                </div>
               </div>
-              <p className="mt-5 text-xs font-bold uppercase tracking-[0.18em] text-purple-primary">
-                NEXUS GROWTH
-              </p>
-              <h1 className="mt-3 text-3xl font-extrabold tracking-tight text-[#171717] sm:text-4xl lg:text-5xl">
-                Το website σου δεν χρειάζεται απλώς να υπάρχει.
-                <span className="mt-2 block text-purple-deep">
-                  Πρέπει να δουλεύει για την επιχείρησή σου.
-                </span>
-              </h1>
-              <p className="mt-5 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
-                {nexusGrowth.description} Ολοκληρωμένη μηνιαία υπηρεσία με SEO, συντήρηση και
-                συνεχή υποστήριξη.
-              </p>
-              <p className="mt-6 text-4xl font-extrabold text-purple-deep sm:text-5xl">
-                119€
-                <span className="ml-2 text-lg font-bold text-muted">/μήνα</span>
-              </p>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <Link
-                  href="/#contact"
-                  className="inline-flex items-center gap-2 rounded-full bg-purple-primary px-6 py-3.5 text-sm font-semibold text-white shadow-[0_14px_36px_-16px_rgba(109,40,217,0.7)] transition hover:-translate-y-0.5 hover:bg-purple-bright focus-ring"
-                >
-                  Ξεκίνα με NEXUS Growth →
-                </Link>
-                <a
-                  href="#includes"
-                  className="inline-flex items-center gap-2 rounded-full border border-purple-primary/25 bg-white px-6 py-3.5 text-sm font-semibold text-purple-deep transition hover:bg-lavender-soft focus-ring"
-                >
-                  Δες τι περιλαμβάνει
-                </a>
-              </div>
+
+              {/* Decorative status panel — illustrative only */}
+              <aside
+                className="rounded-2xl border border-white/12 bg-white/8 p-5 backdrop-blur-sm"
+                aria-hidden="true"
+              >
+                <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-lavender/50">
+                  Service overview
+                </p>
+                <ul className="mt-4 space-y-3">
+                  {[
+                    { label: "Website status", value: "Maintained" },
+                    { label: "SEO monitoring", value: "Active" },
+                    { label: "Performance", value: "Optimized" },
+                    { label: "Monthly reporting", value: "Included" },
+                  ].map((row) => (
+                    <li
+                      key={row.label}
+                      className="flex items-center justify-between rounded-xl border border-white/10 bg-white/5 px-3 py-2.5"
+                    >
+                      <span className="text-sm text-lavender/70">{row.label}</span>
+                      <span className="text-sm font-semibold text-muted-amber">{row.value}</span>
+                    </li>
+                  ))}
+                </ul>
+              </aside>
             </div>
           </Reveal>
         </div>

@@ -1,7 +1,10 @@
 .section {
   position: relative;
   overflow: hidden;
-  background: #ffffff;
+  background:
+    radial-gradient(ellipse 70% 50% at 90% 10%, rgba(217, 154, 85, 0.08), transparent 55%),
+    radial-gradient(ellipse 50% 45% at 8% 80%, rgba(109, 40, 217, 0.05), transparent 60%),
+    #fffcf7;
 }
 
 .backdrop {
@@ -9,8 +12,8 @@
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse at 20% 0%, rgba(124, 58, 237, 0.08), transparent 45%),
-    radial-gradient(ellipse at 85% 30%, rgba(109, 40, 217, 0.06), transparent 40%);
+    radial-gradient(ellipse at 20% 0%, rgba(124, 58, 237, 0.07), transparent 45%),
+    radial-gradient(ellipse at 85% 30%, rgba(217, 154, 85, 0.06), transparent 40%);
 }
 
 .gridDots {
@@ -59,10 +62,10 @@
   height: 100%;
   flex-direction: column;
   border-radius: 1.5rem;
-  border: 1px solid var(--border);
-  background: linear-gradient(180deg, #ffffff 0%, #fcfbff 100%);
+  border: 1px solid var(--soft-border);
+  background: linear-gradient(180deg, #fffcf7 0%, #faf6f0 100%);
   padding: 1.4rem 1.35rem 1.25rem;
-  box-shadow: 0 12px 30px -26px rgba(76, 29, 149, 0.3);
+  box-shadow: 0 12px 30px -26px var(--warm-shadow);
   transition:
     transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
     border-color 0.28s ease,
@@ -70,10 +73,32 @@
 }
 
 .cardFeatured {
-  border: 1.5px solid rgba(109, 40, 217, 0.55);
+  border: 1.5px solid rgba(109, 40, 217, 0.35);
+  background:
+    radial-gradient(ellipse 70% 50% at 90% 0%, rgba(217, 154, 85, 0.16), transparent 55%),
+    linear-gradient(165deg, #2e1a4a 0%, #241535 55%, #1a0f28 100%);
+  color: #fffcf7;
   box-shadow:
-    0 18px 40px -28px rgba(109, 40, 217, 0.45),
-    0 0 0 1px rgba(109, 40, 217, 0.04);
+    0 22px 48px -28px rgba(36, 21, 53, 0.55),
+    0 0 0 1px rgba(237, 228, 255, 0.06);
+}
+
+.cardFeatured h3,
+.cardFeatured .price {
+  color: #fffcf7 !important;
+}
+
+.cardFeatured p,
+.cardFeatured .feature {
+  color: rgba(237, 228, 255, 0.78) !important;
+}
+
+.cardFeatured .status {
+  color: rgba(237, 228, 255, 0.45);
+}
+
+.cardFeatured .feature svg {
+  color: #d99a55 !important;
 }
 
 .badge {
@@ -175,7 +200,7 @@
   gap: 0.5rem;
   font-size: 0.875rem;
   line-height: 1.4;
-  color: #171717;
+  color: var(--warm-charcoal);
 }
 
 .cta {
@@ -197,9 +222,15 @@
 }
 
 .ctaPrimary {
-  background: var(--purple-primary);
+  background: linear-gradient(135deg, var(--purple-primary), var(--purple-bright));
   color: #ffffff;
   box-shadow: 0 12px 28px -16px rgba(109, 40, 217, 0.65);
+}
+
+.cardFeatured .ctaPrimary {
+  background: #fffcf7;
+  color: var(--purple-deep);
+  box-shadow: 0 12px 28px -16px rgba(255, 252, 247, 0.35);
 }
 
 .ctaSecondary {
@@ -235,10 +266,10 @@
   height: 100%;
   flex-direction: column;
   border-radius: 1.25rem;
-  border: 1px solid var(--border);
-  background: #ffffff;
+  border: 1px solid var(--soft-border);
+  background: linear-gradient(165deg, #fffcf7 0%, #f5ede3 100%);
   padding: 1.1rem 1.15rem;
-  box-shadow: 0 10px 24px -24px rgba(76, 29, 149, 0.28);
+  box-shadow: 0 10px 24px -24px var(--warm-shadow);
   transition:
     transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
     border-color 0.25s ease,

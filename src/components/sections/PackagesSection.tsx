@@ -113,7 +113,7 @@ export function PackagesSection({ packages }: { packages: PackageItem[] }) {
                     Package
                   </span>
 
-                  <h3 className="pr-16 text-[1.35rem] font-bold leading-snug tracking-tight text-[#171717] sm:text-[1.4rem]">
+                  <h3 className="pr-16 text-[1.35rem] font-bold leading-snug tracking-tight text-warm-charcoal sm:text-[1.4rem]">
                     {pkg.title}
                   </h3>
                   <p className="mt-2 text-sm leading-relaxed text-muted">{pkg.description}</p>
@@ -188,14 +188,14 @@ export function PackagesSection({ packages }: { packages: PackageItem[] }) {
                   <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-purple-primary/80">
                     Monthly
                   </p>
-                  <h4 className="mt-1.5 text-base font-bold text-[#171717]">{service.title}</h4>
+                  <h4 className="mt-1.5 text-base font-bold text-warm-charcoal">{service.title}</h4>
                   <p className="mt-1 text-sm leading-relaxed text-muted">{service.description}</p>
 
                   <ul className="mt-3 space-y-1.5">
                     {service.features.map((feature) => (
                       <li
                         key={feature}
-                        className="flex items-start gap-2 text-sm text-[#171717]"
+                        className="flex items-start gap-2 text-sm text-warm-charcoal"
                       >
                         <Check
                           className="mt-0.5 h-3.5 w-3.5 shrink-0 text-purple-primary"

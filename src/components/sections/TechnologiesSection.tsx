@@ -16,8 +16,7 @@ function TechLogo({ item }: { item: TechItem }) {
   if ("kind" in icon && icon.kind === "wordmark") {
     return (
       <span
-        className="text-[1.35rem] font-black tracking-tight"
-        style={{ color: `#${icon.hex}` }}
+        className="text-[1.35rem] font-black tracking-tight text-lavender"
         aria-hidden="true"
       >
         SQL
@@ -45,21 +44,20 @@ function TechCard({ item }: { item: TechItem }) {
   return (
     <article
       className={cn(
-        "tech-card group flex h-full flex-col items-center justify-center gap-3 rounded-[1.15rem] border border-border-soft bg-white px-3 py-5 text-center",
-        "shadow-[0_10px_28px_-24px_rgba(76,29,149,0.35)]",
+        "tech-card group flex h-full flex-col items-center justify-center gap-3 rounded-[1.15rem] border border-white/10 bg-white/8 px-3 py-5 text-center backdrop-blur-sm",
+        "shadow-[0_10px_28px_-24px_rgba(0,0,0,0.35)]",
         "transition duration-300 ease-out",
-        "hover:-translate-y-1 hover:border-purple-primary/30",
-        "hover:shadow-[0_18px_40px_-24px_rgba(109,40,217,0.45)]",
-        "focus-within:border-purple-primary/40",
+        "hover:-translate-y-1 hover:border-muted-amber/35 hover:bg-white/12",
+        "focus-within:border-lavender/40",
       )}
       aria-label={item.name}
     >
-      <div className="flex h-12 w-12 items-center justify-center">
+      <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/95 p-1.5 shadow-sm">
         <TechLogo item={item} />
       </div>
       <div>
-        <h3 className="text-sm font-bold text-[#171717]">{item.name}</h3>
-        <p className="mt-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-muted">
+        <h3 className="text-sm font-bold text-lavender">{item.name}</h3>
+        <p className="mt-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-lavender/55">
           {item.categoryLabel}
           {item.tier === "core" ? " · Core" : ""}
         </p>
@@ -79,34 +77,34 @@ export function TechnologiesSection() {
   return (
     <section
       id="technologies"
-      className="relative overflow-hidden bg-white py-12 sm:py-14 lg:py-16"
+      className="surface-deep section-texture relative overflow-hidden py-12 sm:py-14 lg:py-16"
       aria-labelledby="technologies-heading"
     >
       <div
-        className="pointer-events-none absolute inset-0 bg-grid opacity-50"
+        className="pointer-events-none absolute inset-0 opacity-30 bg-grid"
         aria-hidden="true"
-      />
-      <div
-        className="pointer-events-none absolute left-1/2 top-0 h-64 w-[36rem] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(124,58,237,0.12),transparent_70%)]"
-        aria-hidden="true"
+        style={{
+          backgroundImage:
+            "linear-gradient(to right, rgba(237,228,255,0.06) 1px, transparent 1px), linear-gradient(to bottom, rgba(237,228,255,0.06) 1px, transparent 1px)",
+        }}
       />
 
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="relative z-[1] mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Reveal>
-          <p className="text-xs font-bold uppercase tracking-[0.18em] text-purple-primary">
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-muted-amber">
             Stack
           </p>
           <h2
             id="technologies-heading"
-            className="mt-3 text-2xl font-extrabold tracking-tight text-[#171717] sm:text-3xl"
+            className="mt-3 text-2xl font-extrabold tracking-tight text-warm-ivory sm:text-3xl"
           >
             Technologies We Use
           </h2>
-          <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
+          <p className="mt-4 max-w-2xl text-base leading-relaxed text-lavender/75 sm:text-lg">
             Σύγχρονες τεχνολογίες και εργαλεία για τη δημιουργία γρήγορων, ασφαλών και
             επεκτάσιμων digital solutions.
           </p>
-          <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted sm:text-base">
+          <p className="mt-3 max-w-2xl text-sm leading-relaxed text-lavender/60 sm:text-base">
             Επιλέγουμε την κατάλληλη τεχνολογία ανάλογα με τις ανάγκες, το είδος και την
             κλίμακα κάθε project — από web development και frameworks μέχρι databases και
             εργαλεία υποδομής.
@@ -115,7 +113,7 @@ export function TechnologiesSection() {
 
         <Reveal delay={60}>
           <p
-            className="tech-marquee mt-8 text-center text-xs font-bold uppercase tracking-[0.28em] text-purple-deep/70 sm:text-sm"
+            className="tech-marquee mt-8 text-center text-xs font-bold uppercase tracking-[0.28em] sm:text-sm"
             aria-hidden="true"
           >
             CODE • DESIGN • DEVELOP • DEPLOY
@@ -141,8 +139,8 @@ export function TechnologiesSection() {
                   className={cn(
                     "rounded-xl px-3.5 py-2 text-xs font-bold tracking-wide transition duration-300 focus-ring sm:text-sm",
                     active
-                      ? "bg-purple-primary text-white shadow-[0_10px_24px_-14px_rgba(109,40,217,0.7)]"
-                      : "border border-border-soft bg-lavender-light text-purple-deep hover:border-purple-primary/30 hover:bg-lavender-soft",
+                      ? "bg-lavender text-purple-deep shadow-[0_10px_24px_-14px_rgba(237,228,255,0.4)]"
+                      : "border border-white/15 bg-white/5 text-lavender/80 hover:border-muted-amber/30 hover:bg-white/10",
                   )}
                   onClick={() => setFilter(item.id)}
                 >
@@ -171,10 +169,10 @@ export function TechnologiesSection() {
         </div>
 
         <Reveal delay={80}>
-          <p className="mt-8 text-center text-sm text-muted">
-            <span className="font-semibold text-purple-deep">Core</span> = συχνές επιλογές
+          <p className="mt-8 text-center text-sm text-lavender/55">
+            <span className="font-semibold text-lavender">Core</span> = συχνές επιλογές
             για σύγχρονα web projects ·{" "}
-            <span className="font-semibold text-purple-deep">Additional</span> = διαθέσιμες
+            <span className="font-semibold text-lavender">Additional</span> = διαθέσιμες
             τεχνολογίες όταν το project το απαιτεί.
           </p>
         </Reveal>

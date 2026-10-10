@@ -10,12 +10,15 @@ export function IntroSection({
   highlight: string;
 }) {
   return (
-    <section className="bg-white py-12 sm:py-14 lg:py-16" aria-labelledby="intro-heading">
-      <div className="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
+    <section
+      className="surface-cream section-texture relative overflow-hidden py-12 sm:py-14 lg:py-16"
+      aria-labelledby="intro-heading"
+    >
+      <div className="relative z-[1] mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
         <Reveal>
           <h2
             id="intro-heading"
-            className="text-2xl font-extrabold tracking-tight text-[#171717] sm:text-3xl"
+            className="text-2xl font-extrabold tracking-tight text-warm-charcoal sm:text-3xl"
           >
             {title}
           </h2>

@@ -194,7 +194,7 @@ export default function RootLayout({
       <head>
         <JsonLd />
       </head>
-      <body className="min-h-full bg-white text-[#171717] font-sans">
+      <body className="min-h-full bg-warm-ivory text-warm-charcoal font-sans">
         <ConsentProvider>{children}</ConsentProvider>
       </body>
     </html>

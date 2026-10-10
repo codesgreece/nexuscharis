@@ -24,12 +24,12 @@ export function GrowYourBusinessView() {
     <>
       {/* Hero */}
       <section
-        className="relative overflow-hidden bg-lavender-light pb-10 pt-8 sm:pb-12 sm:pt-10"
+        className="surface-lavender section-texture relative overflow-hidden pb-10 pt-8 sm:pb-12 sm:pt-10"
         aria-labelledby="grow-heading"
       >
-        <div className="pointer-events-none absolute inset-0 bg-grid opacity-60" />
+        <div className="pointer-events-none absolute inset-0 bg-grid opacity-40" />
         <div className="pointer-events-none absolute -right-20 top-10 h-72 w-72 rounded-full bg-purple-primary/15 blur-3xl" />
-        <div className="pointer-events-none absolute -left-16 bottom-0 h-64 w-64 rounded-full bg-purple-electric/10 blur-3xl" />
+        <div className="pointer-events-none absolute -left-16 bottom-0 h-64 w-64 rounded-full bg-muted-amber/10 blur-3xl" />
 
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal>
@@ -38,7 +38,7 @@ export function GrowYourBusinessView() {
             </p>
             <h1
               id="grow-heading"
-              className="mt-3 max-w-3xl text-3xl font-extrabold tracking-tight text-[#171717] sm:text-4xl"
+              className="mt-3 max-w-3xl text-3xl font-extrabold tracking-tight text-warm-charcoal sm:text-4xl"
             >
               {GROW_PAGE.title}
             </h1>
@@ -48,14 +48,14 @@ export function GrowYourBusinessView() {
             <div className="mt-6 flex flex-wrap gap-3">
               <Link
                 href="/nexus-growth"
-                className="inline-flex items-center gap-2 rounded-full bg-purple-primary px-5 py-3 text-sm font-semibold text-white shadow-[0_12px_28px_-14px_rgba(109,40,217,0.65)] transition hover:-translate-y-0.5 hover:bg-purple-bright focus-ring"
+                className="cta-glow inline-flex items-center gap-2 rounded-full bg-gradient-to-br from-purple-primary to-purple-bright px-5 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 focus-ring"
               >
                 NEXUS Growth — 119€/μήνα
                 <ArrowRight className="h-4 w-4" aria-hidden />
               </Link>
               <a
                 href="#monthly-services"
-                className="inline-flex items-center gap-2 rounded-full border border-purple-primary/25 bg-white px-5 py-3 text-sm font-semibold text-purple-deep transition hover:bg-lavender-soft focus-ring"
+                className="inline-flex items-center gap-2 rounded-full border border-purple-primary/25 bg-warm-ivory px-5 py-3 text-sm font-semibold text-purple-deep transition hover:bg-lavender focus-ring"
               >
                 Δες τις υπηρεσίες
               </a>
@@ -67,7 +67,7 @@ export function GrowYourBusinessView() {
               <Reveal key={hint.solution} delay={i * 40}>
                 <a
                   href={hint.href}
-                  className="group flex h-full flex-col rounded-[1.25rem] border border-border-soft bg-white/90 p-4 shadow-[0_12px_32px_-28px_rgba(76,29,149,0.35)] transition hover:-translate-y-0.5 hover:border-purple-primary/30 focus-ring"
+                  className="group flex h-full flex-col rounded-[1.25rem] border border-soft-border bg-warm-ivory/90 p-4 shadow-[0_12px_32px_-28px_rgba(65,42,66,0.18)] transition hover:-translate-y-0.5 hover:border-purple-primary/30 focus-ring"
                 >
                   <span className="text-xs leading-snug text-muted">{hint.need}</span>
                   <span className="mt-2 inline-flex items-center gap-1 text-sm font-bold text-purple-deep">
@@ -86,17 +86,17 @@ export function GrowYourBusinessView() {
 
       {/* NEXUS Growth highlight */}
       <section
-        className="bg-white py-10 sm:py-12 lg:py-14"
+        className="surface-ivory section-texture relative py-10 sm:py-12 lg:py-14"
         aria-labelledby="nexus-growth-heading"
       >
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="relative z-[1] mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal>
             <p className="text-xs font-bold uppercase tracking-[0.18em] text-purple-primary">
               Best Value Bundle
             </p>
             <h2
               id="nexus-growth-heading"
-              className="mt-3 text-2xl font-extrabold tracking-tight text-[#171717] sm:text-3xl"
+              className="mt-3 text-2xl font-extrabold tracking-tight text-warm-charcoal sm:text-3xl"
             >
               NEXUS Growth
             </h2>
@@ -117,17 +117,17 @@ export function GrowYourBusinessView() {
       {/* Monthly support */}
       <section
         id="monthly-services"
-        className="bg-lavender-light py-10 sm:py-12 lg:py-14"
+        className="surface-cream section-texture relative py-10 sm:py-12 lg:py-14"
         aria-labelledby="monthly-services-heading"
       >
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="relative z-[1] mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal>
             <p className="text-xs font-bold uppercase tracking-[0.18em] text-purple-primary">
               Monthly
             </p>
             <h2
               id="monthly-services-heading"
-              className="mt-3 text-2xl font-extrabold tracking-tight text-[#171717] sm:text-3xl"
+              className="mt-3 text-2xl font-extrabold tracking-tight text-warm-charcoal sm:text-3xl"
             >
               Μηνιαίες υπηρεσίες
             </h2>
@@ -149,17 +149,17 @@ export function GrowYourBusinessView() {
       {/* One-time */}
       <section
         id="one-time-services"
-        className="bg-white py-10 sm:py-12 lg:py-14"
+        className="surface-ivory section-texture relative py-10 sm:py-12 lg:py-14"
         aria-labelledby="one-time-services-heading"
       >
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="relative z-[1] mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal>
             <p className="text-xs font-bold uppercase tracking-[0.18em] text-purple-primary">
               One-Time Services
             </p>
             <h2
               id="one-time-services-heading"
-              className="mt-3 text-2xl font-extrabold tracking-tight text-[#171717] sm:text-3xl"
+              className="mt-3 text-2xl font-extrabold tracking-tight text-warm-charcoal sm:text-3xl"
             >
               One-Time Services
             </h2>

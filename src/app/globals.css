@@ -1,19 +1,50 @@
 @import "tailwindcss";
 
+/* ============================================================
+   NEXUS DEV STUDIO — Warm Futuristic Design System
+   Premium digital studio · purple brand · autumn atmosphere
+   ============================================================ */
+
 :root {
+  /* Core brand */
   --purple-primary: #6d28d9;
   --purple-bright: #7c3aed;
   --purple-electric: #8b5cf6;
-  --purple-deep: #4c1d95;
-  --lavender-soft: #f5f3ff;
-  --lavender-light: #faf8ff;
+  --purple-deep: #241535;
+  --lavender: #ede4ff;
+  --lavender-soft: #ede4ff;
+  --lavender-light: #f5f0ff;
+
+  /* Warm neutrals */
+  --warm-ivory: #fffcf7;
+  --soft-cream: #f5ede3;
+  --muted-amber: #d99a55;
+  --warm-charcoal: #28232d;
+  --soft-border: #e8ded3;
+  --warm-shadow: rgba(65, 42, 66, 0.1);
+
+  /* Semantic aliases */
   --white: #ffffff;
-  --text: #171717;
-  --text-secondary: #666666;
-  --border: #e9e5f5;
-  --background: #ffffff;
-  --foreground: #171717;
+  --text: #28232d;
+  --text-secondary: #5c5560;
+  --border: #e8ded3;
+  --background: #fffcf7;
+  --foreground: #28232d;
+
+  /* Surfaces */
+  --surface-ivory: #fffcf7;
+  --surface-cream: #f5ede3;
+  --surface-lavender: #ede4ff;
+  --surface-deep: #241535;
+  --surface-charcoal: #28232d;
+
+  /* Spacing / radius / elevation */
   --radius: 1rem;
+  --radius-lg: 1.35rem;
+  --radius-xl: 1.75rem;
+  --shadow-soft: 0 14px 36px -28px var(--warm-shadow);
+  --shadow-elevated: 0 22px 48px -28px rgba(65, 42, 66, 0.16);
+  --shadow-purple: 0 18px 44px -24px rgba(109, 40, 217, 0.45);
 }
 
 @theme inline {
@@ -23,8 +54,14 @@
   --color-purple-bright: var(--purple-bright);
   --color-purple-electric: var(--purple-electric);
   --color-purple-deep: var(--purple-deep);
+  --color-lavender: var(--lavender);
   --color-lavender-soft: var(--lavender-soft);
   --color-lavender-light: var(--lavender-light);
+  --color-warm-ivory: var(--warm-ivory);
+  --color-soft-cream: var(--soft-cream);
+  --color-muted-amber: var(--muted-amber);
+  --color-warm-charcoal: var(--warm-charcoal);
+  --color-soft-border: var(--soft-border);
   --color-border-soft: var(--border);
   --color-muted: var(--text-secondary);
   --font-sans: var(--font-manrope);
@@ -50,34 +87,143 @@ html {
 }
 
 body {
-  background: var(--background);
+  background: var(--warm-ivory);
   color: var(--foreground);
   font-family: var(--font-manrope), system-ui, sans-serif;
   text-rendering: optimizeLegibility;
 }
 
 ::selection {
-  background: color-mix(in srgb, var(--purple-primary) 25%, white);
+  background: color-mix(in srgb, var(--purple-primary) 22%, var(--warm-ivory));
   color: var(--purple-deep);
+}
+
+/* —— Shared section surfaces —— */
+.surface-ivory {
+  background:
+    radial-gradient(ellipse 70% 50% at 90% 10%, rgba(217, 154, 85, 0.08), transparent 55%),
+    radial-gradient(ellipse 50% 45% at 8% 80%, rgba(109, 40, 217, 0.05), transparent 60%),
+    var(--warm-ivory);
+}
+
+.surface-cream {
+  background:
+    radial-gradient(ellipse 60% 50% at 85% 20%, rgba(237, 228, 255, 0.55), transparent 55%),
+    radial-gradient(ellipse 45% 40% at 10% 90%, rgba(217, 154, 85, 0.07), transparent 60%),
+    var(--soft-cream);
+}
+
+.surface-lavender {
+  background:
+    radial-gradient(ellipse 55% 45% at 100% 0%, rgba(109, 40, 217, 0.08), transparent 55%),
+    radial-gradient(ellipse 40% 35% at 0% 100%, rgba(217, 154, 85, 0.06), transparent 60%),
+    linear-gradient(165deg, #f8f4ff 0%, var(--lavender) 55%, #f5ede3 100%);
+}
+
+.surface-deep {
+  background:
+    radial-gradient(ellipse 55% 45% at 85% 15%, rgba(217, 154, 85, 0.14), transparent 55%),
+    radial-gradient(ellipse 50% 50% at 10% 90%, rgba(139, 92, 246, 0.22), transparent 60%),
+    radial-gradient(ellipse 40% 40% at 50% 50%, rgba(109, 40, 217, 0.35), transparent 70%),
+    linear-gradient(160deg, #2a1840 0%, #241535 45%, #1a0f28 100%);
+  color: #f8f4ff;
+}
+
+.surface-charcoal {
+  background:
+    radial-gradient(ellipse 50% 40% at 90% 0%, rgba(109, 40, 217, 0.18), transparent 55%),
+    linear-gradient(180deg, #2e2734 0%, #28232d 100%);
+  color: #f5ede3;
+}
+
+.section-texture {
+  position: relative;
+}
+
+.section-texture::before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  opacity: 0.028;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+  z-index: 0;
+}
+
+.eyebrow {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--purple-primary);
+}
+
+.section-title {
+  font-size: clamp(1.5rem, 3vw, 1.875rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: var(--warm-charcoal);
+}
+
+.section-lead {
+  margin-top: 0.75rem;
+  max-width: 40rem;
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--text-secondary);
+}
+
+.premium-card {
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--soft-border);
+  background: color-mix(in srgb, var(--warm-ivory) 92%, white);
+  box-shadow: var(--shadow-soft);
+  transition:
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .premium-card:hover {
+    transform: translateY(-4px);
+    border-color: color-mix(in srgb, var(--purple-primary) 35%, var(--soft-border));
+    box-shadow: var(--shadow-elevated), 0 0 0 1px rgba(109, 40, 217, 0.06);
+  }
+}
+
+.cta-glow {
+  box-shadow:
+    0 14px 34px -14px rgba(109, 40, 217, 0.7),
+    0 0 28px -12px rgba(217, 154, 85, 0.28);
+}
+
+.cta-glow:hover {
+  box-shadow:
+    0 18px 40px -14px rgba(109, 40, 217, 0.8),
+    0 0 32px -8px rgba(217, 154, 85, 0.35);
 }
 
 .bg-grid {
   background-image:
-    linear-gradient(to right, rgba(109, 40, 217, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(109, 40, 217, 0.04) 1px, transparent 1px);
+    linear-gradient(to right, rgba(109, 40, 217, 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(109, 40, 217, 0.045) 1px, transparent 1px);
   background-size: 48px 48px;
 }
 
 .purple-glow {
   background: radial-gradient(
     circle at center,
-    rgba(124, 58, 237, 0.28) 0%,
-    rgba(139, 92, 246, 0.12) 35%,
+    rgba(124, 58, 237, 0.3) 0%,
+    rgba(109, 40, 217, 0.12) 40%,
     transparent 70%
   );
 }
 
-/* Hero art-direction — subtle floating (honors prefers-reduced-motion via motion-safe:) */
+/* Hero art-direction — subtle floating */
 @keyframes hero-portrait-float {
   0%,
   100% {
@@ -98,6 +244,18 @@ body {
   }
 }
 
+@keyframes ambient-pulse {
+  0%,
+  100% {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.04);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .motion-safe\:animate-\[hero-portrait-float_7s_ease-in-out_infinite\],
   .motion-safe\:animate-\[hero-signature-float_8s_ease-in-out_infinite\] {
@@ -106,9 +264,9 @@ body {
 }
 
 .glass {
-  background: rgba(255, 255, 255, 0.72);
+  background: rgba(255, 252, 247, 0.78);
   backdrop-filter: blur(16px);
-  border: 1px solid rgba(233, 229, 245, 0.9);
+  border: 1px solid rgba(232, 222, 211, 0.85);
 }
 
 .flip-card {
@@ -170,7 +328,7 @@ body {
   animation: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-/* FAQ accordion — smooth height + opacity (250–350ms) */
+/* FAQ accordion */
 .faq-panel {
   display: grid;
   grid-template-rows: 0fr;
@@ -201,20 +359,50 @@ body {
   }
 }
 
-/* Performance section — lightweight accent line */
+/* Performance section accent line */
 .perf-line {
   background: linear-gradient(
     90deg,
     transparent 0%,
     rgba(109, 40, 217, 0.35) 35%,
-    rgba(139, 92, 246, 0.45) 50%,
+    rgba(217, 154, 85, 0.4) 50%,
     rgba(109, 40, 217, 0.35) 65%,
     transparent 100%
   );
   transform: translateZ(0);
 }
 
-/* Portfolio editorial cards — typography-first, no project images */
+/* Process connector line */
+.process-track {
+  position: relative;
+}
+
+.process-track::before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  top: 2.1rem;
+  left: 8%;
+  right: 8%;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(109, 40, 217, 0.25) 15%,
+    rgba(217, 154, 85, 0.35) 50%,
+    rgba(109, 40, 217, 0.25) 85%,
+    transparent
+  );
+  z-index: 0;
+}
+
+@media (max-width: 1023px) {
+  .process-track::before {
+    display: none;
+  }
+}
+
+/* Portfolio editorial cards */
 .portfolio-card {
   position: relative;
   display: flex;
@@ -222,7 +410,7 @@ body {
   min-height: 22rem;
   overflow: hidden;
   border-radius: 1.75rem;
-  border: 1px solid color-mix(in srgb, var(--purple-primary) 18%, white);
+  border: 1px solid color-mix(in srgb, var(--purple-primary) 18%, var(--soft-border));
   background:
     radial-gradient(
       ellipse 80% 60% at 100% 0%,
@@ -231,12 +419,12 @@ body {
     ),
     radial-gradient(
       ellipse 70% 50% at 0% 100%,
-      rgba(109, 40, 217, 0.06) 0%,
+      rgba(217, 154, 85, 0.08) 0%,
       transparent 50%
     ),
-    linear-gradient(165deg, #ffffff 0%, #faf8ff 48%, #f5f3ff 100%);
+    linear-gradient(165deg, #fffcf7 0%, #faf6f0 48%, #ede4ff 100%);
   box-shadow:
-    0 20px 48px -36px rgba(76, 29, 149, 0.38),
+    0 20px 48px -36px rgba(65, 42, 66, 0.22),
     0 1px 0 rgba(255, 255, 255, 0.8) inset;
   padding: 1.75rem 1.5rem 1.5rem;
   transition:
@@ -254,11 +442,11 @@ body {
 
 .portfolio-card:hover {
   transform: translateY(-4px);
-  border-color: color-mix(in srgb, var(--purple-primary) 42%, white);
+  border-color: color-mix(in srgb, var(--purple-primary) 42%, var(--soft-border));
   box-shadow:
-    0 28px 56px -32px rgba(76, 29, 149, 0.48),
+    0 28px 56px -32px rgba(65, 42, 66, 0.28),
     0 0 0 1px rgba(109, 40, 217, 0.08),
-    0 0 36px -12px rgba(139, 92, 246, 0.28);
+    0 0 36px -12px rgba(139, 92, 246, 0.22);
 }
 
 .portfolio-card-glow {
@@ -270,7 +458,7 @@ body {
   border-radius: 50%;
   background: radial-gradient(
     circle,
-    rgba(139, 92, 246, 0.14) 0%,
+    rgba(217, 154, 85, 0.12) 0%,
     transparent 70%
   );
   opacity: 0.85;
@@ -299,8 +487,8 @@ body {
   background: linear-gradient(
     145deg,
     rgba(109, 40, 217, 0.14) 0%,
-    rgba(139, 92, 246, 0.07) 45%,
-    rgba(76, 29, 149, 0.04) 100%
+    rgba(217, 154, 85, 0.08) 45%,
+    rgba(36, 21, 53, 0.04) 100%
   );
   -webkit-background-clip: text;
   background-clip: text;
@@ -337,7 +525,7 @@ body {
   font-weight: 800;
   line-height: 1.12;
   letter-spacing: -0.03em;
-  color: #171717;
+  color: var(--warm-charcoal);
   white-space: pre-line;
   overflow-wrap: break-word;
   hyphens: manual;
@@ -420,7 +608,7 @@ body {
   color: #ffffff;
   box-shadow:
     0 12px 28px -14px rgba(109, 40, 217, 0.65),
-    0 0 20px -8px rgba(139, 92, 246, 0.45);
+    0 0 20px -8px rgba(217, 154, 85, 0.35);
 }
 
 .portfolio-card-cta-arrow {
@@ -455,11 +643,13 @@ body {
   .portfolio-card,
   .portfolio-card-number,
   .portfolio-card-cta,
-  .portfolio-card-cta-arrow {
+  .portfolio-card-cta-arrow,
+  .premium-card {
     transition: none !important;
   }
 
-  .portfolio-card:hover {
+  .portfolio-card:hover,
+  .premium-card:hover {
     transform: none;
   }
 
@@ -476,11 +666,11 @@ body {
 .tech-marquee {
   background: linear-gradient(
     90deg,
-    rgba(76, 29, 149, 0.35),
-    rgba(109, 40, 217, 0.85),
-    rgba(139, 92, 246, 0.9),
-    rgba(109, 40, 217, 0.85),
-    rgba(76, 29, 149, 0.35)
+    rgba(237, 228, 255, 0.55),
+    rgba(217, 154, 85, 0.85),
+    rgba(237, 228, 255, 0.95),
+    rgba(217, 154, 85, 0.85),
+    rgba(237, 228, 255, 0.55)
   );
   background-size: 200% 100%;
   -webkit-background-clip: text;
@@ -522,7 +712,7 @@ body {
   box-shadow:
     0 18px 40px -24px rgba(109, 40, 217, 0.45),
     0 0 0 1px rgba(109, 40, 217, 0.08),
-    0 0 28px -10px rgba(139, 92, 246, 0.35);
+    0 0 28px -10px rgba(217, 154, 85, 0.25);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -532,7 +722,7 @@ body {
   }
 
   .tech-marquee {
-    color: var(--purple-deep);
+    color: var(--lavender);
     background: none;
     -webkit-background-clip: unset;
     background-clip: unset;

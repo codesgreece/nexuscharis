@@ -58,13 +58,12 @@ function buildSocialLinks(social: FooterSocialInput | undefined): SocialItem[] {
 }
 
 function usesNativeAnchor(href: string) {
-  // Prefer native anchors for hash targets so in-page scroll works reliably.
   return href === "/" || href.includes("#");
 }
 
 function FooterTextLink({ href, label }: FooterNavLink) {
   const className =
-    "rounded text-sm text-muted transition-colors duration-200 hover:text-purple-deep focus-ring";
+    "rounded text-sm text-lavender/65 transition-colors duration-200 hover:text-lavender focus-ring";
 
   if (usesNativeAnchor(href)) {
     return (
@@ -99,7 +98,7 @@ function SocialIconLinks({
             target="_blank"
             rel="noopener noreferrer"
             aria-label={item.label}
-            className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-border-soft bg-white text-purple-primary transition duration-200 hover:-translate-y-0.5 hover:border-purple-primary/30 hover:text-purple-deep focus-ring"
+            className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-white/12 bg-white/6 text-lavender transition duration-200 hover:-translate-y-0.5 hover:border-muted-amber/35 hover:text-muted-amber focus-ring"
           >
             <svg
               role="img"
@@ -126,7 +125,7 @@ function FooterColumn({
 }) {
   return (
     <div>
-      <h2 className="text-sm font-bold tracking-tight text-[#171717]">{title}</h2>
+      <h2 className="text-sm font-bold tracking-tight text-warm-ivory">{title}</h2>
       {children}
     </div>
   );
@@ -149,21 +148,19 @@ export function Footer({
   const socialLinks = buildSocialLinks(social);
 
   return (
-    <footer className="border-t border-border-soft bg-lavender-light">
+    <footer className="surface-charcoal border-t border-white/8">
       <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-12 lg:px-8">
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-5 lg:gap-6 xl:gap-8">
-          {/* Column 1 — NEXUS */}
           <div className="sm:col-span-2 lg:col-span-1">
-            <Logo href="/" />
-            <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted">{tagline}</p>
-            <p className="mt-3 text-xs font-semibold leading-relaxed text-purple-deep">
+            <Logo href="/" tone="light" />
+            <p className="mt-4 max-w-xs text-sm leading-relaxed text-lavender/65">{tagline}</p>
+            <p className="mt-3 text-xs font-semibold leading-relaxed text-muted-amber/90">
               {footerBrandLine}
             </p>
             <p className="sr-only">{siteName}</p>
             <SocialIconLinks items={socialLinks} className="mt-5" />
           </div>
 
-          {/* Column 2 — Πλοήγηση */}
           <FooterColumn title="Πλοήγηση">
             <ul className="mt-3.5 space-y-2">
               {footerNavigationLinks.map((link) => (
@@ -174,7 +171,6 @@ export function Footer({
             </ul>
           </FooterColumn>
 
-          {/* Column 3 — Υπηρεσίες */}
           <FooterColumn title="Υπηρεσίες">
             <ul className="mt-3.5 space-y-2">
               {footerServiceLinks.map((link) => (
@@ -185,7 +181,6 @@ export function Footer({
             </ul>
           </FooterColumn>
 
-          {/* Column 4 — Νομικά */}
           <FooterColumn title="Νομικά">
             <ul className="mt-3.5 space-y-2">
               {footerLegalLinks.map((link) => (
@@ -194,40 +189,39 @@ export function Footer({
                 </li>
               ))}
               <li>
-                <CookieSettingsButton />
+                <CookieSettingsButton className="text-sm text-lavender/65 transition hover:text-lavender focus-ring rounded" />
               </li>
             </ul>
           </FooterColumn>
 
-          {/* Column 5 — Επικοινωνία */}
           <FooterColumn title="Επικοινωνία">
             <ul className="mt-3.5 space-y-2.5">
               <li>
                 <a
                   href={`tel:${phone}`}
-                  className="inline-flex items-center gap-2 rounded text-sm text-muted transition-colors duration-200 hover:text-purple-deep focus-ring"
+                  className="inline-flex items-center gap-2 rounded text-sm text-lavender/65 transition-colors duration-200 hover:text-lavender focus-ring"
                 >
-                  <Phone className="h-4 w-4 shrink-0 text-purple-primary" aria-hidden />
+                  <Phone className="h-4 w-4 shrink-0 text-muted-amber" aria-hidden />
                   <span>{formatPhoneDisplay(phone)}</span>
                 </a>
               </li>
               <li>
                 <a
                   href={`mailto:${email}`}
-                  className="inline-flex items-center gap-2 rounded text-sm text-muted transition-colors duration-200 hover:text-purple-deep focus-ring"
+                  className="inline-flex items-center gap-2 rounded text-sm text-lavender/65 transition-colors duration-200 hover:text-lavender focus-ring"
                 >
-                  <Mail className="h-4 w-4 shrink-0 text-purple-primary" aria-hidden />
+                  <Mail className="h-4 w-4 shrink-0 text-muted-amber" aria-hidden />
                   <span className="break-all">{email}</span>
                 </a>
               </li>
             </ul>
 
-            <div className="mt-5 rounded-2xl border border-purple-primary/15 bg-white p-4 shadow-[0_12px_28px_-24px_rgba(76,29,149,0.35)]">
-              <p className="text-sm font-bold text-[#171717]">{footerCta.title}</p>
-              <p className="mt-1.5 text-xs leading-relaxed text-muted">{footerCta.body}</p>
+            <div className="mt-5 rounded-2xl border border-white/12 bg-white/6 p-4">
+              <p className="text-sm font-bold text-warm-ivory">{footerCta.title}</p>
+              <p className="mt-1.5 text-xs leading-relaxed text-lavender/60">{footerCta.body}</p>
               <a
                 href={footerCta.href}
-                className="mt-3.5 inline-flex w-full items-center justify-center rounded-2xl bg-purple-primary px-4 py-2.5 text-sm font-semibold text-white transition duration-200 hover:bg-purple-bright focus-ring"
+                className="cta-glow mt-3.5 inline-flex w-full items-center justify-center rounded-2xl bg-gradient-to-br from-purple-primary to-purple-bright px-4 py-2.5 text-sm font-semibold text-white transition duration-200 hover:-translate-y-0.5 focus-ring"
               >
                 {footerCta.button}
               </a>
@@ -236,9 +230,9 @@ export function Footer({
         </div>
       </div>
 
-      <div className="border-t border-border-soft">
+      <div className="border-t border-white/8">
         <div className="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6 sm:py-5 lg:px-8">
-          <p className="text-xs text-muted">
+          <p className="text-xs text-lavender/50">
             © {year} NEXUS DEV STUDIO GREECE. All rights reserved.
           </p>
 
