@@ -40,7 +40,7 @@ export function Badge({
   tone = "neutral",
 }: {
   children: React.ReactNode;
-  tone?: "neutral" | "success" | "warning" | "danger" | "purple";
+  tone?: "neutral" | "success" | "warning" | "danger" | "purple" | "info" | "orange";
 }) {
   const tones = {
     neutral: "bg-lavender-soft text-purple-deep",
@@ -48,6 +48,8 @@ export function Badge({
     warning: "bg-amber-50 text-amber-800",
     danger: "bg-red-50 text-red-700",
     purple: "bg-purple-primary/10 text-purple-primary",
+    info: "bg-sky-50 text-sky-800",
+    orange: "bg-orange-50 text-orange-800",
   };
   return (
     <span className={cn("inline-flex rounded-full px-2.5 py-0.5 text-xs font-semibold", tones[tone])}>

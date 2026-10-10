@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getJobBySlug } from "@/content/jobs";
 import { sanitizeCvFilename, validateCvBuffer, validateCvFileMeta } from "@/lib/cv";
+import { prisma } from "@/lib/db";
 import { sendCareersApplicationNotification } from "@/lib/mail";
 import { checkRateLimit, hashIp } from "@/lib/rate-limit";
 import { careersApplicationSchema } from "@/lib/validations";
+import { getAcceptingJobBySlug } from "@/server/services/careers";
 
 export const runtime = "nodejs";
 
@@ -19,7 +20,6 @@ export async function POST(req: NextRequest) {
       const rate = await checkRateLimit(`careers:${hashIp(ip)}`, 5, 15 * 60 * 1000);
       rateAllowed = rate.allowed;
     } catch {
-      // If rate-limit store is unavailable, continue — still validate everything else.
       rateAllowed = true;
     }
 
@@ -58,7 +58,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ ok: true });
     }
 
-    const job = getJobBySlug(parsed.data.jobSlug);
+    const job = await getAcceptingJobBySlug(parsed.data.jobSlug);
     if (!job) {
       return NextResponse.json(
         { error: "Η θέση εργασίας δεν είναι διαθέσιμη." },
@@ -97,15 +97,34 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: contentCheck.error, field: "cv" }, { status: 400 });
     }
 
+    const cvFileName = sanitizeCvFilename(cvEntry.name);
+
+    const application = await prisma.jobApplication.create({
+      data: {
+        jobId: job.id,
+        fullName: parsed.data.name.trim(),
+        email: parsed.data.email.trim().toLowerCase(),
+        phone: parsed.data.phone.trim(),
+        coverMessage: parsed.data.message?.trim() || null,
+        cvFileName,
+        cvContentType: contentCheck.contentType,
+        cvSize: bytes.length,
+        cvData: bytes,
+        privacyAccepted: true,
+        ipHash: hashIp(ip),
+        status: "NEW",
+      },
+    });
+
     const mail = await sendCareersApplicationNotification({
-      name: parsed.data.name.trim(),
-      email: parsed.data.email.trim().toLowerCase(),
-      phone: parsed.data.phone.trim(),
+      name: application.fullName,
+      email: application.email,
+      phone: application.phone,
       jobTitle: job.title,
       jobSlug: job.slug,
-      message: parsed.data.message?.trim() || null,
+      message: application.coverMessage,
       cv: {
-        filename: sanitizeCvFilename(cvEntry.name),
+        filename: cvFileName,
         content: bytes,
         contentType: contentCheck.contentType,
       },
@@ -113,16 +132,13 @@ export async function POST(req: NextRequest) {
 
     if (!mail.sent) {
       console.error("[careers] email notification failed:", mail.provider, mail.error);
-      return NextResponse.json(
-        {
-          error:
-            "Δεν ήταν δυνατή η αποστολή της αίτησης. Έλεγξε τα στοιχεία σου και προσπάθησε ξανά.",
-        },
-        { status: 502 },
-      );
     }
 
-    return NextResponse.json({ ok: true, emailSent: true });
+    return NextResponse.json({
+      ok: true,
+      emailSent: mail.sent,
+      applicationId: application.id,
+    });
   } catch (err) {
     console.error("[careers] unexpected error:", err);
     return NextResponse.json(

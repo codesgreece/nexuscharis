@@ -3,9 +3,14 @@ import { notFound } from "next/navigation";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { JobDetailView } from "@/components/careers/JobDetailView";
-import { getAllActiveJobSlugs, getJobBySlug } from "@/content/jobs";
+import { richHtmlToPlainText } from "@/lib/html";
 import { absoluteUrl, getSiteUrl } from "@/lib/utils";
 import { getPublicSiteData } from "@/server/services/content";
+import {
+  getAllActiveJobSlugs,
+  getPublicJobBySlug,
+  type PublicJob,
+} from "@/server/services/careers";
 
 export const dynamic = "force-dynamic";
 
@@ -14,12 +19,17 @@ type PageProps = {
 };
 
 export async function generateStaticParams() {
-  return getAllActiveJobSlugs().map((slug) => ({ slug }));
+  try {
+    const slugs = await getAllActiveJobSlugs();
+    return slugs.map((slug) => ({ slug }));
+  } catch {
+    return [];
+  }
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const job = getJobBySlug(slug);
+  const job = await getPublicJobBySlug(slug);
   if (!job) {
     return {
       title: "Θέση μη διαθέσιμη | NEXUS DEV STUDIO GREECE",
@@ -49,7 +59,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       description,
     },
     robots: {
-      index: true,
+      index: job.status === "ACTIVE",
       follow: true,
     },
   };
@@ -70,7 +80,7 @@ function employmentTypeSchema(type: string) {
   }
 }
 
-function buildJobPostingJsonLd(job: NonNullable<ReturnType<typeof getJobBySlug>>) {
+function buildJobPostingJsonLd(job: PublicJob) {
   const site = getSiteUrl();
   const url = absoluteUrl(`/careers/${job.slug}`);
 
@@ -78,7 +88,9 @@ function buildJobPostingJsonLd(job: NonNullable<ReturnType<typeof getJobBySlug>>
     "@context": "https://schema.org",
     "@type": "JobPosting",
     title: job.title,
-    description: [job.description, job.role].join("\n\n"),
+    description: [richHtmlToPlainText(job.description), richHtmlToPlainText(job.role)]
+      .filter(Boolean)
+      .join("\n\n"),
     datePosted: job.postedAt || undefined,
     employmentType: employmentTypeSchema(job.type),
     hiringOrganization: {
@@ -101,7 +113,7 @@ function buildJobPostingJsonLd(job: NonNullable<ReturnType<typeof getJobBySlug>>
       },
     },
     url,
-    directApply: true,
+    directApply: job.acceptingApplications,
     identifier: {
       "@type": "PropertyValue",
       name: "NEXUS DEV STUDIO",
@@ -112,7 +124,7 @@ function buildJobPostingJsonLd(job: NonNullable<ReturnType<typeof getJobBySlug>>
 
 export default async function CareerJobPage({ params }: PageProps) {
   const { slug } = await params;
-  const job = getJobBySlug(slug);
+  const job = await getPublicJobBySlug(slug);
   if (!job) notFound();
 
   const data = await getPublicSiteData();
@@ -120,10 +132,12 @@ export default async function CareerJobPage({ params }: PageProps) {
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(buildJobPostingJsonLd(job)) }}
-      />
+      {job.status === "ACTIVE" ? (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(buildJobPostingJsonLd(job)) }}
+        />
+      ) : null}
       <Header />
       <main className="bg-warm-ivory pt-[72px]">
         <JobDetailView job={job} />

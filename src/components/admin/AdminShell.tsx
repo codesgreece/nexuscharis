@@ -24,6 +24,7 @@ import {
   Menu,
   BadgePercent,
   Bell,
+  Briefcase,
   RectangleHorizontal,
   Scale,
 } from "lucide-react";
@@ -63,6 +64,13 @@ const NAV: NavGroup[] = [
     ],
   },
   {
+    title: "Careers",
+    items: [
+      { href: "/admin/careers", label: "Careers", icon: Briefcase },
+      { href: "/admin/careers/applications", label: "Applications", icon: MessageSquare },
+    ],
+  },
+  {
     title: "Messages",
     items: [{ href: "/admin/messages", label: "Contact Messages", icon: MessageSquare }],
   },
@@ -78,6 +86,14 @@ const NAV: NavGroup[] = [
 
 function isActive(pathname: string, href: string) {
   if (href === "/admin") return pathname === "/admin";
+  // Keep Careers vs Applications mutually exclusive in the sidebar.
+  if (href === "/admin/careers") {
+    return (
+      pathname === "/admin/careers" ||
+      (pathname.startsWith("/admin/careers/") &&
+        !pathname.startsWith("/admin/careers/applications"))
+    );
+  }
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
