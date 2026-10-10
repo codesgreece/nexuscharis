@@ -37,7 +37,7 @@ export async function updateSettingsAction(
     linkedinUrl: formOptionalString(formData, "linkedinUrl"),
     dribbbleUrl: formOptionalString(formData, "dribbbleUrl"),
     twitterUrl: formOptionalString(formData, "twitterUrl"),
-    logoUrl: formString(formData, "logoUrl") || "/images/logo.svg",
+    logoUrl: formString(formData, "logoUrl") || "/images/logo-mark.png",
     founderImageUrl: formString(formData, "founderImageUrl") || "/images/founder.jpg",
     founderName: formString(formData, "founderName"),
     founderTitle: formString(formData, "founderTitle"),

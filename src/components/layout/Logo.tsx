@@ -36,7 +36,7 @@ export function Logo({
       className={cn("inline-flex items-center gap-2.5 focus-ring rounded-xl", className)}
     >
       <Image
-        src="/images/logo.svg"
+        src="/images/logo-mark.png"
         alt="NEXUS DEV STUDIO GREECE logo"
         width={40}
         height={40}
