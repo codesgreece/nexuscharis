@@ -12,6 +12,7 @@ import {
   growServices,
   headerCta,
   homepageHashIds,
+  isCareersNavActive,
   isGrowNavActive,
   isServicesNavActive,
   primaryNav,
@@ -115,6 +116,10 @@ export function Header() {
   const linkActive = (item: (typeof primaryNav)[number]) => {
     if (item.kind === "grow") return growActive;
     if (item.kind === "services") return servicesActive;
+    if (item.kind === "route") {
+      if (item.href === "/careers") return isCareersNavActive(pathname);
+      return pathname === item.href || pathname.startsWith(`${item.href}/`);
+    }
     if (!isHome) return false;
     return activeHash === item.hash;
   };
@@ -287,6 +292,18 @@ export function Header() {
             }
 
             const active = linkActive(item);
+            if (item.kind === "route") {
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={navItemClass(active)}
+                  aria-current={active ? "page" : undefined}
+                >
+                  {item.label}
+                </Link>
+              );
+            }
             return (
               <a
                 key={item.href}
@@ -427,6 +444,24 @@ export function Header() {
                     </div>
                   </div>
                 </div>
+              );
+            }
+
+            if (item.kind === "route") {
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={cn(
+                    "rounded-xl px-4 py-3 text-base font-medium hover:bg-lavender",
+                    linkActive(item)
+                      ? "bg-lavender text-purple-deep"
+                      : "text-warm-charcoal",
+                  )}
+                  onClick={() => setMobileOpen(false)}
+                >
+                  {item.label}
+                </Link>
               );
             }
 

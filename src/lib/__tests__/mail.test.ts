@@ -1,5 +1,10 @@
 import { describe, it, expect, afterEach, vi } from "vitest";
-import { buildContactEmail, getContactRecipient, getContactFrom } from "../mail";
+import {
+  buildCareersEmail,
+  buildContactEmail,
+  getContactRecipient,
+  getContactFrom,
+} from "../mail";
 
 describe("buildContactEmail", () => {
   it("includes all form fields in plain text and html", () => {
@@ -35,6 +40,31 @@ describe("buildContactEmail", () => {
     expect(html).toContain("&lt;script&gt;");
     expect(html).toContain("Hello &lt;b&gt;world&lt;/b&gt;");
     expect(html).toContain("Όχι");
+  });
+});
+
+describe("buildCareersEmail", () => {
+  it("includes job and candidate fields", () => {
+    const { subject, text, html } = buildCareersEmail({
+      name: "Test Candidate",
+      email: "candidate@example.com",
+      phone: "6900000000",
+      jobTitle: "Frontend Developer",
+      jobSlug: "frontend-developer",
+      message: "Hello team",
+      cv: {
+        filename: "cv.pdf",
+        content: Buffer.from("%PDF"),
+        contentType: "application/pdf",
+      },
+    });
+
+    expect(subject).toContain("[NEXUS Careers]");
+    expect(subject).toContain("Frontend Developer");
+    expect(text).toContain("candidate@example.com");
+    expect(text).toContain("cv.pdf");
+    expect(html).toContain("Frontend Developer");
+    expect(html).toContain("NEW APPLICATION");
   });
 });
 

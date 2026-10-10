@@ -18,6 +18,23 @@ export const contactSchema = z.object({
   marketingOptIn: z.boolean().optional().default(false),
 });
 
+/** Careers application fields (CV validated separately as multipart file). */
+export const careersApplicationSchema = z.object({
+  name: z.string().min(2, "Το ονοματεπώνυμο είναι υποχρεωτικό").max(120),
+  email: z.string().email("Μη έγκυρο email").max(200),
+  phone: z
+    .string()
+    .min(8, "Το τηλέφωνο είναι υποχρεωτικό")
+    .max(30, "Μη έγκυρο τηλέφωνο"),
+  jobSlug: z.string().min(1).max(120),
+  jobTitle: z.string().min(1).max(160),
+  message: z.string().max(5000).optional().or(z.literal("")),
+  website: z.string().max(0).optional().or(z.literal("")), // honeypot
+  privacyAccepted: z.literal(true, {
+    error: "Πρέπει να συμφωνήσεις με την επεξεργασία των προσωπικών σου δεδομένων",
+  }),
+});
+
 export const packageSchema = z.object({
   title: z.string().min(1).max(120),
   description: z.string().min(1).max(2000),

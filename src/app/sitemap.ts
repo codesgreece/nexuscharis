@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { getAllGrowthServiceSlugs } from "@/content/growth-pages";
+import { getAllActiveJobSlugs } from "@/content/jobs";
 import { getSiteUrl } from "@/lib/utils";
 
 /** Indexable public URLs only — no hash sections, admin, or API routes. */
@@ -19,6 +20,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       path: `/grow-your-business/${slug}`,
       changeFrequency: "monthly" as const,
       priority: 0.75,
+    })),
+    { path: "/careers", changeFrequency: "weekly", priority: 0.8 },
+    ...getAllActiveJobSlugs().map((slug) => ({
+      path: `/careers/${slug}`,
+      changeFrequency: "weekly" as const,
+      priority: 0.7,
     })),
     { path: "/privacy", changeFrequency: "yearly", priority: 0.4 },
     { path: "/cookies", changeFrequency: "yearly", priority: 0.4 },
