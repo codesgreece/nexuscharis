@@ -7,8 +7,10 @@ import {
   servicesIndex,
   servicePath,
 } from "@/content/build-services";
+import { publishedPackagePrices, type PublishedPackagePrice } from "@/lib/package-prices";
 
-export function ServicesIndexView() {
+export function ServicesIndexView({ packages }: { packages: PublishedPackagePrice[] }) {
+  const publishedPrices = publishedPackagePrices(packages);
   return (
     <>
       <section className="surface-ivory section-texture relative overflow-hidden py-10 sm:py-14">
@@ -57,6 +59,29 @@ export function ServicesIndexView() {
             {servicesIndex.scopeTitle}
           </h2>
           <p className="section-lead">{servicesIndex.scopeIntro}</p>
+          {publishedPrices.length > 0 && (
+            <div className="mt-6 rounded-[1.35rem] border border-purple-primary/20 bg-lavender/50 p-5">
+              <h3 className="text-lg font-extrabold text-warm-charcoal">Δημοσιευμένες τιμές κατασκευής</h3>
+              <ul className="mt-3 grid gap-3 sm:grid-cols-2">
+                {publishedPrices.map((pkg) => (
+                  <li key={pkg.title} className="rounded-2xl bg-warm-ivory px-4 py-3">
+                    <p className="text-sm font-semibold text-warm-charcoal">{pkg.title}</p>
+                    <p className="mt-1 text-lg font-extrabold text-purple-deep">{pkg.price}</p>
+                    {pkg.discount ? (
+                      <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-muted">
+                        {pkg.discount}
+                      </p>
+                    ) : null}
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-3 text-sm text-muted">
+                <Link href="/#packages" className="font-semibold text-purple-deep underline-offset-2 hover:underline">
+                  Όλα τα πακέτα στην αρχική
+                </Link>
+              </p>
+            </div>
+          )}
           <ul className="mt-8 grid gap-4 md:grid-cols-2">
             {buildServicePages.map((page) => (
               <li key={page.slug}>

@@ -53,7 +53,7 @@ export default async function ServicesIndexPage() {
           dribbbleUrl: settings.dribbbleUrl,
         }}
       >
-        <ServicesIndexView />
+        <ServicesIndexView packages={data.packages} />
       </PublicSiteFrame>
     </>
   );

@@ -4,17 +4,21 @@ import { Breadcrumbs } from "@/components/growth/Breadcrumbs";
 import { Reveal } from "@/components/ui/Reveal";
 import type { BuildServicePage } from "@/content/build-services";
 import { servicePath } from "@/content/build-services";
+import { packagesForService, type PublishedPackagePrice } from "@/lib/package-prices";
 import { formatPhoneDisplay } from "@/lib/utils";
 
 export function BuildServicePageView({
   page,
   phone,
   email,
+  packages,
 }: {
   page: BuildServicePage;
   phone: string;
   email: string;
+  packages: PublishedPackagePrice[];
 }) {
+  const publishedPrices = packagesForService(page.slug, packages);
   return (
     <>
       <section className="surface-ivory section-texture relative overflow-hidden py-10 sm:py-14">
@@ -118,6 +122,21 @@ export function BuildServicePageView({
           </div>
           <aside className="h-fit rounded-[1.5rem] border border-purple-primary/20 bg-lavender/60 p-6">
             <h2 className="text-xl font-extrabold text-warm-charcoal">Επόμενο βήμα</h2>
+            {publishedPrices.length > 0 && (
+              <ul className="mt-4 space-y-3">
+                {publishedPrices.map((pkg) => (
+                  <li key={pkg.title} className="rounded-2xl bg-warm-ivory/80 px-4 py-3">
+                    <p className="text-sm font-semibold text-warm-charcoal">{pkg.title}</p>
+                    <p className="mt-1 text-lg font-extrabold text-purple-deep">{pkg.price}</p>
+                    {pkg.discount ? (
+                      <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-muted">
+                        {pkg.discount}
+                      </p>
+                    ) : null}
+                  </li>
+                ))}
+              </ul>
+            )}
             <p className="mt-3 text-sm leading-relaxed text-muted">
               Η τιμή κλειδώνει αφού συμφωνήσουμε το εύρος. Για ιστοσελίδες και e-shop μπορείς να
               δεις και τα{" "}

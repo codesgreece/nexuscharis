@@ -77,6 +77,7 @@ export default async function BuildServiceRoutePage({ params }: Props) {
           page={page}
           phone={settings.phone || "6936732844"}
           email={settings.email || "nexusdevstudio@outlook.com"}
+          packages={data.packages}
         />
       </PublicSiteFrame>
     </>

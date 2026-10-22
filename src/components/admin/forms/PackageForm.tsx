@@ -35,7 +35,7 @@ export function PackageForm({ item }: { item?: Package }) {
             </div>
             <div>
               <FieldLabel htmlFor="price">Price</FieldLabel>
-              <TextInput id="price" name="price" required defaultValue={item?.price} placeholder="από €XXX" />
+              <TextInput id="price" name="price" required defaultValue={item?.price} placeholder="π.χ. 150€" />
             </div>
             <div>
               <FieldLabel htmlFor="oldPrice">Old price</FieldLabel>
