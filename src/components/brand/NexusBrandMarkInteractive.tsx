@@ -1,10 +1,10 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import {
   useCallback,
   useEffect,
-  useId,
   useRef,
   useState,
   type MouseEvent as ReactMouseEvent,
@@ -33,7 +33,6 @@ export function NexusBrandMarkInteractive({
   showText = true,
 }: NexusBrandMarkInteractiveProps) {
   const reduceMotion = useReducedMotion();
-  const gradientId = useId().replace(/:/g, "");
   const stageRef = useRef<HTMLDivElement>(null);
   const tiltRef = useRef<HTMLDivElement>(null);
   const rafRef = useRef<number | null>(null);
@@ -173,11 +172,8 @@ export function NexusBrandMarkInteractive({
           <div className={styles.float}>
             <div ref={tiltRef} className={styles.tilt}>
               <div className={styles.mark}>
-                <motion.svg
+                <motion.div
                   className={styles.letter}
-                  viewBox="13 13 22 22"
-                  role="img"
-                  aria-hidden
                   initial={reduceMotion ? false : { opacity: 0 }}
                   animate={motionReady ? { opacity: 1 } : { opacity: 0 }}
                   transition={{
@@ -186,26 +182,16 @@ export function NexusBrandMarkInteractive({
                     ease: "easeOut",
                   }}
                 >
-                  <title>N</title>
-                  <defs>
-                    <linearGradient
-                      id={gradientId}
-                      x1="14"
-                      y1="14"
-                      x2="34"
-                      y2="34"
-                      gradientUnits="userSpaceOnUse"
-                    >
-                      <stop offset="0%" stopColor="#c4b5fd" />
-                      <stop offset="40%" stopColor="#8b5cf6" />
-                      <stop offset="100%" stopColor="#6d28d9" />
-                    </linearGradient>
-                  </defs>
-                  <path
-                    fill={`url(#${gradientId})`}
-                    d="M14 34V14h4.2l11.2 13.6V14H34v20h-4.2L18.6 20.4V34H14z"
+                  <Image
+                    src="/images/logo-mark.png"
+                    alt=""
+                    width={56}
+                    height={56}
+                    className="h-full w-full object-contain"
+                    priority={variant === "header"}
+                    aria-hidden
                   />
-                </motion.svg>
+                </motion.div>
               </div>
             </div>
           </div>

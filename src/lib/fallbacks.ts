@@ -5,7 +5,7 @@ export const fallbackSettings = {
   tagline: "Digital solutions designed around your business.",
   phone: "6936732844",
   email: "nexusdevstudio@outlook.com",
-  logoUrl: "/images/logo.svg",
+  logoUrl: "/images/logo-mark.png",
   founderImageUrl: "/images/founder.jpg",
   founderName: "Χριστόπουλος Χαράλαμπος",
   founderTitle: "Founder & Developer",
