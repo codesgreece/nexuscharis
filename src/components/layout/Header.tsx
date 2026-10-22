@@ -11,6 +11,7 @@ import {
   growFeatured,
   growServices,
   headerCta,
+  servicesHub,
   homepageHashIds,
   isCareersNavActive,
   isGrowNavActive,
@@ -184,7 +185,7 @@ export function Header() {
                     id={menuId}
                     role="menu"
                     className={cn(
-                      "absolute left-1/2 top-full z-50 mt-2 w-[min(92vw,22rem)] -translate-x-1/2 rounded-2xl border border-soft-border bg-warm-ivory/95 p-3 shadow-[0_24px_60px_-28px_rgba(65,42,66,0.28)] backdrop-blur-xl transition-[opacity,transform] duration-200",
+                      "absolute left-1/2 top-full z-50 mt-2 max-h-[min(70vh,34rem)] w-[min(92vw,22rem)] -translate-x-1/2 overflow-y-auto rounded-2xl border border-soft-border bg-warm-ivory/95 p-3 shadow-[0_24px_60px_-28px_rgba(65,42,66,0.28)] backdrop-blur-xl transition-[opacity,transform] duration-200",
                       item.kind === "grow" && "w-[min(92vw,34rem)]",
                       isOpen
                         ? "pointer-events-auto translate-y-0 opacity-100"
@@ -202,7 +203,7 @@ export function Header() {
                         <ul className="space-y-1">
                           {buildServices.map((svc) => (
                             <li key={svc.href}>
-                              <a
+                              <Link
                                 href={svc.href}
                                 role="menuitem"
                                 className="block rounded-xl px-3 py-2.5 transition hover:bg-lavender focus-ring"
@@ -216,10 +217,17 @@ export function Header() {
                                     {svc.description}
                                   </span>
                                 ) : null}
-                              </a>
+                              </Link>
                             </li>
                           ))}
                         </ul>
+                        <Link
+                          href={servicesHub.href}
+                          className="mt-2 inline-flex px-3 py-2 text-xs font-semibold text-purple-deep underline-offset-2 hover:underline focus-ring rounded"
+                          onClick={closeMenus}
+                        >
+                          {servicesHub.label}
+                        </Link>
                       </div>
                     ) : (
                       <div className="grid gap-3 sm:grid-cols-[1.15fr_0.85fr]">
@@ -382,7 +390,7 @@ export function Header() {
                       <div className="space-y-1 px-2 pb-2">
                         {(item.kind === "services" ? buildServices : growServices).map((svc) =>
                           item.kind === "services" ? (
-                            <a
+                            <Link
                               key={svc.href}
                               href={svc.href}
                               className="block rounded-lg px-3 py-2.5 text-sm text-warm-charcoal hover:bg-lavender"
@@ -394,7 +402,7 @@ export function Header() {
                                   {svc.description}
                                 </span>
                               ) : null}
-                            </a>
+                            </Link>
                           ) : (
                             <Link
                               key={svc.href}
@@ -411,6 +419,15 @@ export function Header() {
                             </Link>
                           ),
                         )}
+                        {item.kind === "services" ? (
+                          <Link
+                            href={servicesHub.href}
+                            className="block rounded-lg px-3 py-2 text-sm font-semibold text-purple-deep"
+                            onClick={() => setMobileOpen(false)}
+                          >
+                            {servicesHub.label}
+                          </Link>
+                        ) : null}
                         {item.kind === "grow" ? (
                           <>
                             <Link

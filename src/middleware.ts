@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { jwtVerify } from "jose";
-import { CANONICAL_SITE_URL, isVercelProductionAlias } from "@/lib/utils";
+import { canonicalRedirectTarget } from "@/lib/utils";
 
 const COOKIE_NAME = "nexus_admin_session";
 
@@ -23,15 +23,24 @@ async function hasValidSession(request: NextRequest): Promise<boolean> {
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const host = request.headers.get("host");
+  const protocol =
+    request.headers.get("x-forwarded-proto") ?? request.nextUrl.protocol.replace(":", "");
 
-  // Consolidate production Vercel alias → canonical custom domain (SEO)
-  if (
-    process.env.VERCEL_ENV === "production" &&
-    isVercelProductionAlias(host) &&
-    !pathname.startsWith("/api")
-  ) {
-    const target = new URL(pathname + request.nextUrl.search, CANONICAL_SITE_URL);
-    return NextResponse.redirect(target, 308);
+  const redirectTo = canonicalRedirectTarget({
+    host,
+    protocol,
+    pathname,
+    search: request.nextUrl.search,
+    vercelEnv: process.env.VERCEL_ENV,
+  });
+  if (redirectTo) {
+    return NextResponse.redirect(redirectTo, 308);
+  }
+
+  if (pathname.startsWith("/api")) {
+    const res = NextResponse.next();
+    res.headers.set("X-Robots-Tag", "noindex, nofollow");
+    return res;
   }
 
   if (!pathname.startsWith("/admin")) {

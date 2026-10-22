@@ -2,6 +2,8 @@ export type FaqItem = {
   id: string;
   question: string;
   answer: string[];
+  /** Extra internal links. Do not rewrite `answer` to insert them. */
+  related?: { href: string; label: string }[];
 };
 
 /** Public FAQ copy for NEXUS DEV STUDIO GREECE — keep text exact. */
@@ -9,6 +11,11 @@ export const faqItems: FaqItem[] = [
   {
     id: "cost",
     question: "Πόσο κοστίζει μια ιστοσελίδα;",
+    related: [
+      { href: "/services/web-design", label: "κατασκευή ιστοσελίδων" },
+      { href: "/services/landing-pages", label: "δημιουργία landing page" },
+      { href: "/#packages", label: "πακέτα ιστοσελίδας" },
+    ],
     answer: [
       "Το κόστος εξαρτάται από το είδος και τις ανάγκες κάθε project.",
       "Στο NEXUS DEV STUDIO GREECE προσφέρουμε λύσεις που μπορούν να προσαρμοστούν σε διαφορετικά budgets, από απλές landing pages και επαγγελματικές ιστοσελίδες μέχρι ολοκληρωμένα e-shops και custom εφαρμογές.",
@@ -18,6 +25,10 @@ export const faqItems: FaqItem[] = [
   {
     id: "duration",
     question: "Πόσο διαρκεί η υλοποίηση ενός project;",
+    related: [
+      { href: "/services/ecommerce", label: "κατασκευή e-shop" },
+      { href: "/services/web-applications", label: "ανάπτυξη web εφαρμογών" },
+    ],
     answer: [
       "Ο χρόνος υλοποίησης εξαρτάται από το μέγεθος και την πολυπλοκότητα του project.",
       "Μια απλή landing page ή επαγγελματική ιστοσελίδα μπορεί να ολοκληρωθεί σε σύντομο χρονικό διάστημα, ενώ μεγαλύτερα projects όπως e-commerce websites, εφαρμογές και custom συστήματα απαιτούν περισσότερο χρόνο.",
@@ -27,6 +38,10 @@ export const faqItems: FaqItem[] = [
   {
     id: "custom",
     question: "Προσφέρετε προσαρμοσμένες λύσεις;",
+    related: [
+      { href: "/services/web-applications", label: "ανάπτυξη web εφαρμογών" },
+      { href: "/services/admin-panels", label: "custom admin panel" },
+    ],
     answer: [
       "Ναι.",
       "Κάθε επιχείρηση είναι διαφορετική και για αυτό δεν πιστεύουμε ότι μία έτοιμη λύση μπορεί να καλύψει τους πάντες.",
@@ -36,6 +51,7 @@ export const faqItems: FaqItem[] = [
   {
     id: "self-update",
     question: "Μπορώ να ενημερώνω την ιστοσελίδα μου μόνος/μόνη μου;",
+    related: [{ href: "/services/admin-panels", label: "custom admin panel" }],
     answer: [
       "Ναι, εφόσον το project περιλαμβάνει σύστημα διαχείρισης περιεχομένου ή custom Admin Panel.",
       "Μπορούμε να δημιουργήσουμε ένα εύχρηστο περιβάλλον διαχείρισης μέσα από το οποίο μπορείς να ενημερώνεις περιεχόμενο, υπηρεσίες, προϊόντα, τιμές, προσφορές και άλλα στοιχεία της ιστοσελίδας σου χωρίς να χρειάζεται να γνωρίζεις προγραμματισμό.",
@@ -45,6 +61,7 @@ export const faqItems: FaqItem[] = [
   {
     id: "support",
     question: "Παρέχετε υποστήριξη μετά το launch;",
+    related: [{ href: "/grow-your-business/website-care", label: "μηνιαία υποστήριξη Website Care" }],
     answer: [
       "Ναι.",
       "Η συνεργασία μας δεν τελειώνει απλώς με την παράδοση της ιστοσελίδας.",
@@ -55,6 +72,7 @@ export const faqItems: FaqItem[] = [
   {
     id: "small-business",
     question: "Δουλεύετε με μικρές επιχειρήσεις;",
+    related: [{ href: "/services/web-design", label: "κατασκευή ιστοσελίδων για επιχειρήσεις" }],
     answer: [
       "Φυσικά.",
       "Το NEXUS DEV STUDIO GREECE δημιουργήθηκε με βασικό στόχο να κάνει την επαγγελματική παρουσία στο διαδίκτυο πιο προσιτή σε όλους.",
@@ -74,6 +92,7 @@ export const faqItems: FaqItem[] = [
   {
     id: "redesign",
     question: "Μπορείτε να ανασχεδιάσετε την υπάρχουσα ιστοσελίδα μου;",
+    related: [{ href: "/services/web-design", label: "ανασχεδιασμός εταιρικής ιστοσελίδας" }],
     answer: [
       "Ναι.",
       "Μπορούμε να ανασχεδιάσουμε μια υπάρχουσα ιστοσελίδα και να τη μετατρέψουμε σε μια πιο σύγχρονη, γρήγορη και λειτουργική ψηφιακή παρουσία.",
@@ -83,6 +102,7 @@ export const faqItems: FaqItem[] = [
   {
     id: "performance",
     question: "Θα είναι η ιστοσελίδα μου γρήγορη και βελτιστοποιημένη;",
+    related: [{ href: "/grow-your-business/speed-boost", label: "επιτάχυνση υπάρχοντος website" }],
     answer: [
       "Ναι.",
       "Κατά την ανάπτυξη δίνουμε ιδιαίτερη προσοχή στην ταχύτητα φόρτωσης, τη σωστή δομή του κώδικα, τη βελτιστοποίηση εικόνων και τη συνολική απόδοση της ιστοσελίδας.",
@@ -92,6 +112,7 @@ export const faqItems: FaqItem[] = [
   {
     id: "mobile",
     question: "Θα λειτουργεί η ιστοσελίδα μου σε κινητά;",
+    related: [{ href: "/services/web-design", label: "responsive κατασκευή ιστοσελίδων" }],
     answer: [
       "Ναι.",
       "Όλες οι σύγχρονες ιστοσελίδες που δημιουργούμε σχεδιάζονται ώστε να λειτουργούν σωστά σε κινητά, tablets και υπολογιστές.",
@@ -101,6 +122,7 @@ export const faqItems: FaqItem[] = [
   {
     id: "technical-knowledge",
     question: "Χρειάζομαι τεχνικές γνώσεις;",
+    related: [{ href: "/services/admin-panels", label: "διαχείριση από custom admin panel" }],
     answer: [
       "Όχι.",
       "Δεν χρειάζεται να γνωρίζεις προγραμματισμό ή τεχνικές λεπτομέρειες για να συνεργαστείς μαζί μας.",
@@ -111,6 +133,10 @@ export const faqItems: FaqItem[] = [
   {
     id: "bookings-ecommerce",
     question: "Μπορείτε να ενσωματώσετε κρατήσεις ή e-commerce;",
+    related: [
+      { href: "/services/ecommerce", label: "κατασκευή e-shop" },
+      { href: "/services/web-applications", label: "εφαρμογή κρατήσεων" },
+    ],
     answer: [
       "Ναι.",
       "Μπορούμε να ενσωματώσουμε συστήματα online κρατήσεων, ηλεκτρονικά καταστήματα, προϊόντα, παραγγελίες, πληρωμές και άλλες λειτουργίες ανάλογα με τις ανάγκες του project.",
@@ -131,6 +157,7 @@ export const faqItems: FaqItem[] = [
   {
     id: "different",
     question: "Τι κάνει τις υπηρεσίες σας διαφορετικές;",
+    related: [{ href: "/services", label: "υπηρεσίες που σχεδιάζονται ανά project" }],
     answer: [
       "Δεν βασιζόμαστε σε μία λύση για όλους.",
       "Κάθε project σχεδιάζεται με βάση την επιχείρηση, το κοινό της και τον στόχο που θέλει να πετύχει.",
@@ -141,6 +168,10 @@ export const faqItems: FaqItem[] = [
   {
     id: "get-started",
     question: "Πώς ξεκινώ;",
+    related: [
+      { href: "/services", label: "όλες οι υπηρεσίες κατασκευής" },
+      { href: "/#contact", label: "φόρμα επικοινωνίας" },
+    ],
     answer: [
       "Είναι πολύ απλό.",
       "Επικοινώνησε μαζί μας τηλεφωνικά ή μέσω της φόρμας επικοινωνίας και περιέγραψέ μας τι χρειάζεσαι.",

@@ -89,14 +89,35 @@ export function PackagesSection({ packages }: { packages: PackageItem[] }) {
             Πακέτα & Τιμές
           </h2>
           <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted sm:text-base">
-            Διάλεξε το πακέτο που σου ταιριάζει. Οι τιμές ενημερώνονται δυναμικά —{" "}
+            Διάλεξε πακέτο για{" "}
+            <Link
+              href="/services/web-design"
+              className="font-semibold text-purple-deep underline-offset-2 hover:underline"
+            >
+              κατασκευή ιστοσελίδας
+            </Link>{" "}
+            ή{" "}
+            <Link
+              href="/services/ecommerce"
+              className="font-semibold text-purple-deep underline-offset-2 hover:underline"
+            >
+              e-shop
+            </Link>
+            . Οι τιμές ενημερώνονται δυναμικά.{" "}
             <a
               href="#contact"
               className="font-semibold text-purple-deep underline-offset-2 hover:underline"
             >
-              ζήτησε προσφορά
+              Ζήτησε προσφορά
             </a>{" "}
-            για ακριβή κοστολόγηση βάσει των αναγκών σου.
+            για ακριβή κοστολόγηση. Για{" "}
+            <Link
+              href="/services/web-applications"
+              className="font-semibold text-purple-deep underline-offset-2 hover:underline"
+            >
+              web εφαρμογές
+            </Link>{" "}
+            η προσφορά γίνεται μετά τη συζήτηση του εύρους.
           </p>
         </Reveal>
 

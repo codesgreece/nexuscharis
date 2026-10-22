@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useState } from "react";
+import Link from "next/link";
 import { CheckCircle2, Clock3, Loader2, Mail, Phone, AlertCircle } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
 import { formatPhoneDisplay } from "@/lib/utils";
@@ -114,6 +115,21 @@ export function ContactSection({
             <p className="mt-4 max-w-md text-base leading-relaxed text-lavender/70">
               Έχεις μια επιχείρηση που χρειάζεται καλύτερη ψηφιακή παρουσία ή ένα project
               που θέλεις να μετατρέψουμε σε πραγματικότητα; Επικοινώνησε μαζί μου.
+            </p>
+            <p className="mt-3 max-w-md text-sm leading-relaxed text-lavender/70">
+              Συχνά ξεκινάμε από{" "}
+              <Link href="/services/web-design" className="font-semibold text-muted-amber underline-offset-2 hover:underline">
+                κατασκευή ιστοσελίδας
+              </Link>
+              ,{" "}
+              <Link href="/services/landing-pages" className="font-semibold text-muted-amber underline-offset-2 hover:underline">
+                δημιουργία landing page
+              </Link>{" "}
+              ή{" "}
+              <Link href="/services/ecommerce" className="font-semibold text-muted-amber underline-offset-2 hover:underline">
+                κατασκευή e-shop
+              </Link>
+              .
             </p>
 
             <div className="mt-8 space-y-3">

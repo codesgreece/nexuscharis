@@ -8,16 +8,20 @@ export function Reveal({
   className,
   delay = 0,
   id,
+  immediate = false,
 }: {
   children: ReactNode;
   className?: string;
   delay?: number;
   id?: string;
+  /** Render visible immediately. Use for above-the-fold content so LCP is not delayed until hydration. */
+  immediate?: boolean;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(immediate);
 
   useEffect(() => {
+    if (immediate) return;
     const el = ref.current;
     if (!el) return;
 
@@ -39,7 +43,7 @@ export function Reveal({
     );
     observer.observe(el);
     return () => observer.disconnect();
-  }, []);
+  }, [immediate]);
 
   return (
     <div

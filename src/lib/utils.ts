@@ -92,3 +92,28 @@ export function isVercelProductionAlias(host: string | null) {
   if (!host) return false;
   return VERCEL_PRODUCTION_ALIASES.has(host.toLowerCase().split(":")[0]);
 }
+
+/**
+ * Production host canonicalization.
+ * Apex and insecure www/apex requests go to https://www.nexusdevstudio.gr.
+ * Preview hosts are left alone unless they are the known production alias.
+ */
+export function canonicalRedirectTarget(input: {
+  host: string | null;
+  protocol: string | null;
+  pathname: string;
+  search: string;
+  vercelEnv?: string;
+}): string | null {
+  const hostname = input.host?.toLowerCase().split(":")[0] ?? "";
+  const onApex = hostname === "nexusdevstudio.gr";
+  const onWww = hostname === "www.nexusdevstudio.gr";
+  const onProductionAlias =
+    VERCEL_PRODUCTION_ALIASES.has(hostname) && input.vercelEnv === "production";
+  const insecure = input.protocol === "http" && (onApex || onWww);
+
+  if (!onApex && !onProductionAlias && !insecure) return null;
+
+  const target = new URL(input.pathname + input.search, CANONICAL_SITE_URL);
+  return target.toString();
+}

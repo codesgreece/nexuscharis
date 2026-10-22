@@ -3,7 +3,9 @@ import { requireAdmin } from "@/lib/auth";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Admin Dashboard | NEXUS DEV STUDIO",
+  title: { absolute: "Admin Dashboard | NEXUS DEV STUDIO" },
+  description: "Ιδιωτική διαχείριση περιεχομένου του NEXUS DEV STUDIO GREECE.",
+  alternates: { canonical: null },
   robots: {
     index: false,
     follow: false,

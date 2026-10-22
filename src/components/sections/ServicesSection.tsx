@@ -1,10 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
 import { AutumnAccent } from "@/components/effects/AutumnAccent";
 import { ServiceVisual } from "@/components/sections/ServiceVisuals";
+import { homepageServiceLink } from "@/content/build-services";
 import { serviceAnchorId } from "@/content/seo";
 import { cn } from "@/lib/utils";
 
@@ -17,6 +19,7 @@ type ServiceItem = {
 
 function ServiceShowcaseCard({ service }: { service: ServiceItem }) {
   const [open, setOpen] = useState(false);
+  const pageLink = homepageServiceLink(service.title);
 
   return (
     <article
@@ -66,6 +69,14 @@ function ServiceShowcaseCard({ service }: { service: ServiceItem }) {
           {open ? "Κλείσιμο λεπτομερειών" : "Περισσότερα"}
         </p>
       </button>
+      {pageLink ? (
+        <Link
+          href={pageLink.href}
+          className="mt-3 inline-flex text-sm font-semibold text-purple-deep underline-offset-2 hover:underline focus-ring rounded"
+        >
+          {pageLink.anchor}
+        </Link>
+      ) : null}
     </article>
   );
 }
@@ -85,15 +96,49 @@ export function ServicesSection({ services }: { services: ServiceItem[] }) {
             Οι Υπηρεσίες μας
           </h2>
           <p className="section-lead">
-            Από ιστοσελίδες και e-shops μέχρι εφαρμογές και admin panels — κάθε λύση σχεδιάζεται
-            γύρω από τις πραγματικές ανάγκες της επιχείρησής σου. Δες επίσης τα{" "}
+            Από{" "}
+            <Link
+              href="/services/web-design"
+              className="font-semibold text-purple-deep underline-offset-2 hover:underline"
+            >
+              κατασκευή ιστοσελίδων
+            </Link>
+            ,{" "}
+            <Link
+              href="/services/ecommerce"
+              className="font-semibold text-purple-deep underline-offset-2 hover:underline"
+            >
+              κατασκευή e-shop
+            </Link>{" "}
+            και{" "}
+            <Link
+              href="/services/web-applications"
+              className="font-semibold text-purple-deep underline-offset-2 hover:underline"
+            >
+              ανάπτυξη web εφαρμογών
+            </Link>{" "}
+            μέχρι{" "}
+            <Link
+              href="/services/admin-panels"
+              className="font-semibold text-purple-deep underline-offset-2 hover:underline"
+            >
+              custom admin panel
+            </Link>
+            . Δες τα{" "}
             <a href="#packages" className="font-semibold text-purple-deep underline-offset-2 hover:underline">
-              πακέτα & τιμές
+              πακέτα και τιμές
+            </a>
+            , το{" "}
+            <a href="#portfolio" className="font-semibold text-purple-deep underline-offset-2 hover:underline">
+              portfolio
             </a>{" "}
             ή{" "}
-            <a href="#contact" className="font-semibold text-purple-deep underline-offset-2 hover:underline">
-              επικοινώνησε για κατασκευή ιστοσελίδας
-            </a>
+            <Link
+              href="/services"
+              className="font-semibold text-purple-deep underline-offset-2 hover:underline"
+            >
+              όλες τις υπηρεσίες
+            </Link>
             .
           </p>
         </Reveal>

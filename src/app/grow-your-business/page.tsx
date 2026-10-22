@@ -11,7 +11,7 @@ import {
 import { absoluteUrl, getSiteUrl } from "@/lib/utils";
 import { getPublicSiteData } from "@/server/services/content";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 const pageUrl = absoluteUrl(GROW_PAGE.path);
 

@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it } from "vitest";
-import { CANONICAL_SITE_URL, absoluteUrl, getSiteUrl } from "../utils";
+import { CANONICAL_SITE_URL, absoluteUrl, canonicalRedirectTarget, getSiteUrl } from "../utils";
 
 const ORIGINAL = { ...process.env };
 
@@ -24,5 +24,48 @@ describe("getSiteUrl", () => {
     process.env.NEXT_PUBLIC_SITE_URL = "https://www.nexusdevstudio.gr";
     expect(absoluteUrl("/privacy")).toBe(`${CANONICAL_SITE_URL}/privacy`);
     expect(absoluteUrl("/")).toBe(`${CANONICAL_SITE_URL}/`);
+  });
+});
+
+describe("canonicalRedirectTarget", () => {
+  it("sends the apex host to www", () => {
+    expect(
+      canonicalRedirectTarget({
+        host: "nexusdevstudio.gr",
+        protocol: "https",
+        pathname: "/services/web-design",
+        search: "",
+      }),
+    ).toBe(`${CANONICAL_SITE_URL}/services/web-design`);
+  });
+
+  it("upgrades insecure www requests to https", () => {
+    expect(
+      canonicalRedirectTarget({
+        host: "www.nexusdevstudio.gr",
+        protocol: "http",
+        pathname: "/",
+        search: "",
+      }),
+    ).toBe(`${CANONICAL_SITE_URL}/`);
+  });
+
+  it("leaves the canonical https host and local hosts untouched", () => {
+    expect(
+      canonicalRedirectTarget({
+        host: "www.nexusdevstudio.gr",
+        protocol: "https",
+        pathname: "/",
+        search: "",
+      }),
+    ).toBeNull();
+    expect(
+      canonicalRedirectTarget({
+        host: "localhost:3000",
+        protocol: "http",
+        pathname: "/",
+        search: "",
+      }),
+    ).toBeNull();
   });
 });

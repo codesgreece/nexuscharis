@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
 import { FaqNexusGraphic } from "@/components/sections/FaqNexusGraphic";
 import { faqItems } from "@/content/faq";
@@ -117,6 +118,22 @@ export function FaqSection() {
                                 {paragraph}
                               </p>
                             ))}
+                            {item.related && item.related.length > 0 ? (
+                              <p className="text-sm leading-relaxed text-muted">
+                                {item.related.map((link, linkIndex) => (
+                                  <span key={link.href}>
+                                    {linkIndex === 0 ? "Σχετικά: " : ", "}
+                                    <Link
+                                      href={link.href}
+                                      className="font-semibold text-purple-deep underline-offset-2 hover:underline"
+                                    >
+                                      {link.label}
+                                    </Link>
+                                  </span>
+                                ))}
+                                .
+                              </p>
+                            ) : null}
                           </div>
                         </div>
                       </div>

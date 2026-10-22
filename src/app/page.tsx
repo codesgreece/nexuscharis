@@ -19,13 +19,27 @@ import { ContactSection } from "@/components/sections/ContactSection";
 import { OffersBanner } from "@/components/marketing/OffersBanner";
 import { AdBanner } from "@/components/marketing/AdBanner";
 import { MarketingPopup } from "@/components/marketing/MarketingPopup";
+import type { Metadata } from "next";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { HOME_SEO, prefersNationwideSeo, resolveHomeSeo } from "@/content/seo";
+import { buildHomeStructuredData } from "@/lib/structured-data";
+import { getSiteUrl } from "@/lib/utils";
 import { getPublicSiteData } from "@/server/services/content";
-import { HOME_SEO, prefersNationwideSeo } from "@/content/seo";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
+
+export async function generateMetadata(): Promise<Metadata> {
+  const data = await getPublicSiteData();
+  const seo = resolveHomeSeo(data.seo);
+  return {
+    alternates: { canonical: seo.canonical },
+    openGraph: { url: seo.canonical },
+  };
+}
 
 export default async function HomePage() {
   const data = await getPublicSiteData();
+  const seo = resolveHomeSeo(data.seo);
 
   const settings = data.settings!;
   const hero = data.hero!;
@@ -53,6 +67,7 @@ export default async function HomePage() {
 
   return (
     <>
+      <JsonLd data={buildHomeStructuredData(getSiteUrl(), seo.title, seo.description)} />
       {data.offers.length > 0 && <OffersBanner offers={data.offers} />}
       <Header />
       <main>
