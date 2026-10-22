@@ -12,7 +12,7 @@ import {
 import { absoluteUrl, getSiteUrl } from "@/lib/utils";
 import { getPublicSiteData } from "@/server/services/content";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 type Props = { params: Promise<{ slug: string }> };
 

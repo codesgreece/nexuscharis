@@ -25,6 +25,7 @@ type Step = {
 export function ProcessSection({ steps }: { steps: Step[] }) {
   return (
     <section
+      id="process"
       className="surface-cream section-texture relative overflow-hidden py-12 sm:py-14 lg:py-16"
       aria-labelledby="process-heading"
     >

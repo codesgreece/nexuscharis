@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Admin | NEXUS DEV STUDIO",
+  title: { absolute: "Admin | NEXUS DEV STUDIO" },
+  description: "Ιδιωτική είσοδος διαχείρισης του NEXUS DEV STUDIO GREECE.",
+  alternates: { canonical: null },
   robots: {
     index: false,
     follow: false,

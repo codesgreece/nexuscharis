@@ -248,9 +248,9 @@ async function main() {
         title: "Starter Website",
         description:
           "Ιδανικό για επαγγελματίες και μικρές επιχειρήσεις που χρειάζονται μια καθαρή, σύγχρονη παρουσία στο διαδίκτυο.",
-        price: "από €XXX",
+        price: "150€",
         oldPrice: null,
-        discount: null,
+        discount: "ΜΕΧΡΙ ΤΕΛΟΣ ΟΚΤΩΒΡΙΟΥ",
         features: [
           "Έως 5 σελίδες",
           "Responsive σχεδιασμός",
@@ -267,7 +267,7 @@ async function main() {
         title: "Professional Website",
         description:
           "Ολοκληρωμένη εταιρική ιστοσελίδα με custom σχεδιασμό και όλες τις απαραίτητες λειτουργίες για ανάπτυξη.",
-        price: "από €XXX",
+        price: "Ζήτησε Προσφορά",
         oldPrice: null,
         discount: null,
         features: [
@@ -287,7 +287,7 @@ async function main() {
         title: "Business / E-Commerce",
         description:
           "Ηλεκτρονικό κατάστημα ή business platform με προϊόντα, παραγγελίες και διαχείριση.",
-        price: "από €XXX",
+        price: "Ζήτησε Προσφορά",
         oldPrice: null,
         discount: null,
         features: [

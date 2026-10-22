@@ -7,7 +7,7 @@ import { getAllActiveJobSlugs, getJobBySlug } from "@/content/jobs";
 import { absoluteUrl, getSiteUrl } from "@/lib/utils";
 import { getPublicSiteData } from "@/server/services/content";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const job = getJobBySlug(slug);
   if (!job) {
     return {
-      title: "Θέση μη διαθέσιμη | NEXUS DEV STUDIO GREECE",
+      title: { absolute: "Θέση μη διαθέσιμη | NEXUS DEV STUDIO GREECE" },
       robots: { index: false, follow: false },
     };
   }

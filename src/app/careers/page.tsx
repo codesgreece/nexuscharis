@@ -6,7 +6,7 @@ import { CAREERS_PAGE, getActiveJobs } from "@/content/jobs";
 import { absoluteUrl, getSiteUrl } from "@/lib/utils";
 import { getPublicSiteData } from "@/server/services/content";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 const pageUrl = absoluteUrl(CAREERS_PAGE.path);
 

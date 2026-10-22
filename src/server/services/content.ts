@@ -1,5 +1,6 @@
+import { cache } from "react";
+import { unstable_cache, unstable_noStore as noStore } from "next/cache";
 import { prisma } from "@/lib/db";
-import { unstable_noStore as noStore } from "next/cache";
 import {
   fallbackAbout,
   fallbackHero,
@@ -37,9 +38,7 @@ function emptyPublicData() {
   };
 }
 
-export async function getPublicSiteData() {
-  noStore();
-
+async function loadPublicSiteData() {
   try {
     const [
       settings,
@@ -105,6 +104,13 @@ export async function getPublicSiteData() {
     return emptyPublicData();
   }
 }
+
+const loadCachedPublicSiteData = unstable_cache(loadPublicSiteData, ["nexus-public-site-v1"], {
+  revalidate: 60,
+});
+
+/** Public marketing content. Cached for 60s so admin edits appear quickly without a database hit on every view. */
+export const getPublicSiteData = cache(async () => loadCachedPublicSiteData());
 
 export async function getDashboardStats() {
   noStore();

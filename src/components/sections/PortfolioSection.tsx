@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { ArrowUpRight, FolderOpen } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
 import { isSafeExternalUrl } from "@/lib/utils";
@@ -103,6 +104,23 @@ export function PortfolioSection({ projects }: { projects: Project[] }) {
           <h2 id="portfolio-heading" className="section-title mt-3">
             Τα έργα μας
           </h2>
+          <p className="section-lead">
+            Εδώ μένουν μόνο δημοσιευμένα projects. Αν θέλεις κάτι αντίστοιχο,{" "}
+            <a
+              href="#contact"
+              className="font-semibold text-purple-deep underline-offset-2 hover:underline"
+            >
+              πες μας για το δικό σου project
+            </a>{" "}
+            ή δες τις{" "}
+            <Link
+              href="/services"
+              className="font-semibold text-purple-deep underline-offset-2 hover:underline"
+            >
+              υπηρεσίες κατασκευής
+            </Link>
+            .
+          </p>
         </Reveal>
 
         {projects.length === 0 ? (

@@ -2,7 +2,7 @@ import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
 import { HandwrittenSignature } from "@/components/sections/HandwrittenSignature";
-import { AutumnAtmosphere } from "@/components/effects/AutumnAtmosphere";
+import { HeroAtmosphere } from "@/components/sections/HeroAtmosphere";
 
 type HeroStat = { value: string; label: string };
 
@@ -39,10 +39,10 @@ export function HeroSection({
       className="relative overflow-hidden bg-warm-ivory pt-20 sm:pt-[5.5rem]"
       aria-labelledby="hero-heading"
     >
-      <AutumnAtmosphere />
+      <HeroAtmosphere />
 
       <div className="relative z-10 mx-auto grid max-w-7xl items-start gap-5 px-4 pb-7 sm:px-6 lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:gap-6 lg:px-8 lg:pb-9 lg:pt-1">
-        <Reveal className="relative z-[11]">
+        <Reveal immediate className="relative z-[11]">
           <div>
             <span className="inline-flex items-center rounded-full border border-purple-primary/20 bg-lavender/90 px-3 py-1 text-xs font-semibold tracking-wide text-purple-deep shadow-[0_0_24px_-8px_rgba(109,40,217,0.25)]">
               {badge}
@@ -94,7 +94,7 @@ export function HeroSection({
         </Reveal>
 
         <Reveal
-          delay={120}
+          immediate
           className="relative mx-auto w-full max-w-[280px] sm:max-w-[300px] lg:ml-auto lg:mr-4 lg:max-w-[300px]"
         >
           <div className="relative motion-safe:animate-[hero-portrait-float_7s_ease-in-out_infinite]">
@@ -126,6 +126,7 @@ export function HeroSection({
                     alt={`${founderName} — ${founderTitle}, NEXUS DEV STUDIO`}
                     fill
                     priority
+                    quality={70}
                     sizes="(max-width: 768px) 280px, 300px"
                     className="object-cover object-top"
                   />

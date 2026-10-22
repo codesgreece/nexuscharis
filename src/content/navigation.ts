@@ -2,6 +2,7 @@
  * Site header / mobile navigation config.
  * Keep hrefs pointed at real routes or existing homepage anchors only.
  */
+import { buildServicePages, SERVICES_INDEX_PATH } from "@/content/build-services";
 
 export type NavLinkItem = {
   href: string;
@@ -23,28 +24,16 @@ export type GrowFeaturedItem = {
   cta: string;
 };
 
-export const buildServices: NavDropdownItem[] = [
-  {
-    href: "/#website-development",
-    label: "Websites",
-    description: "Επαγγελματικές ιστοσελίδες για επιχειρήσεις",
-  },
-  {
-    href: "/#landing-pages",
-    label: "Landing Pages",
-    description: "Σελίδες που στοχεύουν σε συγκεκριμένη ενέργεια",
-  },
-  {
-    href: "/#ecommerce",
-    label: "E-Commerce",
-    description: "Ηλεκτρονικά καταστήματα με παραγγελίες",
-  },
-  {
-    href: "/#services",
-    label: "Web Applications",
-    description: "Custom εφαρμογές και admin panels",
-  },
-];
+export const buildServices: NavDropdownItem[] = buildServicePages.map((page) => ({
+  href: `/services/${page.slug}`,
+  label: page.navLabel,
+  description: page.menuDescription,
+}));
+
+export const servicesHub = {
+  href: SERVICES_INDEX_PATH,
+  label: "Όλες οι υπηρεσίες",
+} as const;
 
 export const growServices: NavDropdownItem[] = [
   {

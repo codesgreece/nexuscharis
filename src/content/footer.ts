@@ -2,6 +2,7 @@
  * Central footer link config — update URLs here when dedicated pages are added.
  * Only real, existing internal destinations (no placeholder hashes).
  */
+import { buildServicePages } from "@/content/build-services";
 
 export type FooterNavLink = {
   href: string;
@@ -26,10 +27,11 @@ export const footerNavigationLinks: FooterNavLink[] = [
  * Homepage service anchors + Grow Your Business dedicated routes.
  */
 export const footerServiceLinks: FooterNavLink[] = [
-  { href: "/#website-development", label: "Ιστοσελίδες" },
-  { href: "/#landing-pages", label: "Landing Pages" },
-  { href: "/#ecommerce", label: "E-Commerce" },
-  { href: "/#services", label: "Web Applications" },
+  ...buildServicePages.map((page) => ({
+    href: `/services/${page.slug}`,
+    label: page.footerLabel,
+  })),
+  { href: "/services", label: "Όλες οι υπηρεσίες κατασκευής" },
   { href: "/grow-your-business/seo", label: "SEO" },
   { href: "/grow-your-business/website-care", label: "Website Care" },
   { href: "/grow-your-business/local-seo", label: "Local SEO" },

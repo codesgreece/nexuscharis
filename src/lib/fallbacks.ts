@@ -5,6 +5,7 @@ export const fallbackSettings = {
   tagline: "Digital solutions designed around your business.",
   phone: "6936732844",
   email: "nexusdevstudio@outlook.com",
+  address: null as string | null,
   logoUrl: "/images/logo.svg",
   founderImageUrl: "/images/founder.jpg",
   founderName: "Χριστόπουλος Χαράλαμπος",
@@ -204,9 +205,9 @@ export const fallbackPackages = [
     title: "Starter Website",
     description:
       "Ιδανικό για επαγγελματίες και μικρές επιχειρήσεις που χρειάζονται μια καθαρή, σύγχρονη παρουσία στο διαδίκτυο.",
-    price: "από €XXX",
+    price: "150€",
     oldPrice: null as string | null,
-    discount: null as string | null,
+    discount: "ΜΕΧΡΙ ΤΕΛΟΣ ΟΚΤΩΒΡΙΟΥ",
     features: [
       "Έως 5 σελίδες",
       "Responsive σχεδιασμός",
@@ -223,7 +224,7 @@ export const fallbackPackages = [
     title: "Professional Website",
     description:
       "Ολοκληρωμένη εταιρική ιστοσελίδα με custom σχεδιασμό και όλες τις απαραίτητες λειτουργίες για ανάπτυξη.",
-    price: "από €XXX",
+    price: "Ζήτησε Προσφορά",
     oldPrice: null as string | null,
     discount: null as string | null,
     features: [
@@ -243,7 +244,7 @@ export const fallbackPackages = [
     title: "Business / E-Commerce",
     description:
       "Ηλεκτρονικό κατάστημα ή business platform με προϊόντα, παραγγελίες και διαχείριση.",
-    price: "από €XXX",
+    price: "Ζήτησε Προσφορά",
     oldPrice: null as string | null,
     discount: null as string | null,
     features: [
