@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState, type PointerEvent } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   GREECE_MAP_VIEWBOX,
   greeceCities,
@@ -8,6 +8,7 @@ import {
   greeceRoutes,
   type GreeceCity,
 } from "@/content/greece-map";
+import { usePointerParallax } from "@/hooks/usePointerParallax";
 import { cn } from "@/lib/utils";
 import styles from "@/components/sections/GreeceCoverageMap.module.css";
 
@@ -18,12 +19,10 @@ const cityById = Object.fromEntries(greeceCities.map((city) => [city.id, city]))
 
 export function GreeceCoverageMap() {
   const rootRef = useRef<HTMLDivElement>(null);
-  const rafRef = useRef<number | null>(null);
-  const targetRef = useRef({ x: 0, y: 0 });
-  const currentRef = useRef({ x: 0, y: 0 });
   const [ready, setReady] = useState(false);
   const [canParallax, setCanParallax] = useState(false);
   const [activeCity, setActiveCity] = useState<GreeceCity | null>(null);
+  const [inView, setInView] = useState(false);
 
   useEffect(() => {
     const mqReduce = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -44,72 +43,37 @@ export function GreeceCoverageMap() {
 
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduce) {
-      const id = requestAnimationFrame(() => setReady(true));
+      const id = requestAnimationFrame(() => {
+        setReady(true);
+        setInView(true);
+      });
       return () => cancelAnimationFrame(id);
     }
 
     const observer = new IntersectionObserver(
       ([entry]) => {
+        setInView(entry.isIntersecting);
         if (entry.isIntersecting) {
           setReady(true);
-          observer.disconnect();
         }
       },
-      { threshold: 0.25 },
+      { threshold: 0.2, rootMargin: "12% 0px" },
     );
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
 
-  useEffect(() => {
-    if (!canParallax) {
-      const el = rootRef.current;
-      if (el) {
-        el.style.setProperty("--parallax-x", "0px");
-        el.style.setProperty("--parallax-y", "0px");
-      }
-      return;
-    }
+  const { onPointerMove, onPointerLeave: resetParallax } = usePointerParallax({
+    enabled: canParallax,
+    rootRef,
+    maxX: 7,
+    maxY: 5,
+  });
 
-    const tick = () => {
-      const cur = currentRef.current;
-      const target = targetRef.current;
-      cur.x += (target.x - cur.x) * 0.12;
-      cur.y += (target.y - cur.y) * 0.12;
-      const el = rootRef.current;
-      if (el) {
-        el.style.setProperty("--parallax-x", `${cur.x.toFixed(2)}px`);
-        el.style.setProperty("--parallax-y", `${cur.y.toFixed(2)}px`);
-      }
-      rafRef.current = requestAnimationFrame(tick);
-    };
-
-    rafRef.current = requestAnimationFrame(tick);
-    return () => {
-      if (rafRef.current != null) cancelAnimationFrame(rafRef.current);
-    };
-  }, [canParallax]);
-
-  const onPointerMove = useCallback(
-    (event: PointerEvent<HTMLDivElement>) => {
-      if (!canParallax) return;
-      const el = rootRef.current;
-      if (!el) return;
-      const rect = el.getBoundingClientRect();
-      const nx = ((event.clientX - rect.left) / rect.width - 0.5) * 2;
-      const ny = ((event.clientY - rect.top) / rect.height - 0.5) * 2;
-      targetRef.current = {
-        x: Math.max(-1, Math.min(1, nx)) * 7,
-        y: Math.max(-1, Math.min(1, ny)) * 5,
-      };
-    },
-    [canParallax],
-  );
-
-  const onPointerLeave = useCallback(() => {
-    targetRef.current = { x: 0, y: 0 };
+  const onPointerLeave = () => {
+    resetParallax();
     setActiveCity(null);
-  }, []);
+  };
 
   const routePaths = useMemo(
     () =>
@@ -146,7 +110,11 @@ export function GreeceCoverageMap() {
   return (
     <div
       ref={rootRef}
-      className={cn(styles.root, ready && styles.rootIsReady)}
+      className={cn(
+        styles.root,
+        ready && styles.rootIsReady,
+        !inView && styles.rootIsPaused,
+      )}
       onPointerMove={onPointerMove}
       onPointerLeave={onPointerLeave}
     >

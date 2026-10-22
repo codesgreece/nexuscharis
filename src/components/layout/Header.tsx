@@ -57,8 +57,17 @@ export function Header() {
   };
 
   useEffect(() => {
-    const onScroll = () => {
-      setScrolled(window.scrollY > 20);
+    let rafId: number | null = null;
+    let lastScrolled: boolean | null = null;
+    let lastHash: string | null = null;
+
+    const measure = () => {
+      rafId = null;
+      const nextScrolled = window.scrollY > 20;
+      if (nextScrolled !== lastScrolled) {
+        lastScrolled = nextScrolled;
+        setScrolled(nextScrolled);
+      }
       if (pathname !== "/") return;
       let current = "#home";
       for (const id of homepageHashIds) {
@@ -75,11 +84,23 @@ export function Header() {
           }
         }
       }
-      setActiveHash(current);
+      if (current !== lastHash) {
+        lastHash = current;
+        setActiveHash(current);
+      }
     };
-    onScroll();
+
+    const onScroll = () => {
+      if (rafId != null) return;
+      rafId = requestAnimationFrame(measure);
+    };
+
+    measure();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (rafId != null) cancelAnimationFrame(rafId);
+    };
   }, [pathname]);
 
   useEffect(() => {
