@@ -35,6 +35,45 @@ export const careersApplicationSchema = z.object({
   }),
 });
 
+export const jobStatusSchema = z.enum(["DRAFT", "ACTIVE", "CLOSED"]);
+
+export const jobSchema = z.object({
+  title: z.string().min(1, "Ο τίτλος είναι υποχρεωτικός").max(160),
+  slug: z
+    .string()
+    .min(1, "Το slug είναι υποχρεωτικό")
+    .max(120)
+    .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, "Το slug πρέπει να είναι lowercase με παύλες"),
+  category: z.string().min(1, "Η κατηγορία είναι υποχρεωτική").max(80),
+  location: z.string().min(1).max(120),
+  employmentType: z.enum(["Full-time", "Part-time", "Contract", "Internship"]),
+  shortDescription: z.string().min(1, "Η σύντομη περιγραφή είναι υποχρεωτική").max(400),
+  description: z.string().min(1, "Η περιγραφή είναι υποχρεωτική").max(50000),
+  role: z.string().max(20000).optional().default(""),
+  responsibilities: z.string().min(1, "Οι αρμοδιότητες είναι υποχρεωτικές").max(50000),
+  requirements: z.string().min(1, "Οι απαιτήσεις είναι υποχρεωτικές").max(50000),
+  benefits: z.string().min(1, "Το «Τι προσφέρουμε» είναι υποχρεωτικό").max(50000),
+  whyNexus: z.string().max(20000).optional().default(""),
+  salary: z.string().max(120).optional().nullable(),
+  experience: z.string().max(120).optional().nullable(),
+  coverImage: z.string().max(500).optional().nullable(),
+  status: jobStatusSchema,
+  publishedAt: z.string().datetime().optional().nullable(),
+  expiresAt: z.string().datetime().optional().nullable(),
+});
+
+export const applicationStatusSchema = z.object({
+  status: z.enum([
+    "NEW",
+    "REVIEWING",
+    "SHORTLISTED",
+    "INTERVIEW",
+    "ACCEPTED",
+    "REJECTED",
+    "WITHDRAWN",
+  ]),
+});
+
 export const packageSchema = z.object({
   title: z.string().min(1).max(120),
   description: z.string().min(1).max(2000),

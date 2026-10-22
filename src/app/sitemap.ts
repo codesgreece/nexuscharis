@@ -1,12 +1,19 @@
 import type { MetadataRoute } from "next";
 import { getAllGrowthServiceSlugs } from "@/content/growth-pages";
-import { getAllActiveJobSlugs } from "@/content/jobs";
 import { getSiteUrl } from "@/lib/utils";
+import { getAllActiveJobSlugs } from "@/server/services/careers";
 
 /** Indexable public URLs only — no hash sections, admin, or API routes. */
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const site = getSiteUrl();
   const now = new Date();
+
+  let jobSlugs: string[] = [];
+  try {
+    jobSlugs = await getAllActiveJobSlugs();
+  } catch {
+    jobSlugs = [];
+  }
 
   const pages: Array<{
     path: string;
@@ -22,7 +29,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.75,
     })),
     { path: "/careers", changeFrequency: "weekly", priority: 0.8 },
-    ...getAllActiveJobSlugs().map((slug) => ({
+    ...jobSlugs.map((slug) => ({
       path: `/careers/${slug}`,
       changeFrequency: "weekly" as const,
       priority: 0.7,

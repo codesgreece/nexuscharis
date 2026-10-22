@@ -52,6 +52,22 @@ enum LegalPageKey {
   COPYRIGHT
 }
 
+enum JobStatus {
+  DRAFT
+  ACTIVE
+  CLOSED
+}
+
+enum ApplicationStatus {
+  NEW
+  REVIEWING
+  SHORTLISTED
+  INTERVIEW
+  ACCEPTED
+  REJECTED
+  WITHDRAWN
+}
+
 model AdminUser {
   id           String     @id @default(cuid())
   email        String     @unique
@@ -338,4 +354,58 @@ model RateLimitEntry {
 
   @@unique([key])
   @@index([expiresAt])
+}
+
+model Job {
+  id               String           @id @default(cuid())
+  title            String
+  slug             String           @unique
+  category         String
+  location         String           @default("Remote")
+  employmentType   String           @default("Full-time")
+  shortDescription String           @default("")
+  description      String
+  role             String           @default("")
+  responsibilities String           @default("")
+  requirements     String           @default("")
+  benefits         String           @default("")
+  whyNexus         String           @default("")
+  salary           String?
+  experience       String?
+  coverImage       String?
+  status           JobStatus        @default(DRAFT)
+  publishedAt      DateTime?
+  expiresAt        DateTime?
+  archivedAt       DateTime?
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+  applications     JobApplication[]
+
+  @@index([status, publishedAt])
+  @@index([archivedAt])
+  @@index([createdAt])
+}
+
+model JobApplication {
+  id              String            @id @default(cuid())
+  jobId           String
+  job             Job               @relation(fields: [jobId], references: [id], onDelete: Restrict)
+  fullName        String
+  email           String
+  phone           String
+  coverMessage    String?
+  cvFileName      String
+  cvContentType   String
+  cvSize          Int
+  cvData          Bytes
+  status          ApplicationStatus @default(NEW)
+  privacyAccepted Boolean           @default(true)
+  ipHash          String?
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+
+  @@index([jobId, status])
+  @@index([status, createdAt])
+  @@index([createdAt])
+  @@index([email])
 }

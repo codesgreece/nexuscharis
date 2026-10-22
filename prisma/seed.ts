@@ -465,6 +465,99 @@ async function main() {
   ];
   await prisma.sEOSettings.createMany({ data: legalSeo });
 
+  // Sample careers jobs (only when empty — never wipe applications)
+  const existingJobs = await prisma.job.count();
+  if (existingJobs === 0) {
+    const listHtml = (items: string[]) =>
+      `<ul>${items.map((item) => `<li>${item}</li>`).join("")}</ul>`;
+    const paragraph = (text: string) => `<p>${text}</p>`;
+
+    await prisma.job.createMany({
+      data: [
+        {
+          title: "Frontend Developer",
+          slug: "frontend-developer",
+          category: "Engineering",
+          location: "Remote / Αθήνα",
+          employmentType: "Full-time",
+          shortDescription:
+            "Αναζητούμε Frontend Developer με εμπειρία σε modern web technologies για τη δημιουργία premium websites και digital products.",
+          description: paragraph(
+            "Στη NEXUS DEV STUDIO σχεδιάζουμε και αναπτύσσουμε websites, landing pages και web εφαρμογές για επιχειρήσεις στην Ελλάδα. Ψάχνουμε Frontend Developer που νοιάζεται για καθαρό UI, απόδοση και καλή συνεργασία.",
+          ),
+          role: paragraph(
+            "Θα συμμετέχεις στην ανάπτυξη frontend interfaces για client projects — από marketing sites μέχρι πιο σύνθετα product UIs — σε στενή συνεργασία με τον ιδρυτή της NEXUS.",
+          ),
+          responsibilities: listHtml([
+            "Ανάπτυξη responsive interfaces με σύγχρονα web frameworks",
+            "Υλοποίηση UI/UX με προσοχή σε λεπτομέρεια, accessibility και performance",
+            "Συνεργασία σε code reviews και βελτίωση ποιότητας κώδικα",
+            "Συμμετοχή σε συζητήσεις για τεχνικές επιλογές ανά project",
+            "Παράδοση καθαρών, συντηρήσιμων components",
+          ]),
+          requirements: listHtml([
+            "Εμπειρία με HTML, CSS και σύγχρονο JavaScript/TypeScript",
+            "Εξοικείωση με React ή παρόμοιο component-based framework",
+            "Κατανόηση responsive design και βασικών performance πρακτικών",
+            "Ικανότητα να δουλεύεις αυτόνομα και να επικοινωνείς καθαρά",
+            "Portfolio ή δείγματα προηγούμενης δουλειάς",
+          ]),
+          benefits: listHtml([
+            "Remote / Hybrid συνεργασία",
+            "Ευέλικτο περιβάλλον εργασίας",
+            "Συμμετοχή σε πραγματικά digital projects",
+            "Συνεχής ανάπτυξη δεξιοτήτων σε σύγχρονο stack",
+            "Άμεση συνεργασία μέσα σε μικρή, focused ομάδα",
+          ]),
+          whyNexus: paragraph(
+            "Η NEXUS είναι modern digital studio — όχι απρόσωπη εταιρεία. Δουλεύουμε με προσοχή στη λεπτομέρεια, premium αισθητική και πραγματικές επιχειρηματικές ανάγκες.",
+          ),
+          status: "ACTIVE",
+          publishedAt: new Date("2026-10-01"),
+        },
+        {
+          title: "Full-Stack Developer",
+          slug: "full-stack-developer",
+          category: "Engineering",
+          location: "Remote / Ελλάδα",
+          employmentType: "Full-time",
+          shortDescription:
+            "Full-Stack Developer για websites, web apps και backend integrations σε client projects της NEXUS.",
+          description: paragraph(
+            "Ψάχνουμε Full-Stack Developer που μπορεί να κινείται άνετα μεταξύ frontend και backend, για την ανάπτυξη ολοκληρωμένων digital λύσεων — από content sites μέχρι admin panels και APIs.",
+          ),
+          role: paragraph(
+            "Θα αναλαμβάνεις end-to-end κομμάτια projects: UI, API endpoints, integrations και deployment support, με έμφαση σε καθαρή αρχιτεκτονική και αξιοπιστία.",
+          ),
+          responsibilities: listHtml([
+            "Ανάπτυξη frontend και backend features για client projects",
+            "Σχεδιασμός και υλοποίηση APIs και data models όπου χρειάζεται",
+            "Συμμετοχή σε integrations (forms, email, CMS/admin flows)",
+            "Debugging, testing και βελτίωση υπάρχοντος κώδικα",
+          ]),
+          requirements: listHtml([
+            "Εμπειρία με TypeScript/JavaScript και τουλάχιστον ένα σύγχρονο framework",
+            "Εξοικείωση με Node.js ή αντίστοιχο backend περιβάλλον",
+            "Βασική εμπειρία με βάσεις δεδομένων (SQL ή NoSQL)",
+            "Κατανόηση REST APIs και ασφαλούς handling δεδομένων",
+          ]),
+          benefits: listHtml([
+            "Remote / Hybrid συνεργασία",
+            "Ευέλικτο περιβάλλον εργασίας",
+            "Συμμετοχή σε πραγματικά digital projects από την αρχή ως το launch",
+            "Ευκαιρία να επηρεάζεις τεχνικές επιλογές",
+          ]),
+          whyNexus: paragraph(
+            "Στη NEXUS δουλεύεις κοντά στο προϊόν και στον πελάτη — χωρίς περιττά layers.",
+          ),
+          status: "ACTIVE",
+          publishedAt: new Date("2026-10-01"),
+        },
+      ],
+    });
+    console.log("Seeded sample careers jobs.");
+  }
+
   console.log("Seed completed successfully.");
   console.log(`Admin: ${email}`);
 }
