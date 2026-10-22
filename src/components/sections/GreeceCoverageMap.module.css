@@ -27,9 +27,8 @@
     inset 0 1px 0 rgba(255, 255, 255, 0.75),
     0 18px 40px -30px rgba(65, 42, 66, 0.22);
   padding: 0.75rem 0.65rem 0.55rem;
+  /* Driven by idle-gated RAF — no CSS transition (avoids compositor thrash). */
   transform: translate3d(var(--parallax-x), var(--parallax-y), 0);
-  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: transform;
 }
 
 .ambient {
@@ -356,6 +355,19 @@
   }
 }
 
+/* Pause infinite CSS animations while the map is off-screen (GPU safeguard). */
+.rootIsPaused .ambient,
+.rootIsPaused .waterA,
+.rootIsPaused .waterB,
+.rootIsPaused .waterC,
+.rootIsPaused .routePulse,
+.rootIsPaused .coreGlow,
+.rootIsPaused .coreRing,
+.rootIsPaused .nodePulse,
+.rootIsPaused .particle {
+  animation-play-state: paused;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .ambient,
   .waterA,
@@ -371,7 +383,6 @@
   }
 
   .stage {
-    transition: none;
     transform: none !important;
   }
 

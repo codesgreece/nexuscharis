@@ -17,9 +17,8 @@
   inset: 0;
   display: grid;
   place-items: center;
+  /* Driven by idle-gated RAF — no CSS transition (avoids compositor thrash). */
   transform: translate3d(var(--parallax-x, 0px), var(--parallax-y, 0px), 0);
-  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: transform;
 }
 
 .glow {
@@ -295,6 +294,19 @@
   }
 }
 
+/* Pause infinite CSS animations while off-screen (GPU safeguard). */
+.rootIsPaused .glow,
+.rootIsPaused .orbit,
+.rootIsPaused .orbitA,
+.rootIsPaused .orbitB,
+.rootIsPaused .orbitC,
+.rootIsPaused .node,
+.rootIsPaused .core,
+.rootIsPaused .particle,
+.rootIsPaused .pulse {
+  animation-play-state: paused;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .glow,
   .orbit,
@@ -309,7 +321,6 @@
   }
 
   .stage {
-    transition: none;
     transform: none !important;
   }
 }

@@ -1,6 +1,7 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState, type PointerEvent } from "react";
+import { useEffect, useRef, useState } from "react";
+import { usePointerParallax } from "@/hooks/usePointerParallax";
 import { cn } from "@/lib/utils";
 import styles from "@/components/sections/FaqNexusGraphic.module.css";
 
@@ -11,10 +12,8 @@ type FaqNexusGraphicProps = {
 
 export function FaqNexusGraphic({ active = false, className }: FaqNexusGraphicProps) {
   const rootRef = useRef<HTMLDivElement>(null);
-  const rafRef = useRef<number | null>(null);
-  const targetRef = useRef({ x: 0, y: 0 });
-  const currentRef = useRef({ x: 0, y: 0 });
   const [canParallax, setCanParallax] = useState(false);
+  const [inView, setInView] = useState(true);
 
   useEffect(() => {
     const mqReduce = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -34,60 +33,32 @@ export function FaqNexusGraphic({ active = false, className }: FaqNexusGraphicPr
   }, []);
 
   useEffect(() => {
-    if (!canParallax) {
-      const el = rootRef.current;
-      if (el) {
-        el.style.setProperty("--parallax-x", "0px");
-        el.style.setProperty("--parallax-y", "0px");
-      }
-      return;
-    }
-
-    const tick = () => {
-      const cur = currentRef.current;
-      const target = targetRef.current;
-      cur.x += (target.x - cur.x) * 0.12;
-      cur.y += (target.y - cur.y) * 0.12;
-
-      const el = rootRef.current;
-      if (el) {
-        el.style.setProperty("--parallax-x", `${cur.x.toFixed(2)}px`);
-        el.style.setProperty("--parallax-y", `${cur.y.toFixed(2)}px`);
-      }
-
-      rafRef.current = requestAnimationFrame(tick);
-    };
-
-    rafRef.current = requestAnimationFrame(tick);
-    return () => {
-      if (rafRef.current != null) cancelAnimationFrame(rafRef.current);
-    };
-  }, [canParallax]);
-
-  const onPointerMove = useCallback(
-    (event: PointerEvent<HTMLDivElement>) => {
-      if (!canParallax) return;
-      const el = rootRef.current;
-      if (!el) return;
-      const rect = el.getBoundingClientRect();
-      const nx = ((event.clientX - rect.left) / rect.width - 0.5) * 2;
-      const ny = ((event.clientY - rect.top) / rect.height - 0.5) * 2;
-      targetRef.current = {
-        x: Math.max(-1, Math.min(1, nx)) * 10,
-        y: Math.max(-1, Math.min(1, ny)) * 8,
-      };
-    },
-    [canParallax],
-  );
-
-  const onPointerLeave = useCallback(() => {
-    targetRef.current = { x: 0, y: 0 };
+    const el = rootRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setInView(entry.isIntersecting),
+      { rootMargin: "12% 0px", threshold: 0 },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
   }, []);
+
+  const { onPointerMove, onPointerLeave } = usePointerParallax({
+    enabled: canParallax,
+    rootRef,
+    maxX: 10,
+    maxY: 8,
+  });
 
   return (
     <div
       ref={rootRef}
-      className={cn(styles.root, active && styles.rootIsActive, className)}
+      className={cn(
+        styles.root,
+        active && styles.rootIsActive,
+        !inView && styles.rootIsPaused,
+        className,
+      )}
       onPointerMove={onPointerMove}
       onPointerLeave={onPointerLeave}
       aria-hidden="true"
